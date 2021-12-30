@@ -6,9 +6,44 @@
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/styles.css?v=3.0">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <div>hello world</div>
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">NodeJS project dependencies visualization</a>
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                Dependencies
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">
+                Vulnerabilities
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">
+                Statistic
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">
+                About
+              </a>
+            </li> 
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <script src="js/lib/d3.min.js"></script>
+  <script src="js/lib/bootstrap.bundle.min.js"></script>
   <script src="js/index.js"></script>
 </body>
 </html>
