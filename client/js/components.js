@@ -5,6 +5,8 @@ class Dependencies extends HTMLElement {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = 'dependencies'
 
+    api.getDependencies()
+
     this.attachShadow({mode: 'open'});
     this.shadowRoot.append(wrapper);
   }
@@ -17,6 +19,9 @@ class Security extends HTMLElement {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = 'security'
 
+    api.getSecurity()
+
+
     this.attachShadow({mode: 'open'});
     this.shadowRoot.append(wrapper);
   }
@@ -28,6 +33,9 @@ class Statistic extends HTMLElement {
 
     const wrapper = document.createElement('div')
     wrapper.innerHTML = 'statistic'
+
+    api.getStatistic()
+
 
     this.attachShadow({mode: 'open'});
     this.shadowRoot.append(wrapper);
