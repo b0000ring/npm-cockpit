@@ -1,4 +1,4 @@
-from flask import Flask, redirect, send_from_directory
+from flask import Flask
 import webbrowser
 
 from Router import Router
@@ -9,7 +9,7 @@ def open_browser():
 
 app = Flask(__name__, static_url_path='/client')
 processing = Processing()
-router = Router(app)
+router = Router(app, processing)
 
 processing.get_tree()
 open_browser()

@@ -1,10 +1,11 @@
 from flask import redirect, send_from_directory
 
 class Router:
-  def __init__(self, app):
+  def __init__(self, app, processing):
     @app.route("/api/dependencies")
     def send_dependencies():
-        return "{}"
+        print(processing.tree)
+        return processing.tree
 
     @app.route("/api/security")
     def send_security():

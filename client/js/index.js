@@ -1,26 +1,30 @@
 function changeSection(e) {
   const id = e.target.id
-  changeActiveMenu(id)
+  applyHeader(id)
+  changeActiveMenu(e.target)
   loadSection(id)
 }
 
 function changeActiveMenu(selected) {
   document.querySelector('.active')?.classList.remove('active')
-  document.getElementById(selected).classList.add('active')
+  selected.classList.add('active')
+}
+
+function applyHeader(section) {
+  const header = document.querySelector('h1')
+  header.replaceChildren(section)
 }
 
 function loadSection(section) {
   const component = document.createElement(`${section}-component`)
-  const container = document.querySelector('main')
+  const container = document.querySelector('.root')
   container.replaceChildren(component);
 }
 
 function init() {
-  const navElements = document.getElementsByClassName('nav-link')
-  Array.from(navElements).forEach(item => {
-    item.onclick = changeSection
-  })
-  changeActiveMenu('dependencies')
+  document.querySelector('.nav').onclick = changeSection
+
+  applyHeader('dependencies')
   loadSection('dependencies')
 }
 

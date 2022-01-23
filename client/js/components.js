@@ -21,7 +21,6 @@ class Security extends HTMLElement {
 
     api.getSecurity()
 
-
     this.attachShadow({mode: 'open'});
     this.shadowRoot.append(wrapper);
   }
@@ -35,7 +34,6 @@ class Statistic extends HTMLElement {
     wrapper.innerHTML = 'statistic'
 
     api.getStatistic()
-
 
     this.attachShadow({mode: 'open'});
     this.shadowRoot.append(wrapper);
