@@ -4,22 +4,110 @@
   "description": "",
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": {
+  "dependencies": [
+    {
+      "name": "express",
       "version": "^4.17.2",
       "description": "Fast, unopinionated, minimalist web framework",
       "author": "TJ Holowaychuk <tj@vision-media.ca>",
       "license": "MIT",
       "homepage": "http://expressjs.com/",
-      "dependencies": {}
+      "dependencies": []
     },
-    "react": {
+    {
       "version": "^17.0.2",
       "name": "react",
       "description": "React is a JavaScript library for building user interfaces.",
       "homepage": "https://reactjs.org/",
       "license": "MIT",
-      "author": ""
+      "author": "",
+      "dependencies": []
+    },
+    {
+      "version": "^17.0.2",
+      "name": "react",
+      "description": "React is a JavaScript library for building user interfaces.",
+      "homepage": "https://reactjs.org/",
+      "license": "MIT",
+      "author": "",
+      "dependencies": [
+        {
+          "version": "^17.0.2",
+          "name": "react",
+          "description": "React is a JavaScript library for building user interfaces.",
+          "homepage": "https://reactjs.org/",
+          "license": "MIT",
+          "author": "",
+          "dependencies": [
+            {
+              "version": "^17.0.2",
+              "name": "react",
+              "description": "React is a JavaScript library for building user interfaces.",
+              "homepage": "https://reactjs.org/",
+              "license": "MIT",
+              "author": "",
+              "dependencies": [
+                {
+                  "version": "^17.0.2",
+                  "name": "react",
+                  "description": "React is a JavaScript library for building user interfaces.",
+                  "homepage": "https://reactjs.org/",
+                  "license": "MIT",
+                  "author": "",
+                  "dependencies": [
+                    {
+                      "version": "^17.0.2",
+                      "name": "react",
+                      "description": "React is a JavaScript library for building user interfaces.",
+                      "homepage": "https://reactjs.org/",
+                      "license": "MIT",
+                      "author": "",
+                      "dependencies": [
+                        {
+                          "version": "^17.0.2",
+                          "name": "react",
+                          "description": "React is a JavaScript library for building user interfaces.",
+                          "homepage": "https://reactjs.org/",
+                          "license": "MIT",
+                          "author": "",
+                          "dependencies": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "version": "^17.0.2",
+          "name": "react",
+          "description": "React is a JavaScript library for building user interfaces.",
+          "homepage": "https://reactjs.org/",
+          "license": "MIT",
+          "author": "",
+          "dependencies": []
+        },
+        {
+          "version": "^17.0.2",
+          "name": "react",
+          "description": "React is a JavaScript library for building user interfaces.",
+          "homepage": "https://reactjs.org/",
+          "license": "MIT",
+          "author": "",
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "version": "^17.0.2",
+      "name": "react",
+      "description": "React is a JavaScript library for building user interfaces.",
+      "homepage": "https://reactjs.org/",
+      "license": "MIT",
+      "author": "",
+      "dependencies": []
     }
-  }
+  ]
 }

@@ -17,7 +17,7 @@ function applyHeader(section) {
 
 function loadSection(section) {
   const component = document.createElement(`${section}-component`)
-  const container = document.querySelector('.root')
+  const container = document.querySelector('#root')
   container.replaceChildren(component);
 }
 
