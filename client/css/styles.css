@@ -55,6 +55,11 @@ body {
   color: inherit;
 }
 
+@font-face {
+  font-family: Roboto;
+  src: url(/font/Roboto-Regular.ttf);
+}
+
 .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
@@ -62,4 +67,8 @@ body {
 
 .h2 {
   text-transform: capitalize;
+}
+
+* {
+  font-family: Roboto;
 }

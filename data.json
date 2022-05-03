@@ -12,7 +12,11 @@
       "author": "TJ Holowaychuk <tj@vision-media.ca>",
       "license": "MIT",
       "homepage": "http://expressjs.com/",
-      "dependencies": []
+      "dependencies": [],
+      "contributors": [
+        "Douglas Christopher Wilson <doug@somethingdoug.com>",
+        "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)"
+      ]
     },
     {
       "version": "^17.0.2",
