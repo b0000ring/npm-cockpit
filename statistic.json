@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "name": "express.js",
+      "count": 1,
+      "update": false
+    },
+    {
+      "name": "react.js",
+      "count": 1,
+      "update": false
+    },
+    {
+      "name": "rx.js",
+      "count": 2,
+      "update": "minor"
+    },
+    {
+      "name": "moment.js",
+      "count": 4,
+      "update": "major"
+    }
+  ]
+}

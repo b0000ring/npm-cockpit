@@ -12,4 +12,8 @@ class Processing:
 
   def get_tree(self):
     print('Getting project tree...')
-    self.tree = json.load(open('data.json'))
+    return json.load(open('dependencies.json'))
+
+  def get_by_frequency(self):
+    print('Getting statistic data...')
+    return json.load(open('statistic.json'))

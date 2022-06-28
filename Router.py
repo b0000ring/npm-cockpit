@@ -4,8 +4,7 @@ class Router:
   def __init__(self, app, processing):
     @app.route("/api/dependencies")
     def send_dependencies():
-        print(processing.tree)
-        return processing.tree
+        return processing.get_tree()
 
     @app.route("/api/security")
     def send_security():
@@ -13,7 +12,7 @@ class Router:
 
     @app.route("/api/statistic")
     def send_statistic():
-        return "{}"
+        return processing.get_by_frequency()
 
     @app.route("/")
     def index():
