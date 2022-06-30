@@ -5,11 +5,13 @@ export class Statistic extends Page {
   constructor() {
     super()
     // how common are particular dependency is (bar chart)
+    // ???only 10 most used???
     d3.select(this.wrapper)
       .append('svg')
       .attr('id', 'frequency')
-      .style('width', '240px')
-      .style('height', '240px')
+      // should be attr to get correct value
+      .attr('width', '100%')
+      .style('height', '400px')
 
     // updates status (updated, has minor updates, has major updates) (donut chart)
     d3.select(this.wrapper)

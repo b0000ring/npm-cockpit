@@ -8,6 +8,10 @@ export function dependenciesPlot(data, svg) {
   const nodes = d3.hierarchy(data, d => d.dependencies)
   const lnkMkr = d3.linkHorizontal().x( d => d.y ).y( d => d.x )
 
+  const colorScale = d3.scaleSequential()
+    .domain([0, nodes.height])
+    .interpolator(d3.interpolateRainbow);
+
   const g = svg.append('g')
     .attr('id', 'plot')
 
@@ -32,7 +36,7 @@ export function dependenciesPlot(data, svg) {
     .attr('id', 'node')
     .attr('width', nodeWidth)
     .attr('height', nodeHeight)
-    .style('fill', 'white')
+    // .style('fill', 'white')
     .style('stroke', 'black')
     .style('stroke-width', '1')
     .style('rx', '10')
@@ -69,11 +73,12 @@ export function dependenciesPlot(data, svg) {
       .attr('href', '#node')
       .attr('stroke-width', 2)
       .attr('x', d => d.y - 60 ).attr('y', d => d.x - 25 )
+      .attr('fill', d => colorScale(d.depth))
 
     g.append('text')
       .attr('x', d => d.y)
       .attr('y', d => d.x + 15)
-      .attr('fill', 'grey')
+      .attr('fill', 'white')
       .text(d => d.data.version)
       
     g.append('text')
@@ -98,7 +103,7 @@ export function dependenciesPlot(data, svg) {
     const modal = container.append('xhtml:div')
       .attr('xmlns', 'http://www.w3.org/1999/xhtml')
       .attr('class', 'modal-content')
-      .attr('style', `width: 400px; background: white;`)
+      .attr('style', `width: 400px; background: white; position: fixed;`)
       .html(null)
   
     const header = modal.append('div')
