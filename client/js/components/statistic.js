@@ -16,6 +16,8 @@ export class Statistic extends Page {
     // updates status (updated, has minor updates, has major updates) (donut chart)
     d3.select(this.wrapper)
       .append('svg')
+      .attr('width', '400px')
+      .style('height', '400px')
       .attr('id', 'updates')
 
     this.getData('/api/statistic').then(this.renderPlots.bind(this))
