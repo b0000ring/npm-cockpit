@@ -1,4 +1,4 @@
-# nodejs-dependencies-visualizer
+# npm-dashboard
 
 Project for learning D3 and python.
 
