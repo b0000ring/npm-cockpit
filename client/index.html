@@ -2,53 +2,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NodeJS project dependencies visualization</title>
-  <link rel="stylesheet" href="css/styles.css?v=3.0">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <title>NPM dashboard</title>
+  <link rel="stylesheet" href="css/styles.main.css?v=3.0">
+  <link rel="stylesheet" href="css/styles.components.css?v=3.0">
+  <script type="module" src="js/components/index.js"></script>
 </head>
 <body>
-  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">NodeJS project dependencies visualization</a>
-  </header>
-  <div class="container-fluid">
-    <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky pt-3">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a id="dependencies" class="nav-link active" aria-current="page" href="#">
-                Dependencies
-              </a>
-            </li>
-            <li class="nav-item">
-              <a id="security" class="nav-link" aria-current="page" href="#">
-                Security
-              </a>
-            </li> 
-            <li class="nav-item">
-              <a id="statistic" class="nav-link" aria-current="page" href="#">
-                Statistic
-              </a>
-            </li> 
-            <li class="nav-item">
-              <a id="about" class="nav-link" aria-current="page" href="#">
-                About
-              </a>
-            </li> 
-          </ul>
-        </div>
-      </nav>
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2"></h1>
-        </div>
-        <div id="root"></div>
-      </main>
+  <header>
+    <div class="logo">
+      NPM DASHBOARD
     </div>
-  </div>
+  </header>
+  <main>
+    <div class="grid">
+      <grid />
+    </div>
+  </main>
+  <footer>
+    <div>
+      Created by Aleksandr Chirkin
+    </div>
+    <div>
+      <a target="_blank" href="https://www.linkedin.com/in/aleksandr-chirkin-a5413b13b">
+        Linkedin
+      </a>
+      <a target="_blank" href="https://github.com/b0000ring">
+        GitHub
+      </a>
+    </div>
+  </footer>
   <script src="js/lib/d3.min.js"></script>
-  <script src="js/lib/bootstrap.bundle.min.js"></script>
-  <script type="module" src="js/components/index.js"></script>
   <script src="js/index.js"></script>
 </body>
 </html>

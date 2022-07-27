@@ -1,0 +1,6 @@
+dashboard-item {
+  padding: 16px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 75%);
+}

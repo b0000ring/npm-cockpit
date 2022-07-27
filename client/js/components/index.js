@@ -1,9 +1,5 @@
-import { About } from './about.js'
-import { Dependencies } from './dependencies.js'
-import { Security } from './security.js'
-import { Statistic } from './statistic.js'
+import { Dashboard } from './dashboard.js'
+import { Dashboardtem } from './dashboard-item.js'
 
-window.customElements.define('dependencies-component', Dependencies)
-window.customElements.define('security-component', Security)
-window.customElements.define('statistic-component', Statistic)
-window.customElements.define('about-component', About)
+window.customElements.define('dashboard', Dashboard)
+window.customElements.define('dashboard-item', Dashboardtem)
