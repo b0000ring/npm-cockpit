@@ -1,4 +1,4 @@
-export class GridItem extends HTMLElement {
+export class DashboardItem extends HTMLElement {
   connectedCallback() {
     const size = this.getAttribute('size')
     

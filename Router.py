@@ -1,7 +1,7 @@
 from flask import redirect, send_from_directory
 
 class Router:
-  def __init__(self, app, processing):
+  def __init__(self, app, processing, layout):
     @app.route("/api/dependencies")
     def send_dependencies():
         return processing.get_tree()
@@ -13,6 +13,14 @@ class Router:
     @app.route("/api/statistic")
     def send_statistic():
         return processing.get_by_frequency()
+
+    @app.route("/api/layout", methods = ['GET'])
+    def send_layout():
+        return layout.get_layout()
+
+    @app.route("/api/layout", methods = ['POST'])
+    def save_layout():
+        return layout.post_layout()
 
     @app.route("/")
     def index():

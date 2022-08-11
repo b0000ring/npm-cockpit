@@ -45,16 +45,12 @@ header {
   color: white;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 8px 16px;
-  grid-template-rows: 400px;
-  padding: 8px;
+main {
+  padding: 24px;
 }
 
 footer {
-  height: 120px;
+  min-height: 120px;
   background-color: #EAF6F6;
   display: flex;
   flex-direction: column;

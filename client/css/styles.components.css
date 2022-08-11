@@ -1,6 +1,16 @@
+npm-dashboard {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 16px 16px;
+  grid-template-rows: 400px;
+  padding: 8px;
+}
+
 dashboard-item {
   padding: 16px;
   border: 1px solid grey;
   border-radius: 4px;
   box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 75%);
+  height: 400px;
+  box-sizing: border-box;
 }
