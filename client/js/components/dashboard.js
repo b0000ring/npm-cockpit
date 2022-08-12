@@ -12,6 +12,7 @@ export class Dashboard extends HTMLElement {
       })
   }
 
+  // refactor this
   render() {
     let cell = 1
     let row = 1

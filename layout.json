@@ -7,18 +7,13 @@
     },
     {
       "w": 1,
-      "title": "Dependencies",
-      "component": "dependencies-item"
+      "title": "Updates",
+      "component": "updates-item"
     },
     {
       "w": 2,
-      "title": "Dependencies",
-      "component": "dependencies-item"
-    },
-    {
-      "w": 2,
-      "title": "Dependencies",
-      "component": "dependencies-item"
+      "title": "Frequency",
+      "component": "frequency-item"
     }
   ]
 }

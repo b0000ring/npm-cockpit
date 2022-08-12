@@ -11,6 +11,7 @@
 
 * {
   font-family: Roboto;
+  box-sizing: border-box;
 }
 
 a {
@@ -32,7 +33,7 @@ body {
 }
 
 header {
-  height: 80px;
+  max-height: 80px;
   background-color: #66BFBF;
 }
 

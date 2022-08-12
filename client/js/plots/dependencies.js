@@ -1,10 +1,12 @@
-export function dependenciesPlot(data, svg) {
+export default function dependencies(data, svg) {
   const nodeHeight = 50
   const nodeWidth = 120
   const nodeSeparation = 30
   const height = parseInt(svg.style('height'))
   const width = parseInt(svg.style('width'))
   
+
+  console.log(data)
   const nodes = d3.hierarchy(data, d => d.dependencies)
   const lnkMkr = d3.linkHorizontal().x( d => d.y ).y( d => d.x )
 
