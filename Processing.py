@@ -1,8 +1,12 @@
 import json
+import sys
 
 loaded = False
 data = None
 tree = None
+
+# should be param with folder with package.json
+print(sys.argv[0])
 
 def get_dependencies():
   print('getting dependencies')
