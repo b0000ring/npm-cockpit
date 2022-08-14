@@ -1,6 +1,6 @@
 npm-dashboard {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 24% 24% 24% 24%;;
   grid-gap: 16px 16px;
   grid-template-rows: 400px;
   padding: 8px;

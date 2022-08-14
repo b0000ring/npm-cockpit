@@ -1,7 +1,10 @@
 from flask import redirect, send_from_directory
 
+import processing
+import layout
+
 class Router:
-  def __init__(self, app, processing, layout):
+  def __init__(self, app):
     @app.route("/api/dependencies")
     def send_dependencies():
         return processing.get_tree()

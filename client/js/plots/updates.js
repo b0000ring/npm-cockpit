@@ -3,7 +3,7 @@ import { showPopup } from './utils.js'
 export default function updates(data, svg) {
   const width = parseInt(svg.style('width'))
   const height = parseInt(svg.style('height'))
-  const padding = 10
+  const padding = 30
   const radius = Math.min(width, height) / 2 - padding
 
   let minor = 0
@@ -66,7 +66,7 @@ export default function updates(data, svg) {
     })
 
   svg.append('text')
-    .text(`updates available: ${minor + major}`)
+    .text(`total updates: ${minor + major}`)
     .attr('x', `50%`)
     .attr('y', '50%')
 
