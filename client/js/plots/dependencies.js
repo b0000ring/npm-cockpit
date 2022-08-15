@@ -1,14 +1,12 @@
 export default function dependencies(data, svg) {
-  const nodeHeight = 50
-  const nodeWidth = 120
+  const nodeHeight = 100
+  const nodeWidth = 200
   const nodeSeparation = 30
   const height = parseInt(svg.style('height'))
   const width = parseInt(svg.style('width'))
   
-
-  console.log(data)
   const nodes = d3.hierarchy(data, d => d.dependencies)
-  const lnkMkr = d3.linkHorizontal().x( d => d.y ).y( d => d.x )
+  const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
 
   const colorScale = d3.scaleSequential()
     .domain([0, nodes.height])
@@ -19,7 +17,7 @@ export default function dependencies(data, svg) {
 
   const zoom = d3.zoom()
     .extent([[0, 0], [width, height]])
-    .scaleExtent([0.5, 2])
+    // .scaleExtent([0.5, 2])
     .on("zoom", zoomed)
 
   svg.on('click', function(e) {
@@ -30,7 +28,7 @@ export default function dependencies(data, svg) {
   })
 
   svg
-    .call(zoom.transform, d3.zoomIdentity.translate(80, 250))
+    .call(zoom.transform, d3.zoomIdentity.translate(350,100))
     .call(zoom)
 
   svg.append('defs')
@@ -38,14 +36,13 @@ export default function dependencies(data, svg) {
     .attr('id', 'node')
     .attr('width', nodeWidth)
     .attr('height', nodeHeight)
-    // .style('fill', 'white')
     .style('stroke', 'black')
     .style('stroke-width', '1')
     .style('rx', '10')
     .style('ry', '10')
     .style('box-shadow', '5px 10px')
   
-  d3.tree().nodeSize([nodeHeight + nodeSeparation, nodeWidth + nodeSeparation])( nodes )
+  d3.tree().nodeSize([nodeWidth + nodeSeparation, nodeHeight + nodeSeparation])( nodes )
 
   g.selectAll( "path" ).data( nodes.links() ).enter()
     .append( "path" ).attr( "d", d => lnkMkr(d) )
@@ -60,7 +57,7 @@ export default function dependencies(data, svg) {
 
   function renderItem(selection) {
     const g = selection.append('g')
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', 'start')
       .on('click', showDetails)
       .on('mouseenter', function () {
         d3.select(this).select('use')
@@ -74,18 +71,18 @@ export default function dependencies(data, svg) {
     g.append('use')
       .attr('href', '#node')
       .attr('stroke-width', 2)
-      .attr('x', d => d.y - 60 ).attr('y', d => d.x - 25 )
+      .attr('x', d => d.x - 25).attr('y', d => d.y - 25)
       .attr('fill', d => colorScale(d.depth))
 
     g.append('text')
-      .attr('x', d => d.y)
-      .attr('y', d => d.x + 15)
+      .attr('x', d => d.x - 5)
+      .attr('y', d => d.y + 25)
       .attr('fill', 'white')
       .text(d => d.data.version)
       
     g.append('text')
-      .attr('x', d => d.y)
-      .attr('y', d => d.x - 5)
+      .attr('x', d => d.x - 5)
+      .attr('y', d => d.y)
       .text(d => d.data.name)
   }
 
