@@ -15,7 +15,7 @@ class Router:
 
     @app.route("/api/statistic")
     def send_statistic():
-        return processing.get_by_frequency()
+        return processing.get_statistic()
 
     @app.route("/api/layout", methods = ['GET'])
     def send_layout():
