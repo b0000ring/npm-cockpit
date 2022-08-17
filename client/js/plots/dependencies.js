@@ -1,3 +1,5 @@
+import { Popups } from '../components/popups.js'
+
 export default function dependencies(data, svg) {
   const nodeHeight = 100
   const nodeWidth = 200
@@ -53,8 +55,7 @@ export default function dependencies(data, svg) {
   renderItem(selection)
 
   function closeDetails() {
-    const container = document.getElementById('popup-container')
-    container.innerHTML = ''
+    Popups.removePopup('module-data-popup')
   }
 
   function renderItem(selection) {
@@ -62,7 +63,7 @@ export default function dependencies(data, svg) {
       .style('cursor', 'pointer')
       .attr('text-anchor', 'start')
       .on('click', showDetails)
-      .on('mousemove', function (e, d) {
+      .on('mouseenter', function (e, d) {
         showDetails(e, d)
         d3.select(this).select('use')
           .attr('opacity', 0.9)
@@ -92,17 +93,17 @@ export default function dependencies(data, svg) {
   }
 
   function showDetails(event, obj) {
-    closeDetails()
-
     const [x, y] = d3.pointer(event, document.body)
     const details = obj.data
-    const container = document.getElementById('popup-container')
-    const popup = document.createElement('module-data-popup')
-    popup['__data__'] = details
-    popup['x'] = x + 20
-    popup['y'] = y + 20
-    
-    container.appendChild(popup)
+
+    Popups.addPopup({
+      popup: 'module-data-popup',
+      options: {
+        __data__: details,
+        x: x,
+        y: y
+      }
+    });
   }
 
   function zoomed({ transform }) {

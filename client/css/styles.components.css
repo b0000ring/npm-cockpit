@@ -34,6 +34,12 @@ dashboard-item h2 {
   height: 100%;
 }
 
+popups-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 loading-element {
   position: absolute;
   top: 50%;
@@ -43,8 +49,8 @@ loading-element {
 
 .modal-content {
   padding: 16px;
-  width: 400px;
-  position: fixed;
+  width: 600px;
+  position: absolute;
   background-color: white;
   z-index: 999;
   border: 1px solid #66BFBF;
@@ -66,4 +72,30 @@ loading-element {
   overflow-y: scroll;
   margin-top: 16px;
   width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table td, table th {
+  border: 1px solid #66BFBF;
+}
+.table tr:first-child th, .table tr:first-child td {
+  border-top: 0;
+}
+.table tr:last-child td, .table tr:last-child th {
+  border-bottom: 0;
+}
+.table tr td:first-child,
+.table tr th:first-child {
+  border-left: 0;
+}
+.table tr td:last-child,
+.table tr th:last-child {
+  border-right: 0;
+}
+
+.table th, .table td {
+  padding: 8px;
 }

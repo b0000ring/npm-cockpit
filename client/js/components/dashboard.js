@@ -35,7 +35,7 @@ export class Dashboard extends HTMLElement {
   
       dashboardItem.style['grid-column'] = `${cell} / ${finishCell}`
       dashboardItem.style['grid-row'] = `${row} / ${row + 1}`
-      dashboardItem.setAttribute('title', item.title)
+      dashboardItem.setAttribute('name', item.title)
       dashboardItem.setAttribute('component', item.component)
   
       cell = finishCell

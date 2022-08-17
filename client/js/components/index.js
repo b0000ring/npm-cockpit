@@ -1,5 +1,6 @@
 import { Dashboard } from './dashboard.js'
 import { DashboardItem } from './dashboard-item.js'
+import { Popups } from './popups.js'
 // items
 import { Frequency, Dependencies, Updates } from './items/index.js'
 // elements
@@ -9,6 +10,7 @@ import { ModuleDataPopup } from './popups/module-data.js'
 
 window.customElements.define('npm-dashboard', Dashboard)
 window.customElements.define('dashboard-item', DashboardItem)
+window.customElements.define('popups-root', Popups)
 window.customElements.define('frequency-item', Frequency)
 window.customElements.define('dependencies-item', Dependencies)
 window.customElements.define('updates-item', Updates)

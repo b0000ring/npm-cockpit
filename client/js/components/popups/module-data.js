@@ -30,6 +30,17 @@ export class ModuleDataPopup extends HTMLElement {
         div.appendChild(document.createElement('hr'))
         td.appendChild(div)
       })
+    } else if(typeof content === 'object') {
+      const values = Object.entries(content).map(item => {
+        const [label, value] = item
+        return `${label}: ${value}`
+      })
+      const nodes = values.map(item => {
+        const node = document.createElement('div')
+        node.textContent = item
+        return node
+      })
+      td.append(...nodes)
     } else {
       td.textContent = content
     }

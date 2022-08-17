@@ -1,11 +1,11 @@
 export class DashboardItem extends HTMLElement {
   connectedCallback() {
-    const title = this.getAttribute('title')
+    const name = this.getAttribute('name')
     const component = this.getAttribute('component')
     const item = document.createElement(component)
     const titleElement = document.createElement('h2')
 
-    titleElement.innerText = title
+    titleElement.innerText = name
 
     this.appendChild(titleElement)
     this.appendChild(item)
