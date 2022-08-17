@@ -17,7 +17,6 @@ export default function dependencies(data, svg) {
 
   const zoom = d3.zoom()
     .extent([[0, 0], [width, height]])
-    // .scaleExtent([0.5, 2])
     .on("zoom", zoomed)
 
   svg.on('click', function(e) {
@@ -27,8 +26,10 @@ export default function dependencies(data, svg) {
     } 
   })
 
+  // applying zoon
   svg
-    .call(zoom.transform, d3.zoomIdentity.translate(350,100))
+    // setting default zoom values
+    .call(zoom.transform, d3.zoomIdentity.translate(350,100).scale(0.5))
     .call(zoom)
 
   svg.append('defs')
@@ -52,20 +53,24 @@ export default function dependencies(data, svg) {
   renderItem(selection)
 
   function closeDetails() {
-    svg.select('#details').remove()
+    const container = document.getElementById('popup-container')
+    container.innerHTML = ''
   }
 
   function renderItem(selection) {
     const g = selection.append('g')
+      .style('cursor', 'pointer')
       .attr('text-anchor', 'start')
       .on('click', showDetails)
-      .on('mouseenter', function () {
+      .on('mousemove', function (e, d) {
+        showDetails(e, d)
         d3.select(this).select('use')
-          .attr('stroke-width', 1)
+          .attr('opacity', 0.9)
       })
       .on('mouseleave', function(e, d) {
+        closeDetails()
         d3.select(this).select('use')
-          .attr('stroke-width', 2)
+          .attr('opacity', 1)
       })
 
     g.append('use')
@@ -87,70 +92,17 @@ export default function dependencies(data, svg) {
   }
 
   function showDetails(event, obj) {
-    svg.select('#details').remove()
+    closeDetails()
 
-    const [x, y] = d3.pointer(event)
-
-    const container = svg.select('#plot').append('foreignObject')
-      .attr('id', 'details')
-      .attr('x', x)
-      .attr('y', y)
-      .attr('width', '400px')
-      .attr('height', '600px')
+    const [x, y] = d3.pointer(event, document.body)
     const details = obj.data
-
-    const modal = container.append('xhtml:div')
-      .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-      .attr('class', 'modal-content')
-      .attr('style', `width: 400px; background: white; position: fixed;`)
-      .html(null)
-  
-    const header = modal.append('div')
-      .attr('class', 'modal-header')
-      .html(details.name)
-
-    header.append('a')
-      .attr('href', `https://www.npmjs.com/package/${details.name}/`)
-      .attr('target', '_blank')
-      .text('NPM')
-
-    const body = modal.append('div')
-      .attr ('class', 'modal-body')
-      .append('table')
-      .attr('class', 'table table-bordered')
-      .append('tbody')
-
-    Object.keys(details).forEach((key) => {
-      const content = details[key]
-      if(key === 'dependencies' || key === 'name'  || !content) {
-        return
-      }
-      const row = body.append('tr')
-
-      row.append('th')
-          .attr('scope', 'row')
-          .text(key)
-  
-      const target = row.append('td')
-
-      if(key === 'homepage') {
-        target.append('a')
-          .attr('href', content)
-          .attr('target', '_blank')
-          .text(content)
-        return
-      }
-
-      if(Array.isArray(content)) {
-        content.forEach(item => {
-          target.append('div')
-            .text(item)
-            .append('hr')
-        })
-      } else {
-        target.text(content)
-      }
-    })
+    const container = document.getElementById('popup-container')
+    const popup = document.createElement('module-data-popup')
+    popup['__data__'] = details
+    popup['x'] = x + 20
+    popup['y'] = y + 20
+    
+    container.appendChild(popup)
   }
 
   function zoomed({ transform }) {

@@ -40,3 +40,30 @@ loading-element {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.modal-content {
+  padding: 16px;
+  width: 400px;
+  position: fixed;
+  background-color: white;
+  z-index: 999;
+  border: 1px solid #66BFBF;
+  border-radius: 4px;
+}
+
+.modal-header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding-bottom: 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #66BFBF;
+}
+
+.modal-body {
+  max-height: 300px;
+  overflow-y: scroll;
+  margin-top: 16px;
+  width: 100%;
+}
