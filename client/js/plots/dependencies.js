@@ -7,7 +7,7 @@ export default function dependencies(data, svg) {
   const height = parseInt(svg.style('height'))
   const width = parseInt(svg.style('width'))
   
-  const nodes = d3.hierarchy(data, d => d.dependencies)
+  const nodes = d3.hierarchy(data, d => d.deps)
   const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
 
   const colorScale = d3.scaleSequential()

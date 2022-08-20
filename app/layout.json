@@ -1,7 +1,7 @@
 {
   "layout": [
     {
-      "w": 3,
+      "w": 4,
       "title": "Dependencies",
       "component": "dependencies-item"
     },
