@@ -5,8 +5,8 @@ import os
 from app.classes.Lib import Lib
 
 loaded = False
-data = None
-tree = None
+data = {}
+root = None
 
 path = sys.argv[1]
 package_json_path = path + '/package.json'
@@ -23,13 +23,14 @@ if not(isfolder):
   print('ERROR: Target folder should contain node_modules folder')
   exit()
 
-def get_dependencies():
+def process_dependencies():
   # initial
   global data
-  data = json.load(open(package_json_path))
-  result = {}
+  global root
+  root_data = json.load(open(package_json_path))
+  root = Lib(root_data)
   # updatable
-  stack = [Lib(data)]
+  stack = [root]
 
   # dependencies tree processing inmplemented with iterative way
   while len(stack) and len(stack) < 100:
@@ -45,8 +46,8 @@ def get_dependencies():
       continue
 
     # adding current lib to result list
-    if current.name not in result:
-      result[current.name] = current
+    if current.name not in data:
+      data[current.name] = current
     
     if len(current.dependencies.keys()):
       deps = list(current.dependencies.keys())
@@ -65,17 +66,18 @@ def get_dependencies():
     else:
       stack.pop(len(stack) - 1)
 
-  data = result
-
 # getting dependencies tree data
-def get_tree():
+def get_dependencies():
   print('Getting project tree...')
   result = {}
   for key in data:
     result[key] = data[key].__dict__
   # with open('data.json', 'w', encoding='utf-8') as f:
   #   json.dump(result, f, ensure_ascii=False, indent=4)
-  return result
+  return {
+    'root': root.name,
+    'dependencies': result
+  }
 
 # getting statistic data
 def get_statistic():

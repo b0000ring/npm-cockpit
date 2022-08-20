@@ -1,13 +1,13 @@
 from flask import redirect, send_from_directory
 
-from app.processing import get_tree, get_statistic
+from app.processing import get_dependencies, get_statistic
 from app.layout import get_layout, post_layout
 
 class Router:
   def __init__(self, app):
     @app.route("/api/dependencies")
     def send_dependencies():
-        return get_tree()
+        return get_dependencies()
 
     @app.route("/api/security")
     def send_security():
