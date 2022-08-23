@@ -1,14 +1,21 @@
 import { Popups } from '../components/popups.js'
 
+function wrapText(text) {
+  if(text.length < 20) {
+    return text
+  }
+
+  return text.substring(0,19) + '...';
+}
+
 export default function dependencies(data, svg) {
   const nodeHeight = 100
   const nodeWidth = 200
   const nodeSeparation = 30
   const height = parseInt(svg.style('height'))
   const width = parseInt(svg.style('width'))
-
   console.log(data)
-  
+    
   const nodes = d3.hierarchy(data, d => d.deps)
   const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
 
@@ -91,7 +98,7 @@ export default function dependencies(data, svg) {
     g.append('text')
       .attr('x', d => d.x - 5)
       .attr('y', d => d.y)
-      .text(d => d.data.name)
+      .text(d => wrapText(d.data.name))
   }
 
   function showDetails(event, obj) {

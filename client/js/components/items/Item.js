@@ -11,6 +11,7 @@ export default class Item extends HTMLElement {
   async loadData(source) {
     this.data = await d3.json(source)
     this.loading = false
+    this.processData && this.processData()
     this.render()
   }
 

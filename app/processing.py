@@ -8,6 +8,12 @@ loaded = False
 data = {}
 root = None
 
+try:
+  sys.argv[1]
+except:
+  print('ERROR: Please, provide path to target folder')
+  exit()
+
 path = sys.argv[1]
 package_json_path = path + '/package.json'
 node_modules_path = path + '/node_modules'
