@@ -99,3 +99,40 @@ loading-element {
 .table th, .table td {
   padding: 8px;
 }
+
+.limitation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+}
+
+.dependencies-info {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dependencies-info > div {
+  padding: 0 16px;
+  border-right: 1px solid black;
+}
+
+.dependencies-info > div:last-child {
+  border-right: none;
+}
+
+.search {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+}
+
+.search > input {
+  margin-right: 8px;
+  width: 180px
+}

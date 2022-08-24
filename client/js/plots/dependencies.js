@@ -14,13 +14,12 @@ export default function dependencies(data, svg) {
   const nodeSeparation = 30
   const height = parseInt(svg.style('height'))
   const width = parseInt(svg.style('width'))
-  console.log(data)
     
   const nodes = d3.hierarchy(data, d => d.deps)
   const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
 
   const colorScale = d3.scaleSequential()
-    .domain([0, nodes.height])
+    .domain([0, nodes.height + 1])
     .interpolator(d3.interpolateRainbow);
 
   const g = svg.append('g')

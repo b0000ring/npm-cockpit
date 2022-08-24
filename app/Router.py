@@ -1,4 +1,4 @@
-from flask import redirect, send_from_directory
+from flask import redirect, send_from_directory, make_response
 
 from app.processing import get_dependencies, get_statistic
 from app.layout import get_layout, post_layout
@@ -31,4 +31,6 @@ class Router:
 
     @app.route("/<path:path>")
     def send_client(path):
-        return send_from_directory('../client', path)
+        resp = make_response(send_from_directory('../client', path))
+        resp.headers['Cache-Control'] = 'no-cache'
+        return resp
