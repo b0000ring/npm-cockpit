@@ -3,39 +3,45 @@ import Item from './Item.js'
 
 export class Dependencies extends Item {
   options = {
-    limitation: 1
+    limitation: 1,
+    search: '',
   }
 
-  searchResult = []
   processedData = {}
   nodesCount = 0
 
   constructor() {
     super('/api/dependencies')
-
+   
     this.treeWorker = new Worker('/js/workers/dependenciesTree.js')
-    this.treeWorker.onmessage = function(e) {
+    this.treeWorker.onmessage = (e) => {
       this.processedData = e.data.tree
       this.nodesCount = e.data.count
       this.loading = false
       this.render()
-    }.bind(this)
+    }
   }
 
   search() {
-    // webworkers
+    const input = document.getElementById('dependenices-search-input')
+    const value = input.value
+    if (!value) {
+      this.options.search = ''
+    }
+    this.options.search = value
+    this.processData()
   }
 
   processData() {
     this.loading = true
     this.treeWorker.postMessage([this.data, this.options]);
+    this.render()
   }
 
   changeDepth(direction) {
     if(direction < 0 && this.options.limitation < 1) {
       return
     }
-
     if(direction > 0 && this.nodesCount > 100 && !window.confirm('The big amount of nodes to show can degrade performance. Continue?')) {
       return
     }
@@ -44,38 +50,42 @@ export class Dependencies extends Item {
     this.processData()
   }
 
-  applySearch() {
-    const input = document.getElementById('dependenices-search-input')
-    const value = input.value
-    console.log(value)
-    if (!value) {
+  renderSearch() {
+    const element = document.getElementById('dependencies-search')
+    // update
+    if(element) {
       return
     }
-  }
-
-  renderSearch() {
+    // creation
     const container = document.createElement('div')
-    container.className = 'search'
+    container.id = 'dependencies-search'
     const input = document.createElement('input')
     input.id = 'dependenices-search-input'
-    input.setAttribute('placeholder', 'Search by name, tag, author')
+    input.setAttribute('placeholder', 'Search by name, keyword, author')
     input.addEventListener("keyup", (event) => {
       if (event.key === "Enter") {
-        this.applySearch()
+        this.search()
       }
     });
     const apply = document.createElement('button')
     apply.textContent = 'Search'
-    apply.addEventListener('click', () => this.applySearch())
+    apply.addEventListener('click', () => this.search())
 
     container.append(input, apply)
-
-    return container
+    this.append(container)
   }
 
-  renderLimitationInterface() {
+  renderLimitation() {
+    const element = document.getElementById('dependencies-limitation')
+    // update
+    if(element) {
+      document.getElementById('dependencies-limitation-current')
+        .textContent = this.options.limitation
+      return
+    }
+    // creation
     const container = document.createElement('div')
-    container.className = 'limitation'
+    container.id = 'dependencies-limitation'
 
     const label = document.createElement('span')
     label.textContent = 'Depth:'
@@ -86,36 +96,73 @@ export class Dependencies extends Item {
     increase.addEventListener('click', () => this.changeDepth(1))
     increase.textContent = '+'
     const current = document.createElement('div')
+    current.id = 'dependencies-limitation-current'
     current.textContent = this.options.limitation
 
     container.append(label, reduce, current, increase)
-
     return container
   }
 
   renderInfo() {
+    const element = document.getElementById('dependencies-info')
+    // update
+    if(element) {
+      document.getElementById('dependencies-nodes-count')
+        .textContent = 'Rendered nodes: ' + this.nodesCount
+      this.renderLimitation()
+      return
+    }
+    // creation
     const container = document.createElement('div')
-    container.className = 'dependencies-info'
+    container.id = 'dependencies-info'
 
     const nodesCount = document.createElement('div')
-    nodesCount.className = 'nodes-count'
+    nodesCount.id = 'dependencies-nodes-count'
     nodesCount.textContent = 'Rendered nodes: ' + this.nodesCount
 
-    const limitation = this.renderLimitationInterface()
+    const limitation = this.renderLimitation(container)
 
     container.append(nodesCount, limitation)
-    return container
+    this.append(container)
   }
 
-  redraw() {
-    const info = this.renderInfo()
-    const search = this.renderSearch()
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    const wrapper = d3.select(svg)
-      .attr('width', '100%')
-      .attr('height', '100%')
+  renderEmptyDataMessage() {
+    const element = document.getElementById('layout-message')
+    // adding
+    if(element && (!this.options.search || this.processedData)) {
+      element.remove()
+      return
+    }
+    // removing
+    if(!element && this.options.search && !this.processedData) { 
+      const container = document.createElement('div')
+      container.id = 'layout-message'
+      container.textContent = 'No data to render. Try to increase depth or enter another search request'
+      this.append(container)
+    }
+  }
 
-    this.append(info, search, svg)
-    dependenciesPlot(this.processedData, wrapper)
+  renderPlot() {
+    let element = document.getElementById('dependencies-plot')
+    // creation
+    if(!element) {
+      element = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      element.id = 'dependencies-plot'
+      this.append(element)
+    }
+   
+    dependenciesPlot(this.processedData, element)
+  }
+
+  render() {
+    this.renderInfo()
+    this.renderSearch()
+    this.renderPlot()
+    this.renderEmptyDataMessage()
+
+    // make loading as a layout to avoid re-rendering of entire interface
+    // re-draw existed d3 plot insted creating of new each re render
+   
+  
   }
 }

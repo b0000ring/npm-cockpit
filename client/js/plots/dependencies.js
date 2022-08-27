@@ -1,58 +1,61 @@
 import { Popups } from '../components/popups.js'
 
-function wrapText(text) {
-  if(text.length < 20) {
-    return text
-  }
+let plot = null
 
-  return text.substring(0,19) + '...';
-}
-
+// TODO refactor
 export default function dependencies(data, svg) {
+  if(!data) {
+    plot.select('#plot-content').selectAll("*").remove();
+    return 
+  }
   const nodeHeight = 100
   const nodeWidth = 200
   const nodeSeparation = 30
-  const height = parseInt(svg.style('height'))
-  const width = parseInt(svg.style('width'))
-    
+
   const nodes = d3.hierarchy(data, d => d.deps)
   const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
 
+  if(!plot) {
+    plot = d3.select(svg)
+      .attr('width', '100%')
+      .attr('height', '100%')
+
+    const height = parseInt(plot.style('height'))
+    const width = parseInt(plot.style('width'))
+
+    const zoom = d3.zoom()
+      .extent([[0, 0], [width, height]])
+      .on("zoom", zoomed)
+
+    plot.append('defs')
+      .append('rect')
+      .attr('id', 'node')
+      .attr('width', nodeWidth)
+      .attr('height', nodeHeight)
+      .style('stroke', 'black')
+      .style('stroke-width', '1')
+      .style('rx', '10')
+      .style('ry', '10')
+      .style('box-shadow', '5px 10px')
+    
+    plot.append('g')
+      .attr('id', 'plot-content')
+
+    // applying zoom
+    plot
+      // setting default zoom values
+      .call(zoom.transform, d3.zoomIdentity.translate(350,100).scale(0.5))
+      .call(zoom)
+  }
+  
   const colorScale = d3.scaleSequential()
     .domain([0, nodes.height + 1])
     .interpolator(d3.interpolateRainbow);
 
-  const g = svg.append('g')
-    .attr('id', 'plot')
+  const g = plot.select('#plot-content')
 
-  const zoom = d3.zoom()
-    .extent([[0, 0], [width, height]])
-    .on("zoom", zoomed)
+  g.selectAll("*").remove();
 
-  svg.on('click', function(e) {
-    // actions only on svg element click
-    if(e.target.nodeName === 'svg') {
-      closeDetails()
-    } 
-  })
-
-  // applying zoon
-  svg
-    // setting default zoom values
-    .call(zoom.transform, d3.zoomIdentity.translate(350,100).scale(0.5))
-    .call(zoom)
-
-  svg.append('defs')
-    .append('rect')
-    .attr('id', 'node')
-    .attr('width', nodeWidth)
-    .attr('height', nodeHeight)
-    .style('stroke', 'black')
-    .style('stroke-width', '1')
-    .style('rx', '10')
-    .style('ry', '10')
-    .style('box-shadow', '5px 10px')
-  
   d3.tree().nodeSize([nodeWidth + nodeSeparation, nodeHeight + nodeSeparation])( nodes )
 
   g.selectAll( "path" ).data( nodes.links() ).enter()
@@ -115,6 +118,14 @@ export default function dependencies(data, svg) {
   }
 
   function zoomed({ transform }) {
-    g.attr("transform", transform)
+    plot.select('#plot-content').attr("transform", transform)
   }
+}
+
+function wrapText(text) {
+  if(text?.length < 20) {
+    return text
+  }
+
+  return text?.substring(0,19) + '...';
 }

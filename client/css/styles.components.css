@@ -42,12 +42,24 @@ popups-root {
 
 loading-element {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  left: 0;
+  top: 0;
+}
+
+loading-element object {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
+
+
 .modal-content {
+  box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 75%);
   padding: 16px;
   width: 600px;
   position: absolute;
@@ -100,14 +112,14 @@ loading-element {
   padding: 8px;
 }
 
-.limitation {
+#dependencies-limitation {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 150px;
 }
 
-.dependencies-info {
+#dependencies-info {
   position: absolute;
   bottom: 10px;
   right: 20px;
@@ -116,23 +128,30 @@ loading-element {
   align-items: center;
 }
 
-.dependencies-info > div {
+#dependencies-info > div {
   padding: 0 16px;
   border-right: 1px solid black;
 }
 
-.dependencies-info > div:last-child {
+#dependencies-info > div:last-child {
   border-right: none;
 }
 
-.search {
+#dependencies-search {
   position: absolute;
   z-index: 2;
   top: 10px;
   right: 10px;
 }
 
-.search > input {
+#dependencies-search > input {
   margin-right: 8px;
-  width: 180px
+  width: 210px
+}
+
+#layout-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

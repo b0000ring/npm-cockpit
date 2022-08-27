@@ -6,13 +6,13 @@ export class Updates extends Item {
     super('/api/statistic')
   }
 
-  redraw() {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    const wrapper = d3.select(svg)
-      .attr('width', '100%')
-      .attr('height', '100%')
+  render() {
+    // const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    // const wrapper = d3.select(svg)
+    //   .attr('width', '100%')
+    //   .attr('height', '100%')
 
-    this.appendChild(svg)
-    updatesPlot(this.data.data, wrapper)
+    // this.appendChild(svg)
+    // updatesPlot(this.data.data, wrapper)
   }
 }

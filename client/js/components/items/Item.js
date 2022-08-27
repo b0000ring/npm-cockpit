@@ -1,6 +1,9 @@
 export default class Item extends HTMLElement {
-  loading = true
   data = null
+
+  set loading(value) {
+    value ? this.showLoading() : this.hideLoading()
+  }
 
   constructor(source) {
     super()
@@ -19,19 +22,12 @@ export default class Item extends HTMLElement {
     this.appendChild(document.createElement('loading-element'))
   }
 
-  // should be implemented in successor
-  redraw() {
-    throw new Error('render function should be implemented for specific item component')
+  hideLoading() {
+    this.querySelector('loading-element')?.remove()
   }
 
   render() {
-    this.innerHTML = ''
-    if(this.loading) {
-      this.showLoading()
-      return
-    }
-
-    this.redraw()
+    throw new Error('render function should be implemented for specific item component')
   }
 
   connectedCallback() {
