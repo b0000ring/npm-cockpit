@@ -3,7 +3,7 @@ import { Popups } from '../components/popups.js'
 let plot = null
 
 // TODO refactor
-export default function dependencies(data, svg) {
+export default function dependencies(data, svg, setPath) {
   if(!data) {
     plot.select('#plot-content').selectAll("*").remove();
     return 
@@ -49,7 +49,7 @@ export default function dependencies(data, svg) {
   }
   
   const colorScale = d3.scaleSequential()
-    .domain([0, nodes.height + 1])
+    .domain([0, 10])
     .interpolator(d3.interpolateRainbow);
 
   const g = plot.select('#plot-content')
@@ -73,16 +73,19 @@ export default function dependencies(data, svg) {
     const g = selection.append('g')
       .style('cursor', 'pointer')
       .attr('text-anchor', 'start')
-      .on('click', showDetails)
       .on('mouseenter', function (e, d) {
         showDetails(e, d)
         d3.select(this).select('use')
           .attr('opacity', 0.9)
       })
-      .on('mouseleave', function(e, d) {
+      .on('mouseleave', function() {
         closeDetails()
         d3.select(this).select('use')
           .attr('opacity', 1)
+      })
+      .on('click', function(e, d) {
+        const path = nodes.path(d)
+        setPath(path.map(item => item.data.name))
       })
 
     g.append('use')
@@ -104,15 +107,16 @@ export default function dependencies(data, svg) {
   }
 
   function showDetails(event, obj) {
-    const [x, y] = d3.pointer(event, document.body)
+    // const [x, y] = d3.pointer(event, document.body)
+    const {x, y, width, height} = event.target.getBoundingClientRect()
     const details = obj.data
 
     Popups.addPopup({
       popup: 'module-data-popup',
       options: {
         __data__: details,
-        x: x,
-        y: y
+        x: x + width,
+        y: y + height
       }
     });
   }

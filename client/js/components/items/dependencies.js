@@ -4,7 +4,8 @@ import Item from './Item.js'
 export class Dependencies extends Item {
   options = {
     limitation: 1,
-    search: '',
+    filter: '',
+    path: []
   }
 
   processedData = {}
@@ -22,13 +23,13 @@ export class Dependencies extends Item {
     }
   }
 
-  search() {
-    const input = document.getElementById('dependenices-search-input')
+  filter() {
+    const input = document.getElementById('dependenices-filter-input')
     const value = input.value
     if (!value) {
-      this.options.search = ''
+      this.options.filter = ''
     }
-    this.options.search = value
+    this.options.filter = value
     this.processData()
   }
 
@@ -50,26 +51,31 @@ export class Dependencies extends Item {
     this.processData()
   }
 
-  renderSearch() {
-    const element = document.getElementById('dependencies-search')
+  setPath(path) {
+    this.options.path = path
+    this.processData()
+  }
+
+  renderFilter() {
+    const element = document.getElementById('dependencies-filter')
     // update
     if(element) {
       return
     }
     // creation
     const container = document.createElement('div')
-    container.id = 'dependencies-search'
+    container.id = 'dependencies-filter'
     const input = document.createElement('input')
-    input.id = 'dependenices-search-input'
-    input.setAttribute('placeholder', 'Search by name, keyword, author')
+    input.id = 'dependenices-filter-input'
+    input.setAttribute('placeholder', 'Filter by name, keyword, author')
     input.addEventListener("keyup", (event) => {
       if (event.key === "Enter") {
-        this.search()
+        this.filter()
       }
     });
     const apply = document.createElement('button')
-    apply.textContent = 'Search'
-    apply.addEventListener('click', () => this.search())
+    apply.textContent = 'Filter'
+    apply.addEventListener('click', () => this.filter())
 
     container.append(input, apply)
     this.append(container)
@@ -90,10 +96,16 @@ export class Dependencies extends Item {
     const label = document.createElement('span')
     label.textContent = 'Depth:'
     const reduce = document.createElement('button')
-    reduce.addEventListener('click', () => this.changeDepth(-1))
+    reduce.addEventListener('click', () => {
+      this.changeDepth(-1)
+      this.setPath([])
+    })
     reduce.textContent = '-'
     const increase = document.createElement('button')
-    increase.addEventListener('click', () => this.changeDepth(1))
+    increase.addEventListener('click', () => {
+      this.changeDepth(1)
+      this.setPath([])
+    })
     increase.textContent = '+'
     const current = document.createElement('div')
     current.id = 'dependencies-limitation-current'
@@ -129,15 +141,15 @@ export class Dependencies extends Item {
   renderEmptyDataMessage() {
     const element = document.getElementById('layout-message')
     // adding
-    if(element && (!this.options.search || this.processedData)) {
+    if(element && (!this.options.filter || this.processedData)) {
       element.remove()
       return
     }
     // removing
-    if(!element && this.options.search && !this.processedData) { 
+    if(!element && this.options.filter && !this.processedData) { 
       const container = document.createElement('div')
       container.id = 'layout-message'
-      container.textContent = 'No data to render. Try to increase depth or enter another search request'
+      container.textContent = 'No data to render. Try to increase depth or enter another filter request'
       this.append(container)
     }
   }
@@ -151,18 +163,13 @@ export class Dependencies extends Item {
       this.append(element)
     }
    
-    dependenciesPlot(this.processedData, element)
+    dependenciesPlot(this.processedData, element, this.setPath.bind(this))
   }
 
   render() {
     this.renderInfo()
-    this.renderSearch()
+    this.renderFilter()
     this.renderPlot()
     this.renderEmptyDataMessage()
-
-    // make loading as a layout to avoid re-rendering of entire interface
-    // re-draw existed d3 plot insted creating of new each re render
-   
-  
   }
 }
