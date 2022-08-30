@@ -74,7 +74,9 @@ export class ModuleDataPopup extends HTMLElement {
 
     table.appendChild(tbody)
     body.appendChild(table)
-    header.appendChild(npmLink)
+    if(!data.error) {
+      header.appendChild(npmLink)
+    }
     root.appendChild(header)
     root.appendChild(body)
     this.appendChild(root)

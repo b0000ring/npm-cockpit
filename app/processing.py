@@ -48,7 +48,15 @@ def process_dependencies():
       if current.name == prev.name:
         stack.pop(len(stack) - 1)
         found = True
+  
     if found:
+      error_name = current.name + ': circular error'
+      data[current.name].add_connection(error_name)
+      stack.append(Lib({
+        'name': error_name,
+        'error': True,
+        'description': 'Circular dependency'
+      }))
       continue
 
     # adding current lib to result list
@@ -65,7 +73,8 @@ def process_dependencies():
       except:
         child_data = {
           'name': child,
-          'description': 'package data not found in node_modules folder'
+          'error': True,
+          'description': 'package not found in node_modules folder'
         }
       current.connections.append(child_data['name'])
       stack.append(Lib(child_data))

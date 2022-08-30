@@ -92,13 +92,13 @@ export default function dependencies(data, svg, setPath) {
       .attr('href', '#node')
       .attr('stroke-width', 2)
       .attr('x', d => d.x - 25).attr('y', d => d.y - 25)
-      .attr('fill', d => colorScale(d.depth))
+      .attr('fill', d => d.data.error ? 'red' : colorScale(d.depth))
 
     g.append('text')
       .attr('x', d => d.x - 5)
       .attr('y', d => d.y + 25)
       .attr('fill', 'white')
-      .text(d => d.data.version)
+      .text(d => d.data.error ? wrapText(d.data.description) : d.data.version)
       
     g.append('text')
       .attr('x', d => d.x - 5)

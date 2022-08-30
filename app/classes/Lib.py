@@ -1,4 +1,4 @@
-attributes = ['name', 'dependencies', 'author', 'description', 'keywords', 'license', 'repository', 'version']
+attributes = ['name', 'dependencies', 'author', 'error', 'description', 'keywords', 'license', 'repository', 'version']
 
 class Lib:
   def __init__(self, data):
@@ -7,3 +7,8 @@ class Lib:
     for k, v in data.items():
       if(k in attributes):
         setattr(self, k, v)
+  
+  def add_connection(self, data):
+    if data in self.connections:
+      return
+    self.connections.append(data)
