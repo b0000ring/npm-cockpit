@@ -7,6 +7,7 @@ from app.classes.Lib import Lib
 loaded = False
 data = {}
 root = None
+max_depth = 0
 
 try:
   sys.argv[1]
@@ -33,14 +34,22 @@ def process_dependencies():
   # initial
   global data
   global root
+  global max_depth
+
   root_data = json.load(open(package_json_path))
   root = Lib(root_data)
   # updatable
   stack = [root]
 
   # dependencies tree processing inmplemented with iterative way
-  while len(stack) and len(stack) < 100:
-    current = stack[len(stack) - 1]
+  while len(stack):
+    depth = len(stack)
+  
+    # checking for max depth
+    if depth > max_depth:
+      max_depth = depth
+
+    current = stack[depth - 1]
     found = False
 
     # prevent from circular dependencies endless cycle
@@ -91,7 +100,8 @@ def get_dependencies():
   #   json.dump(result, f, ensure_ascii=False, indent=4)
   return {
     'root': root.name,
-    'dependencies': result
+    'dependencies': result,
+    'depth': max_depth
   }
 
 # getting statistic data

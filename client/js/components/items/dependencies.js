@@ -35,7 +35,7 @@ export class Dependencies extends Item {
 
   processData() {
     this.loading = true
-    this.treeWorker.postMessage([this.data, this.options]);
+    this.treeWorker.postMessage([this.data, this.options])
     this.render()
   }
 
@@ -72,7 +72,7 @@ export class Dependencies extends Item {
       if (event.key === "Enter") {
         this.filter()
       }
-    });
+    })
     const apply = document.createElement('button')
     apply.textContent = 'Filter'
     apply.addEventListener('click', () => this.filter())
@@ -87,6 +87,10 @@ export class Dependencies extends Item {
     if(element) {
       document.getElementById('dependencies-limitation-current')
         .textContent = this.options.limitation
+      document.getElementById('dependencies-limitation-reduce')
+        .disabled = this.options.limitation < 1
+      document.getElementById('dependencies-limitation-increase')
+        .disabled = this.options.limitation >= this.data.depth
       return
     }
     // creation
@@ -96,12 +100,14 @@ export class Dependencies extends Item {
     const label = document.createElement('span')
     label.textContent = 'Depth:'
     const reduce = document.createElement('button')
+    reduce.id = 'dependencies-limitation-reduce'
     reduce.addEventListener('click', () => {
       this.changeDepth(-1)
       this.setPath([])
     })
     reduce.textContent = '-'
     const increase = document.createElement('button')
+    increase.id = 'dependencies-limitation-increase'
     increase.addEventListener('click', () => {
       this.changeDepth(1)
       this.setPath([])
