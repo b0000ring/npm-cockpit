@@ -2,6 +2,9 @@ export default class Item extends HTMLElement {
   data = null
   loading = null
 
+  /**
+   * @param {boolean} value
+   */
   set loading(value) {
     value ? this.showLoading() : this.hideLoading()
   }
@@ -20,6 +23,10 @@ export default class Item extends HTMLElement {
   }
 
   showLoading() {
+    if(this.loading) {
+      this.hideLoading()
+    }
+
     this.loading = setTimeout(() => {
       this.appendChild(document.createElement('loading-element'))
     }, 1000)
@@ -28,6 +35,7 @@ export default class Item extends HTMLElement {
   hideLoading() {
     clearTimeout(this.loading)
     this.querySelector('loading-element')?.remove()
+    this.loading = null
   }
 
   render() {

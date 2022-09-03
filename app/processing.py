@@ -45,7 +45,7 @@ def process_dependencies():
   while len(stack):
     depth = len(stack)
   
-    # checking for max depth
+    # checking and increasing max depth
     if depth > max_depth:
       max_depth = depth
 
@@ -58,6 +58,8 @@ def process_dependencies():
         stack.pop(len(stack) - 1)
         found = True
   
+    # if circular dependency found then add error object to list
+    # and skip next steps
     if found:
       error_name = current.name + ': circular error'
       data[current.name].add_connection(error_name)
@@ -72,6 +74,7 @@ def process_dependencies():
     if current.name not in data:
       data[current.name] = current
     
+    # dependencies parsing
     if len(current.dependencies.keys()):
       deps = list(current.dependencies.keys())
       child = deps[0]
@@ -104,7 +107,19 @@ def get_dependencies():
     'depth': max_depth
   }
 
-# getting statistic data
-def get_statistic():
+# getting count data by usage data
+def get_frequency():
+  result = {}
   print('Getting statistic data...')
-  return json.load(open('app/statistic.json'))
+  for node in data:
+    for dependency in data[node].connections:
+      if dependency in result:
+        result[dependency]['count'] += 1
+      else:
+        result[dependency] = {
+          'count': 1,
+          'data': data[dependency].__dict__
+        }
+  return result 
+
+  

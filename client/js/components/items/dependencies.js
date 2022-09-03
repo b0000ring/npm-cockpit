@@ -18,7 +18,7 @@ export class Dependencies extends Item {
     this.treeWorker.onmessage = (e) => {
       this.processedData = e.data.tree
       this.nodesCount = e.data.count
-      this.loading = false
+      super.loading = false
       this.render()
     }
   }
@@ -34,7 +34,7 @@ export class Dependencies extends Item {
   }
 
   processData() {
-    this.loading = true
+    super.loading = true
     this.treeWorker.postMessage([this.data, this.options])
     this.render()
   }
@@ -53,7 +53,7 @@ export class Dependencies extends Item {
 
   setPath(path) {
     this.options.path = path
-    this.processData()
+    path.length && this.processData()
   }
 
   renderFilter() {

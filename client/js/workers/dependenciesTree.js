@@ -6,7 +6,7 @@ onmessage = function(e) {
   postMessage({
     count,
     tree
-  });
+  })
 
   function processTree(node, level) {
     const { connections } = node

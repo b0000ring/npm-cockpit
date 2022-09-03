@@ -15,3 +15,13 @@ export function showPopup(container, x, y, data, margin = 0) {
     .attr('x', x + 15 + margin)
     .attr('y', y + 35 + margin)
 }
+
+export function wrapText(text, length = 20) {
+  if(!text) return ''
+  
+  if(text?.length < length) {
+    return text
+  }
+
+  return text?.substring(0, length - 1) + '...';
+}

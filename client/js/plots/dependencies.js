@@ -1,4 +1,5 @@
 import { Popups } from '../components/popups.js'
+import { wrapText } from './utils.js'
 
 let plot = null
 
@@ -107,7 +108,6 @@ export default function dependencies(data, svg, setPath) {
   }
 
   function showDetails(event, obj) {
-    // const [x, y] = d3.pointer(event, document.body)
     const {x, y, width, height} = event.target.getBoundingClientRect()
     const details = obj.data
 
@@ -126,10 +126,3 @@ export default function dependencies(data, svg, setPath) {
   }
 }
 
-function wrapText(text) {
-  if(text?.length < 20) {
-    return text
-  }
-
-  return text?.substring(0,19) + '...';
-}
