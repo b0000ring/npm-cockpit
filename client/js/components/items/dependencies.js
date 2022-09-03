@@ -98,19 +98,19 @@ export class Dependencies extends Item {
     container.id = 'dependencies-limitation'
 
     const label = document.createElement('span')
-    label.textContent = 'Depth:'
+    label.textContent = `Depth (max: ${this.data.depth || 0})`
     const reduce = document.createElement('button')
     reduce.id = 'dependencies-limitation-reduce'
     reduce.addEventListener('click', () => {
-      this.changeDepth(-1)
       this.setPath([])
+      this.changeDepth(-1)
     })
     reduce.textContent = '-'
     const increase = document.createElement('button')
     increase.id = 'dependencies-limitation-increase'
     increase.addEventListener('click', () => {
-      this.changeDepth(1)
       this.setPath([])
+      this.changeDepth(1)
     })
     increase.textContent = '+'
     const current = document.createElement('div')
