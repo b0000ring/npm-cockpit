@@ -1,6 +1,8 @@
+import { Popup } from './Popup.js'
+
 const included = ['author', 'description', 'keywords', 'license', 'repository', 'version']
 
-export class ModuleDataPopup extends HTMLElement {
+export class ModuleDataPopup extends Popup {
   createRow(key, content) {
     const row = document.createElement('tr')
     const th = document.createElement('th')
@@ -48,12 +50,11 @@ export class ModuleDataPopup extends HTMLElement {
     return row
   }
 
+  // TODO refactor
   connectedCallback() {
     const data = this.__data__
     const root = document.createElement('div')
     root.className = 'modal-content'
-    root.style.top = this.y
-    root.style.left = this.x
 
     const header = document.createElement('div')
     header.className = 'modal-header'
@@ -86,5 +87,7 @@ export class ModuleDataPopup extends HTMLElement {
       const row = this.createRow(key, content)
       row && tbody.appendChild(row)
     })
+
+    this.applyCoords(root)
   }
 }
