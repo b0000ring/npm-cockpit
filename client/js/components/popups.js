@@ -3,11 +3,21 @@ export class Popups extends HTMLElement {
   popups = []
   timeouts = {}
 
+  constructor() {
+    super()
+    window.addEventListener('popups-add', (e) => {
+      this.addPopup(e.detail)
+    })
+    window.addEventListener('popups-remove', (e) => {
+      this.removePopup(e.detail)
+    })
+  }
+
   addPopup(data) {
     clearTimeout(this.timeouts[data.popup])
     const index = this.popups.findIndex(item => item.popup === data.popup)
     if(index !== -1) {
-      this.removePopup(data.popup)
+      this.removePopup(data.popup, 0)
     }
     this.timeouts[data.popup] = setTimeout(() => {
       this.popups.push(data)
@@ -15,9 +25,9 @@ export class Popups extends HTMLElement {
     }, 200)
   }
 
-  removePopup(type) {
+  removePopup(type, timeout = 200) {
     clearTimeout(this.timeouts[type])
-    setTimeout(() => {
+    this.timeouts[type] = setTimeout(() => {
       const index = this.popups.findIndex(item => item.popup === type)
       const element = document.getElementsByTagName(type)[0]
       const hover = element?.matches(`${type}:hover`)
@@ -31,18 +41,7 @@ export class Popups extends HTMLElement {
           this.removePopup(type)
         })
       }
-    }, 200)
-    
-  }
-
-  constructor() {
-    super()
-    window.addEventListener('popups-add', (e) => {
-      this.addPopup(e.detail)
-    })
-    window.addEventListener('popups-remove', (e) => {
-      this.removePopup(e.detail)
-    })
+    }, timeout)
   }
 
   renderPopup(data) {

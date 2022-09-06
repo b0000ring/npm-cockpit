@@ -111,6 +111,7 @@ export default function dependencies(data, svg, setPath) {
   }
 
   function showDetails(event, obj) {
+    const shift = 10 
     const {x, y, width, height} = event.target.getBoundingClientRect()
     const details = obj.data
     window.dispatchEvent(
@@ -119,8 +120,8 @@ export default function dependencies(data, svg, setPath) {
           popup: 'module-data-popup',
           options: {
             __data__: details,
-            x: x + width,
-            y: y + height
+            x: x + width - shift,
+            y: y + height - shift
           }
         }
       })
@@ -128,6 +129,7 @@ export default function dependencies(data, svg, setPath) {
   }
 
   function zoomed({ transform }) {
+    closeDetails()
     plot.select('#plot-content').attr("transform", transform)
   }
 }
