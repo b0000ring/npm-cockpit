@@ -66,20 +66,28 @@ export default function frequency(data, svg) {
     .attr("transform", `translate(10, 20) rotate(-45)`)
 
   function closeDetails() {
-    Popups.removePopup('module-data-popup')
+    window.dispatchEvent(
+      new CustomEvent('popups-remove', {
+        detail: 'module-data-popup'
+      })
+    )
   }
 
   function showDetails(event, obj) {
     const {x, y, width, height} = event.target.getBoundingClientRect()
     const details = obj[1].data
 
-    Popups.addPopup({
-      popup: 'module-data-popup',
-      options: {
-        __data__: details,
-        x: x + width / 2,
-        y: y + height / 2
-      }
-    });
+    window.dispatchEvent(
+      new CustomEvent('popups-add', {
+        detail: {
+          popup: 'module-data-popup',
+          options: {
+            __data__: details,
+            x: x + width / 2,
+            y: y + height / 2
+          }
+        }
+      })
+    )
   }
 }

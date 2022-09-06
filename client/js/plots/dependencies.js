@@ -1,4 +1,3 @@
-import { Popups } from '../components/popups.js'
 import { wrapText } from './utils.js'
 
 let plot = null
@@ -67,7 +66,11 @@ export default function dependencies(data, svg, setPath) {
   renderItem(selection)
 
   function closeDetails() {
-    Popups.removePopup('module-data-popup')
+    window.dispatchEvent(
+      new CustomEvent('popups-remove', {
+        detail: 'module-data-popup'
+      })
+    )
   }
 
   function renderItem(selection) {
@@ -110,15 +113,18 @@ export default function dependencies(data, svg, setPath) {
   function showDetails(event, obj) {
     const {x, y, width, height} = event.target.getBoundingClientRect()
     const details = obj.data
-
-    Popups.addPopup({
-      popup: 'module-data-popup',
-      options: {
-        __data__: details,
-        x: x + width,
-        y: y + height
-      }
-    });
+    window.dispatchEvent(
+      new CustomEvent('popups-add', {
+        detail: {
+          popup: 'module-data-popup',
+          options: {
+            __data__: details,
+            x: x + width,
+            y: y + height
+          }
+        }
+      })
+    )
   }
 
   function zoomed({ transform }) {

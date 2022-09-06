@@ -82,6 +82,7 @@ export class Dependencies extends Item {
   }
 
   renderLimitation() {
+    const getDepth = (depth) => `Depth (max: ${depth || 0})`
     const element = document.getElementById('dependencies-limitation')
     // update
     if(element) {
@@ -91,14 +92,16 @@ export class Dependencies extends Item {
         .disabled = this.options.limitation < 1
       document.getElementById('dependencies-limitation-increase')
         .disabled = this.options.limitation >= this.data.depth
+      document.getElementById('dependencies-limitation-depth')
+        .textContent = getDepth(this.data?.depth)
       return
     }
     // creation
     const container = document.createElement('div')
     container.id = 'dependencies-limitation'
-
     const label = document.createElement('span')
-    label.textContent = `Depth (max: ${this.data.depth || 0})`
+    label.id = 'dependencies-limitation-depth'
+    label.textContent = getDepth(this.data?.depth)
     const reduce = document.createElement('button')
     reduce.id = 'dependencies-limitation-reduce'
     reduce.addEventListener('click', () => {

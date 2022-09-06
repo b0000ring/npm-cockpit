@@ -1,30 +1,29 @@
+// TODO change static props and methods to native browser events
 export class Popups extends HTMLElement {
-  static popups = []
-  static subscribers = []
+  popups = []
+  timeouts = {}
 
-  static update() {
-    this.subscribers.forEach(item => item.renderPopups())
-  }
-
-  static addPopup(data) {
+  addPopup(data) {
+    clearTimeout(this.timeouts[data.popup])
     const index = this.popups.findIndex(item => item.popup === data.popup)
     if(index !== -1) {
       this.removePopup(data.popup)
     }
-    setTimeout(() => {
+    this.timeouts[data.popup] = setTimeout(() => {
       this.popups.push(data)
-      this.update()
-    }, 100)
+      this.renderPopups()
+    }, 200)
   }
 
-  static removePopup(type) {
+  removePopup(type) {
+    clearTimeout(this.timeouts[type])
     setTimeout(() => {
       const index = this.popups.findIndex(item => item.popup === type)
       const element = document.getElementsByTagName(type)[0]
       const hover = element?.matches(`${type}:hover`)
       if(element && index !== -1 && !hover) {
         this.popups.splice(index, 1)
-        this.update()
+        this.renderPopups()
       }
   
       if(hover) {
@@ -32,14 +31,18 @@ export class Popups extends HTMLElement {
           this.removePopup(type)
         })
       }
-    }, 100)
+    }, 200)
     
   }
 
   constructor() {
     super()
-    
-    Popups.subscribers.push(this)
+    window.addEventListener('popups-add', (e) => {
+      this.addPopup(e.detail)
+    })
+    window.addEventListener('popups-remove', (e) => {
+      this.removePopup(e.detail)
+    })
   }
 
   renderPopup(data) {
@@ -53,7 +56,8 @@ export class Popups extends HTMLElement {
 
   renderPopups() {
     this.innerHTML = ''
-    Popups.popups.forEach((item) => {
+    this.id = 'popups'
+    this.popups.forEach((item) => {
       this.renderPopup(item)
     })
   }

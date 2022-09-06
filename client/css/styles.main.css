@@ -38,7 +38,7 @@ header {
 }
 
 .logo {
-  font-size: 3rem;
+  font-size: 2.5rem;
   display: flex;
   align-items: center;
   margin-left: 32px;
@@ -50,7 +50,7 @@ main {
 }
 
 footer {
-  min-height: 120px;
+  min-height: 90px;
   background-color: #EAF6F6;
   display: flex;
   flex-direction: column;
