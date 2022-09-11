@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "npm-dashboard"
+version = "0.1.0"
+description = "installable command-line tool which helps to track nodejs project dependencies state"
+authors = ["Alex Chirkin <hello@alexchirkin.me>"]
+readme = "README.md"
+packages = [{include = "npm_dashboard"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^2.2.2"
+click = "^8.1.3"
+itsdangerous = "^2.1.2"
+Jinja2 = "^3.1.2"
+MarkupSafe = "^2.1.1"
+Werkzeug = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
