@@ -1,11 +1,14 @@
 import json
 import sys
 import os
+import subprocess
+from turtle import update
 
 from app.classes.Lib import Lib
 
 loaded = False
 data = {}
+updates_data = {}
 root = None
 max_depth = 0
 
@@ -122,4 +125,11 @@ def get_frequency():
         }
   return result 
 
-  
+def get_updates():
+  global updates_data
+  print('Getting updates data...')
+  if not updates_data:
+    command = 'npm outdated --json --all'
+    result = subprocess.check_output(command, shell=True, cwd=path)
+    updates_data = json.loads(result)
+  return updates_data

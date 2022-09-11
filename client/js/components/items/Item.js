@@ -1,6 +1,6 @@
 export default class Item extends HTMLElement {
   data = null
-  loading = null
+  loadingTimeout = null
 
   /**
    * @param {boolean} value
@@ -16,6 +16,7 @@ export default class Item extends HTMLElement {
   }
 
   async loadData(source) {
+    this.loading = true
     this.data = await d3.json(source)
     this.loading = false
     this.processData && this.processData()
@@ -23,19 +24,18 @@ export default class Item extends HTMLElement {
   }
 
   showLoading() {
-    if(this.loading) {
+    if(this.loadingTimeout) {
       this.hideLoading()
     }
 
-    this.loading = setTimeout(() => {
+    this.loadingTimeout = setTimeout(() => {
       this.appendChild(document.createElement('loading-element'))
-    }, 1000)
+    }, 300)
   }
 
   hideLoading() {
-    clearTimeout(this.loading)
+    clearTimeout(this.loadingTimeout)
     this.querySelector('loading-element')?.remove()
-    this.loading = null
   }
 
   render() {

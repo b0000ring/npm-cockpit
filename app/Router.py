@@ -1,6 +1,6 @@
 from flask import redirect, send_from_directory, make_response
 
-from app.processing import get_dependencies, get_frequency
+from app.processing import get_dependencies, get_frequency, get_updates
 from app.layout import get_layout, post_layout
 
 class Router:
@@ -9,12 +9,16 @@ class Router:
     def send_dependencies():
         return get_dependencies()
 
+    @app.route("/api/updates")
+    def send_updates():
+        return get_updates()
+
     @app.route("/api/security")
     def send_security():
         return "{}"
 
     @app.route("/api/frequency")
-    def send_statistic():
+    def send_frequency():
         return get_frequency()
 
     @app.route("/api/layout", methods = ['GET'])

@@ -1,35 +1,27 @@
 import { showPopup } from './utils.js'
 
+let plot = null
+
 export default function updates(data, svg) {
-  const width = parseInt(svg.style('width'))
-  const height = parseInt(svg.style('height'))
+  if(!plot) {
+    plot = d3.select(svg)
+      .attr('width', '100%')
+      .attr('height', '100%')
+  }
+
+  const width = parseInt(plot.style('width'))
+  const height = parseInt(plot.style('height'))
   const padding = 30
   const radius = Math.min(width, height) / 2 - padding
 
-  let minor = 0
-  let major = 0
-  let none = 0
-
-  data.forEach(item => {
-    if(item.update === 'major') {
-      major += 1
-      return
-    }
-    if(item.update === 'minor') {
-      minor += 1
-      return
-    }
-    none += 1
-  })
-
   const updates = [
-    {name: 'minor', count: minor},
-    {name: 'major', count: major},
-    {name: 'none', count: none}
+    {name: 'major', count: data.major},
+    {name: 'minor', count: data.minor},
+    {name: 'patch', count: data.patch}
   ]
 
   const colorScale = d3.scaleOrdinal()
-  .domain(['major', 'minor', 'none'])
+  .domain(['major', 'minor', 'patch'])
   .range(['rgb(255, 106, 84)', 'rgb(103, 247, 94)', 'rgb(65, 125, 224)']);
 
   const pie = d3.pie()
@@ -40,8 +32,8 @@ export default function updates(data, svg) {
 
   const pieData = pie(updates)
 
-  svg.attr('text-anchor', 'middle')
-  const items = svg.append('g')
+  plot.attr('text-anchor', 'middle')
+  const items = plot.append('g')
 
   items.attr('transform', `translate(${width / 2}, ${height / 2})`)
     .selectAll('path')
@@ -57,7 +49,7 @@ export default function updates(data, svg) {
       d3.select(this)
         .attr('opacity', '1')
       
-      svg.select('#popup')
+      plot.select('#popup')
         .remove()
     })
     .on('mousemove', function(e, d) {
@@ -65,8 +57,8 @@ export default function updates(data, svg) {
       showPopup(items, x, y, d.data, 20)
     })
 
-  svg.append('text')
-    .text(`total updates: ${minor + major}`)
+  plot.append('text')
+    .text(`total: ${data.minor + data.major + data.patch}`)
     .attr('x', `50%`)
     .attr('y', '50%')
 
