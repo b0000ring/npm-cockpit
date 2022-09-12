@@ -32,6 +32,8 @@ export class Updates extends Item {
   }
 
   render() {
-    this.renderPlot()
+    if(this.processedData) {
+      this.renderPlot()
+    }
   }
 }

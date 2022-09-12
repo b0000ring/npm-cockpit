@@ -2,7 +2,7 @@ import { showPopup } from './utils.js'
 
 let plot = null
 
-export default function updates(data, svg) {
+export default function vulnerabilities({total, ...data}, svg) {
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
@@ -14,23 +14,22 @@ export default function updates(data, svg) {
   const padding = 30
   const radius = Math.min(width, height) / 2 - padding
 
-  const updates = [
-    {name: 'major', count: data.major},
-    {name: 'minor', count: data.minor},
-    {name: 'patch', count: data.patch}
-  ]
-
   const colorScale = d3.scaleOrdinal()
-  .domain(['major', 'minor', 'patch'])
-  .range(['#E70000', '#FBE900', '#2779FF']);
+  .domain(['critical', 'high', 'moderate', 'low', 'info'])
+  .range(['#E70000', '#EE6E00', '#FBE900', '#56F000', '#2779FF']);
+
+  const vulnerabilities = Object.entries(data)
+
+  console.log(vulnerabilities)
 
   const pie = d3.pie()
-    .value(d => d.count)
+    .value(d => d[1])
+    .sort(null)
   const donut = d3.arc()
     .innerRadius(radius / 2)
     .outerRadius(radius)
 
-  const pieData = pie(updates)
+  const pieData = pie(vulnerabilities)
 
   plot.attr('text-anchor', 'middle')
   const items = plot.append('g')
@@ -40,7 +39,7 @@ export default function updates(data, svg) {
     .data(pieData)
     .join('path')
     .attr('d', donut)
-    .attr('fill', (d) => colorScale(d.data.name))
+    .attr('fill', (d) => colorScale(d.data[0]))
     .on('mouseenter', function() {
       d3.select(this)
         .attr('opacity', '0.7')
@@ -54,11 +53,11 @@ export default function updates(data, svg) {
     })
     .on('mousemove', function(e, d) {
       const [x, y] = d3.pointer(e)
-      showPopup(items, x, y, d.data, 20)
+      showPopup(items, x, y, {name: d.data[0], count: d.data[1]}, 20)
     })
 
   plot.append('text')
-    .text(`total: ${data.minor + data.major + data.patch}`)
+    .text(`total: ${total}`)
     .attr('x', `50%`)
     .attr('y', '50%')
 

@@ -2,13 +2,13 @@ import json
 import sys
 import os
 import subprocess
-from turtle import update
 
 from app.classes.Lib import Lib
 
 loaded = False
 data = {}
 updates_data = {}
+vulnerabilities_data = {}
 root = None
 max_depth = 0
 
@@ -113,7 +113,7 @@ def get_dependencies():
 # getting count data by usage data
 def get_frequency():
   result = {}
-  print('Getting statistic data...')
+  print('Getting frequency data...')
   for node in data:
     for dependency in data[node].connections:
       if dependency in result:
@@ -133,3 +133,12 @@ def get_updates():
     result = subprocess.check_output(command, shell=True, cwd=path)
     updates_data = json.loads(result)
   return updates_data
+
+def get_vulnerabilities():
+  global vulnerabilities_data
+  print('Getting vulnerabilities data...')
+  if not vulnerabilities_data:
+    command = 'npm audit --json'
+    result = subprocess.check_output(command, shell=True, cwd=path)
+    vulnerabilities_data = json.loads(result)
+  return vulnerabilities_data['metadata']['vulnerabilities']

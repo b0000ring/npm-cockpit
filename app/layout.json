@@ -14,6 +14,11 @@
       "w": 2,
       "title": "Frequency",
       "component": "frequency-item"
+    },
+    {
+      "w": 1,
+      "title": "Vulnerabilities",
+      "component": "vulnerabilities-item"
     }
   ]
 }
