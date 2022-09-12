@@ -1,8 +1,13 @@
-import { showPopup } from './utils.js'
-
 let plot = null
 
-export default function vulnerabilities({total, ...data}, svg) {
+const descriptions = {
+  critical: 'Address immediately',
+  high: 'Address as quickly as possible',
+  moderate: 'Address as time allows',
+  low: 'Address at your discretion',
+}
+
+export default function vulnerabilities({total, info, ...data}, svg) {
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
@@ -15,12 +20,10 @@ export default function vulnerabilities({total, ...data}, svg) {
   const radius = Math.min(width, height) / 2 - padding
 
   const colorScale = d3.scaleOrdinal()
-  .domain(['critical', 'high', 'moderate', 'low', 'info'])
+  .domain(['critical', 'high', 'moderate', 'low'])
   .range(['#E70000', '#EE6E00', '#FBE900', '#56F000', '#2779FF']);
 
   const vulnerabilities = Object.entries(data)
-
-  console.log(vulnerabilities)
 
   const pie = d3.pie()
     .value(d => d[1])
@@ -40,20 +43,16 @@ export default function vulnerabilities({total, ...data}, svg) {
     .join('path')
     .attr('d', donut)
     .attr('fill', (d) => colorScale(d.data[0]))
-    .on('mouseenter', function() {
+    .on('mouseenter', function(e, d) {
       d3.select(this)
         .attr('opacity', '0.7')
+      showDetails(e, d)
     })
     .on('mouseleave', function() {
       d3.select(this)
         .attr('opacity', '1')
       
-      plot.select('#popup')
-        .remove()
-    })
-    .on('mousemove', function(e, d) {
-      const [x, y] = d3.pointer(e)
-      showPopup(items, x, y, {name: d.data[0], count: d.data[1]}, 20)
+      closeDetails()
     })
 
   plot.append('text')
@@ -61,4 +60,33 @@ export default function vulnerabilities({total, ...data}, svg) {
     .attr('x', `50%`)
     .attr('y', '50%')
 
+  function closeDetails() {
+    window.dispatchEvent(
+      new CustomEvent('popups-remove', {
+        detail: 'group-data-popup'
+      })
+    )
+  }
+
+  function showDetails(event, obj) {
+    const {x, y, width, height} = event.target.getBoundingClientRect()
+    const details = obj.data
+
+    window.dispatchEvent(
+      new CustomEvent('popups-add', {
+        detail: {
+          popup: 'group-data-popup',
+          options: {
+            __data__: {
+              name: details[0],
+              count: details[1],
+              description: descriptions[details[0]]
+            },
+            x: x + width / 2,
+            y: y + height / 2
+          }
+        }
+      })
+    )
+  }
 }

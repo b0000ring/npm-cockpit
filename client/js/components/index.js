@@ -6,7 +6,7 @@ import { Frequency, Dependencies, Updates, Vulnerabilities } from './items/index
 // elements
 import { Loading } from './elements/loading.js'
 // popups
-import { ModuleDataPopup } from './popups/module-data.js'
+import { ModuleDataPopup, GroupDataPopup } from './popups/index.js'
 
 window.customElements.define('npm-dashboard', Dashboard)
 window.customElements.define('dashboard-item', DashboardItem)
@@ -17,3 +17,4 @@ window.customElements.define('dependencies-item', Dependencies)
 window.customElements.define('updates-item', Updates)
 window.customElements.define('loading-element', Loading)
 window.customElements.define('module-data-popup', ModuleDataPopup)
+window.customElements.define('group-data-popup', GroupDataPopup)

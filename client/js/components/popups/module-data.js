@@ -54,7 +54,7 @@ export class ModuleDataPopup extends Popup {
   connectedCallback() {
     const data = this.__data__
     const root = document.createElement('div')
-    root.className = 'modal-content'
+    root.className = 'modal-content modal-big'
 
     const header = document.createElement('div')
     header.className = 'modal-header'

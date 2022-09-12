@@ -75,7 +75,7 @@ export default function dependencies(data, svg, setPath) {
 
   function renderItem(selection) {
     const g = selection.append('g')
-      .style('cursor', 'pointer')
+      .style('cursor', d => d.data.connections?.length > 0 ? 'pointer' : 'default')
       .attr('text-anchor', 'start')
       .on('mouseenter', function (e, d) {
         showDetails(e, d)
@@ -88,6 +88,7 @@ export default function dependencies(data, svg, setPath) {
           .attr('opacity', 1)
       })
       .on('click', function(e, d) {
+        if(d.data.connections.length === 0) return
         const path = nodes.path(d)
         setPath(path.map(item => item.data.name))
       })
