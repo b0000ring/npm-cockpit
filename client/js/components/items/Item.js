@@ -1,3 +1,5 @@
+import { makeRequest } from '../../utils.js'
+
 export default class Item extends HTMLElement {
   data = null
   loadingTimeout = null
@@ -17,7 +19,7 @@ export default class Item extends HTMLElement {
 
   async loadData(source) {
     this.loading = true
-    this.data = await d3.json(source)
+    this.data = await makeRequest(source)
     this.loading = false
     this.processData && this.processData()
     this.render()
