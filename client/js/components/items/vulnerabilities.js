@@ -6,6 +6,10 @@ export class Vulnerabilities extends Item {
     super('/api/vulnerabilities')
   }
 
+  processData() {
+    this.data = this.data.metadata.vulnerabilities
+  }
+
   renderPlot() {
     let element = document.getElementById('vulnerabilities-plot')
     // creation
@@ -14,7 +18,8 @@ export class Vulnerabilities extends Item {
       element.id = 'vulnerabilities-plot'
       this.append(element)
     }
-   
+    
+    console.log(this.data)
     vulnerabilitiesPlot(this.data, element)
   }
 

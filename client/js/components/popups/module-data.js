@@ -82,11 +82,15 @@ export class ModuleDataPopup extends Popup {
     root.appendChild(body)
     this.appendChild(root)
 
-    Object.keys(data).forEach((key) => {
-      const content = data[key]
+    const rows = []
+
+    Object.entries(data).forEach((item) => {
+      const [key, content] = item
       const row = this.createRow(key, content)
-      row && tbody.appendChild(row)
+      row && rows.push(row)
     })
+
+    tbody.append(...rows)
 
     this.applyCoords(root)
   }

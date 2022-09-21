@@ -1,11 +1,11 @@
 import Item from './Item.js'
 
-export class UpdatesTable extends Item {
+export class VulnerabilitiesTable extends Item {
   constructor() {
-    super('/api/updates')
+    super('/api/vulnerabilities')
 
-    this.updatesWorker = new Worker('/js/workers/updatesTable.js')
-    this.updatesWorker.onmessage = (e) => {
+    this.vulnerabilitiesWorker = new Worker('/js/workers/vulnerabilitiesTable.js')
+    this.vulnerabilitiesWorker.onmessage = (e) => {
       this.processedData = e.data
       super.loading = false
       this.render()
@@ -14,21 +14,20 @@ export class UpdatesTable extends Item {
 
   processData() {
     super.loading = true
-    this.updatesWorker.postMessage(this.data)
+    this.vulnerabilitiesWorker.postMessage(this.data.vulnerabilities)
     this.render()
   }
 
   renderTable() {
-    let element = document.getElementById('updates-table')
+    let element = document.getElementById('vulnerabilities-table')
     if(!element) {
       const table = document.createElement('custom-table')
-      table.id = 'updates-table'
+      table.id = 'vulnerabilities-table'
       table.__items__ = this.processedData
       table.__columns__ = {
         name: 'Name',
-        current: 'Current',
-        latest: 'Latest',
-        type: 'Type'
+        severity: 'Severity',
+        fixAvailable: 'Fix Available'
       }
       this.append(table)
     }

@@ -10,8 +10,8 @@ onmessage = function(e) {
     
     if(!current || !latest) return
 
-    const [currentMajor, currentMinor, currentPatch] = current.split('.')
-    const [latestMajor, latestMinor, latestPatch] = latest.split('.')
+    const [currentMajor, currentMinor, currentPatch] = current.split('.').map(num => parseInt(num, 10))
+    const [latestMajor, latestMinor, latestPatch] = latest.split('.').map(num => parseInt(num, 10))
     if(currentMajor < latestMajor) {
       result.major += 1
       return

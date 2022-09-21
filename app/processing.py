@@ -141,4 +141,4 @@ def get_vulnerabilities():
     command = 'npm audit --json'
     result = subprocess.check_output(command, shell=True, cwd=path)
     vulnerabilities_data = json.loads(result)
-  return vulnerabilities_data['metadata']['vulnerabilities']
+  return vulnerabilities_data

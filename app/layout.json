@@ -22,8 +22,13 @@
     },
     {
       "w": 3,
-      "title": "Updates Table",
+      "title": "Updates List",
       "component": "updates-table"
+    },
+    {
+      "w": 3,
+      "title": "Vulnerabilities List",
+      "component": "vulnerabilities-table"
     }
   ]
 }
