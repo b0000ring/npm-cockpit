@@ -67,7 +67,7 @@ export class Dependencies extends Item {
     container.id = 'dependencies-filter'
     const input = document.createElement('input')
     input.id = 'dependenices-filter-input'
-    input.setAttribute('placeholder', 'Filter by name, keyword, author')
+    input.setAttribute('placeholder', 'Name/Keyword/Author/Version')
     input.addEventListener("keyup", (event) => {
       if (event.key === "Enter") {
         this.filter()
@@ -82,18 +82,15 @@ export class Dependencies extends Item {
   }
 
   renderLimitation() {
-    const getDepth = (depth) => `Depth (max: ${depth || 0})`
     const element = document.getElementById('dependencies-limitation')
     // update
     if(element) {
       document.getElementById('dependencies-limitation-current')
-        .textContent = this.options.limitation
+        .textContent = `${this.options.limitation} / ${this.data?.depth}`
       document.getElementById('dependencies-limitation-reduce')
         .disabled = this.options.limitation < 1
       document.getElementById('dependencies-limitation-increase')
-        .disabled = this.options.limitation >= this.data.depth
-      document.getElementById('dependencies-limitation-depth')
-        .textContent = getDepth(this.data?.depth)
+        .disabled = this.options.limitation >= this.data?.depth
       return
     }
     // creation
@@ -101,7 +98,7 @@ export class Dependencies extends Item {
     container.id = 'dependencies-limitation'
     const label = document.createElement('span')
     label.id = 'dependencies-limitation-depth'
-    label.textContent = getDepth(this.data?.depth)
+    label.textContent = 'Depth: '
     const reduce = document.createElement('button')
     reduce.id = 'dependencies-limitation-reduce'
     reduce.addEventListener('click', () => {

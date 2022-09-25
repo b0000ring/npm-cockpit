@@ -31,8 +31,11 @@ onmessage = function(e) {
 }
 
 function checkNode(node, value) {
-  const { author, name, keywords } = node
-  return checkValue(author, value) || checkValue(name, value) || checkValue(keywords, value)
+  const { author, name, keywords, version } = node
+  return checkValue(author, value) ||
+    checkValue(name, value) ||
+    checkValue(keywords, value) ||
+    checkValue(version, value)
 }
 
 function checkValue(field, value) {
