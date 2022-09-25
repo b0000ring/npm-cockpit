@@ -19,6 +19,10 @@ export class Updates extends Item {
     this.render()
   }
 
+  resize() {
+    this.render()
+  }
+
   renderPlot() {
     let element = document.getElementById('updates-plot')
     // creation

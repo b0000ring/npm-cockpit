@@ -12,6 +12,14 @@ export default function vulnerabilities({total, info, ...data}, svg) {
     plot = d3.select(svg)
       .attr('width', '100%')
       .attr('height', '100%')
+
+    plot.append('g')
+      .attr('id', 'vulnerabilities-items')
+    
+    plot.append('text')
+      .attr('id', 'vulnerabilities-text')
+      .attr('x', `50%`)
+      .attr('y', '50%')
   }
 
   const width = parseInt(plot.style('width'))
@@ -21,7 +29,7 @@ export default function vulnerabilities({total, info, ...data}, svg) {
 
   const colorScale = d3.scaleOrdinal()
   .domain(['critical', 'high', 'moderate', 'low'])
-  .range(['#E70000', '#EE6E00', '#FBE900', '#56F000', '#2779FF']);
+  .range(['#E70000', '#EE6E00', '#FBE900', '#56F000', '#2779FF'])
 
   const vulnerabilities = Object.entries(data)
 
@@ -35,7 +43,7 @@ export default function vulnerabilities({total, info, ...data}, svg) {
   const pieData = pie(vulnerabilities)
 
   plot.attr('text-anchor', 'middle')
-  const items = plot.append('g')
+  const items = plot.select('#vulnerabilities-items')
 
   items.attr('transform', `translate(${width / 2}, ${height / 2})`)
     .selectAll('path')
@@ -55,7 +63,7 @@ export default function vulnerabilities({total, info, ...data}, svg) {
       closeDetails()
     })
 
-  plot.append('text')
+  plot.select('#vulnerabilities-text')
     .text(`total: ${total}`)
     .attr('x', `50%`)
     .attr('y', '50%')

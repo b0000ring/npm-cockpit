@@ -1,6 +1,9 @@
 export class Dashboard extends HTMLElement {
   layout = null
   rowCells = 4
+  resize_ob = null
+  timeout = null
+  items = []
 
   constructor() {
     super()
@@ -11,6 +14,11 @@ export class Dashboard extends HTMLElement {
         this.layout = data.layout
         this.render()
       })
+
+    this.resize_ob = new ResizeObserver(() => {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(this.changeSize.bind(this), 100)
+    })
   }
 
   // refactor this
@@ -18,8 +26,8 @@ export class Dashboard extends HTMLElement {
     let cell = 1
     let row = 1
     // TODO refactor
-    this.layout.forEach(item => {
-      const dashboardItem = document.createElement('dashboard-item')
+    this.layout.forEach((item, i) => {
+      const dashboardItem = this.items[i] || document.createElement('dashboard-item')
   
       if(cell > this.rowCells) {
         cell = 1
@@ -41,11 +49,19 @@ export class Dashboard extends HTMLElement {
   
       cell = finishCell
     
-      this.appendChild(dashboardItem)
+      if(!this.items[i]) {
+        this.appendChild(dashboardItem)
+        this.items[i] = dashboardItem
+      }
+      
     })
+
+    window.dispatchEvent(
+      new CustomEvent('dashboard-resize')
+    )
   }
 
-  connectedCallback() {
+  applyGrid() {
     const maxCellWidth = 480
     const width = this.offsetWidth
     let rowCells = Math.ceil(width / maxCellWidth)
@@ -56,8 +72,18 @@ export class Dashboard extends HTMLElement {
 
     const columnWidth = 100 / (rowCells)
     const value = new Array(rowCells).fill(`${columnWidth - 1}%`).join(' ')
-    console.log(rowCells, value)
+
     this.rowCells = rowCells
     this.style.gridTemplateColumns = value
+  }
+
+  changeSize() {
+    this.applyGrid()
+    this.render()
+  }
+
+  connectedCallback() {
+    this.applyGrid()
+    this.resize_ob.observe(this)
   }
 }

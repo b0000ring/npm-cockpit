@@ -25,6 +25,10 @@ export default class Item extends HTMLElement {
     this.render()
   }
 
+  resize() {
+    // should be implemented in successor
+  }
+
   showLoading() {
     if(this.loadingTimeout) {
       this.hideLoading()
@@ -47,5 +51,9 @@ export default class Item extends HTMLElement {
   connectedCallback() {
     this.className = 'item'
     this.render()
+
+    window.addEventListener('dashboard-resize', () => {
+      this.resize()
+    })
   }
 }

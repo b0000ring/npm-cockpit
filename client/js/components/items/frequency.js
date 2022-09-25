@@ -13,6 +13,10 @@ export class Frequency extends Item {
     }
   }
 
+  resize() {
+    this.render()
+  }
+
   processData() {
     super.loading = true
     this.frequencyWorker.postMessage(this.data)

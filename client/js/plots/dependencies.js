@@ -5,7 +5,7 @@ let plot = null
 // TODO refactor
 export default function dependencies(data, svg, setPath) {
   if(!data) {
-    plot.select('#plot-content').selectAll("*").remove();
+    plot.select('#plot-content').selectAll("*").remove()
     return 
   }
   const nodeHeight = 100
@@ -50,11 +50,11 @@ export default function dependencies(data, svg, setPath) {
   
   const colorScale = d3.scaleSequential()
     .domain([0, 10])
-    .interpolator(d3.interpolateRainbow);
+    .interpolator(d3.interpolateRainbow)
 
   const g = plot.select('#plot-content')
 
-  g.selectAll("*").remove();
+  g.selectAll("*").remove()
 
   d3.tree().nodeSize([nodeWidth + nodeSeparation, nodeHeight + nodeSeparation])( nodes )
 

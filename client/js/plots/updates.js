@@ -7,10 +7,19 @@ const descriptions = {
 }
 
 export default function updates(data, svg) {
+  // first render
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
       .attr('height', '100%')
+
+    plot.append('g')
+      .attr('id', 'updates-items')
+    
+    plot.append('text')
+      .attr('id', 'updates-text')
+      .attr('x', `50%`)
+      .attr('y', '50%')
   }
 
   const width = parseInt(plot.style('width'))
@@ -26,7 +35,7 @@ export default function updates(data, svg) {
 
   const colorScale = d3.scaleOrdinal()
   .domain(['major', 'minor', 'patch'])
-  .range(['#E70000', '#FBE900', '#2779FF']);
+  .range(['#E70000', '#FBE900', '#2779FF'])
 
   const pie = d3.pie()
     .value(d => d.count)
@@ -37,7 +46,7 @@ export default function updates(data, svg) {
   const pieData = pie(updates)
 
   plot.attr('text-anchor', 'middle')
-  const items = plot.append('g')
+  const items = plot.select('#updates-items')
 
   items.attr('transform', `translate(${width / 2}, ${height / 2})`)
     .selectAll('path')
@@ -58,10 +67,8 @@ export default function updates(data, svg) {
       closeDetails()
     })
 
-  plot.append('text')
+  plot.select('#updates-text')
     .text(`total: ${data.minor + data.major + data.patch}`)
-    .attr('x', `50%`)
-    .attr('y', '50%')
 
   function closeDetails() {
     window.dispatchEvent(

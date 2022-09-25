@@ -1,5 +1,4 @@
 import { wrapText } from './utils.js'
-import { Popups } from '../components/popups.js'
 
 let plot = null
 
@@ -9,6 +8,16 @@ export default function frequency(data, svg) {
     plot = d3.select(svg)
       .attr('width', '100%')
       .attr('height', '100%')
+
+    plot.append('g')
+      .attr('id', 'frequency-yaxis')
+      .attr('transform', 'translate(30, 0)')
+
+    plot.append('g')
+      .attr('id', 'frequency-xaxis')
+
+    plot.append('g')
+      .attr('id', 'frequency-items')
   }
 
   if(!data) {
@@ -24,14 +33,14 @@ export default function frequency(data, svg) {
   const scaleY = d3.scaleLinear().domain([0, max]).range([margin.top, height - margin.bottom])
   const colorScale = d3.scaleSequential()
     .domain([0, data.length])
-    .interpolator(d3.interpolateRainbow);
-  const items = plot.append('g')
+    .interpolator(d3.interpolateRainbow)
 
   const axisY = d3.axisLeft(
     d3.scaleLinear().domain([0, max]).range([height - margin.top, margin.bottom])
   ).ticks(10, 'f')
-
   const axisX = d3.axisBottom(scaleX).ticks(data.length).tickFormat((d, i) => wrapText(data[i]?.[0], 10)).tickSize(0)
+
+  const items = plot.select('#frequency-items')
 
   items.selectAll('rect')
     .data(data)
@@ -53,16 +62,14 @@ export default function frequency(data, svg) {
       closeDetails()
     })
 
-  plot.append('g')
+  plot.select('#frequency-yaxis')
     .attr('transform', 'translate(30, 0)')
     .call(axisY)
 
-  plot.append('g')
-    .attr('id', 'x-axis')
+  plot.select('#frequency-xaxis')
     .attr('transform', `translate(0, ${height - margin.bottom})`)
     .call(axisX)
-
-  plot.selectAll('#x-axis .tick text')
+  plot.selectAll('#frequency-xaxis .tick text')
     .attr("transform", `translate(10, 20) rotate(-45)`)
 
   function closeDetails() {

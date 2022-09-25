@@ -19,8 +19,11 @@ export class Vulnerabilities extends Item {
       this.append(element)
     }
     
-    console.log(this.data)
     vulnerabilitiesPlot(this.data, element)
+  }
+
+  resize() {
+    this.render()
   }
 
   render() {
