@@ -29,7 +29,7 @@ export default function vulnerabilities({total, info, ...data}, svg) {
 
   const colorScale = d3.scaleOrdinal()
   .domain(['critical', 'high', 'moderate', 'low'])
-  .range(['#E70000', '#EE6E00', '#FBE900', '#56F000', '#2779FF'])
+  .range(['#F73E6C', '#FFC23D', '#FCFF82', '#43FAC3', '#2779FF'])
 
   const vulnerabilities = Object.entries(data)
 
@@ -64,7 +64,8 @@ export default function vulnerabilities({total, info, ...data}, svg) {
     })
 
   plot.select('#vulnerabilities-text')
-    .text(`total: ${total}`)
+    .text(`Total: ${total}`)
+    .attr('class', 'total')
     .attr('x', `50%`)
     .attr('y', '50%')
 

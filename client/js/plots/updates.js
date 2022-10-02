@@ -35,7 +35,7 @@ export default function updates(data, svg) {
 
   const colorScale = d3.scaleOrdinal()
   .domain(['major', 'minor', 'patch'])
-  .range(['#E70000', '#FBE900', '#2779FF'])
+  .range(['#F73E6C', '#FBE900', '#43FAC3'])
 
   const pie = d3.pie()
     .value(d => d.count)
@@ -68,7 +68,8 @@ export default function updates(data, svg) {
     })
 
   plot.select('#updates-text')
-    .text(`total: ${data.minor + data.major + data.patch}`)
+    .text(`Total: ${data.minor + data.major + data.patch}`)
+    .attr('class', 'total')
 
   function closeDetails() {
     window.dispatchEvent(

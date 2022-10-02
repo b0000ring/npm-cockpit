@@ -7,9 +7,7 @@ npm-dashboard {
 
 dashboard-item {
   position: relative;
-  border: 1px solid grey;
-  border-radius: 4px;
-  box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 75%);
+  border: 1px solid #BBE3ED;
   height: 400px;
   box-sizing: border-box;
   display: flex;
@@ -17,11 +15,16 @@ dashboard-item {
 }
 
 dashboard-item h2 {
-  height: 48px;
+  letter-spacing: 0.5px;
+  background-color: rgba(242, 253, 255, 0.7);
+  font-family: PoppinsBold;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #68A2AA;
+  height: 55px;
   position: absolute;
-  padding: 0 16px;
-  background-color: #EAF6F6;
-  opacity: 0.7;
+  border-bottom: 1px solid #BBE3ED;
+  padding: 0 8px;
   width: 100%;
   top: 0;
   margin: 0;
@@ -56,13 +59,11 @@ loading-element object {
 }
 
 .modal-content {
-  box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 75%);
-  padding: 16px;
+  box-shadow: 2px 2px 6px 0px rgba(50, 50, 50, 0.75);
   position: fixed;
   background-color: white;
   z-index: 999;
-  border: 1px solid #66BFBF;
-  border-radius: 4px;
+  border: 1px solid #BBE3ED;
 }
 
 .modal-big {
@@ -74,33 +75,47 @@ loading-element object {
 }
 
 .modal-header {
-  font-size: 1.2rem;
+  box-sizing: border-box;
+  padding: 12px;
   font-weight: bold;
+  color: #5F7278;
   display: flex;
-  padding-bottom: 16px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #66BFBF;
+  border-bottom: 1px solid #BBE3ED;
 }
 
 .modal-body {
   max-height: 300px;
   overflow-y: scroll;
-  margin-top: 16px;
   width: 100%;
 }
 
 .modal-section {
   padding: 16px 8px;
   border-bottom: 1px solid #66BFBF;
+  color: #5F7278;
 }
 
-.modal-section:first-child {
+/* .modal-section:first-child {
   padding-top: 0;
-}
+} */
 
 .modal-section:last-child {
   border-bottom: none;
+}
+
+.modal-content .table td, .modal-content .table th {
+  border-color: #E0E7E8;
+  padding: 16px;
+}
+
+.modal-content .table th {
+  color: #BCC1C2;
+}
+
+.modal-content .table td {
+  color: #5F7278;
 }
 
 .table {
@@ -111,13 +126,16 @@ loading-element object {
   position: sticky;
   top: 0px;
   background: white;
-  box-shadow: inset 0 2px 0 #66bfbf, inset 0 -2px 0 #66bfbf;
+  box-shadow: inset 0 1px 0 #BBE3ED, inset 0 -2px 0 #BBE3ED;
 }
 .table th {
+  color: #68A2AA;
+  font-family: Poppins;
+  font-size: 0.9rem;
   min-width: 120px;
 }
 .table td, table th {
-  border: 1px solid #66BFBF;
+  border: 1px solid #BBE3ED;
 }
 .table tr:first-child th, .table tr:first-child td {
   border-top: 0;
@@ -132,6 +150,10 @@ loading-element object {
 .table tr td:last-child,
 .table tr th:last-child {
   border-right: 0;
+}
+
+.table td {
+  color: #5F7278;
 }
 
 .table th, .table td {
@@ -166,8 +188,8 @@ loading-element object {
 #dependencies-filter {
   position: absolute;
   z-index: 2;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 8px;
 }
 
 #dependencies-filter > input {
@@ -185,4 +207,9 @@ loading-element object {
 updates-table, vulnerabilities-table {
   overflow-y: scroll;
   margin-top: 48px;
+}
+
+.total {
+  font-family: Poppins;
+  color: #5F7278;
 }

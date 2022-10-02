@@ -5,17 +5,27 @@
   #FF0063
 */
 @font-face {
-  font-family: Roboto;
-  src: url(/font/Roboto-Regular.ttf);
+  font-family: Arimo;
+  src: url(/font/Arimo-Regular.ttf);
+}
+
+@font-face {
+  font-family: PoppinsBold;
+  src: url(/font/Poppins-Bold.ttf);
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url(/font/Poppins-Regular.ttf);
 }
 
 * {
-  font-family: Roboto;
+  font-family: Arimo;
   box-sizing: border-box;
 }
 
 a {
-  color: #FF0063;
+  color: #44DBF0;
   text-decoration: none;
 }
 
@@ -34,16 +44,18 @@ body {
 }
 
 header {
-  max-height: 80px;
-  background-color: #66BFBF;
+  max-height: 40px;
+  background-color: #F2FDFF;
 }
 
 .logo {
-  font-size: 2.5rem;
+  font-family: PoppinsBold;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   margin-left: 32px;
-  color: white;
+  font-weight: 700;
+  color: #92D7E8;
 }
 
 main {
@@ -53,11 +65,12 @@ main {
 
 footer {
   min-height: 90px;
-  background-color: #EAF6F6;
+  background-color: #F2FDFF;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #92D7E8;
 }
 
 footer > div {
