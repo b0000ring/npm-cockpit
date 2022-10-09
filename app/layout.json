@@ -29,6 +29,11 @@
       "w": 3,
       "title": "Vulnerabilities List",
       "component": "vulnerabilities-table"
+    },
+    {
+      "w": 3,
+      "title": "Issues List",
+      "component": "issues-table"
     }
   ]
 }

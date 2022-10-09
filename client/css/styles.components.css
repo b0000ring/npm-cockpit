@@ -204,9 +204,9 @@ loading-element object {
   transform: translate(-50%, -50%);
 }
 
-updates-table, vulnerabilities-table {
+updates-table, vulnerabilities-table, issues-table {
   overflow-y: scroll;
-  margin-top: 48px;
+  margin-top: 55px;
 }
 
 .total {

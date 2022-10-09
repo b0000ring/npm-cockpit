@@ -1,3 +1,18 @@
+const errorData = {
+  circular: {
+    label: 'circular',
+    description: 'circular dependency in package'
+  },
+  missing: {
+    label: 'missing',
+    description: 'package not found in node_modules folder or failed to parse'
+  },
+  peer: {
+    label: 'peer dependency version conflict',
+    description: 'package contains peer dependency which was not found in project'
+  },
+}
+
 onmessage = function(e) {
   let count = 0
   const { dependencies, root} = e.data[0]
@@ -11,6 +26,7 @@ onmessage = function(e) {
   function processTree(node, level) {
     const { connections } = node
     let deps = []
+    // getting dependencies for node
     if(!(level > limitation) || path[level - 1] === node.name) {
       deps = connections.map(item => {
         const depNode = dependencies[item]
@@ -18,9 +34,13 @@ onmessage = function(e) {
       }).filter(Boolean)
     } 
 
+    // filtering
     if(filter && !deps.length && !checkNode(node, filter)) {
       return null
     }
+
+    // adding errors to tree
+    node.errors.forEach(error => deps.push(getError(error)))
 
     count += 1
     return {
@@ -50,4 +70,15 @@ function checkValue(field, value) {
   }
 
   return field.includes(value)
+}
+
+function getError(error) {
+  const type = errorData[error.type].label || error.type
+  const description = errorData[error.type].description || ''
+  return {
+    name: `${error.lib}: ${type} error`,
+    description,
+    keywords:['error', type],
+    error: true
+  }
 }

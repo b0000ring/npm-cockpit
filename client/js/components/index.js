@@ -2,7 +2,16 @@ import { Dashboard } from './dashboard.js'
 import { DashboardItem } from './dashboard-item.js'
 import { Popups } from './popups.js'
 // items
-import { Frequency, Dependencies, Updates, Vulnerabilities, UpdatesTable, VulnerabilitiesTable } from './items/index.js'
+import { 
+  Frequency,
+  Dependencies, 
+  Updates, 
+  Vulnerabilities,
+  UpdatesTable, 
+  VulnerabilitiesTable,
+  IssuesTable,
+} from './items/index.js'
+
 // elements
 import { Loading } from './elements/loading.js'
 import { CustomTable } from './elements/table.js'
@@ -17,6 +26,7 @@ window.customElements.define('vulnerabilities-item', Vulnerabilities)
 window.customElements.define('dependencies-item', Dependencies)
 window.customElements.define('updates-item', Updates)
 window.customElements.define('updates-table', UpdatesTable)
+window.customElements.define('issues-table', IssuesTable)
 window.customElements.define('vulnerabilities-table', VulnerabilitiesTable)
 window.customElements.define('loading-element', Loading)
 window.customElements.define('module-data-popup', ModuleDataPopup)

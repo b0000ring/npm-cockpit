@@ -1,9 +1,11 @@
-import json
 import sys
 import os
 import subprocess
+import json
 
+from app.utils import open_json_file, to_dict
 from app.classes.Lib import Lib
+from app.classes.Error import Error
 
 loaded = False
 data = {}
@@ -34,12 +36,11 @@ if not(isfolder):
   exit()
 
 def process_dependencies():
-  # initial
   global data
   global root
   global max_depth
 
-  root_data = json.load(open(package_json_path))
+  root_data = open_json_file(package_json_path)
   root = Lib(root_data)
   # updatable
   stack = [root]
@@ -61,16 +62,10 @@ def process_dependencies():
         stack.pop(len(stack) - 1)
         found = True
   
-    # if circular dependency found then add error object to list
+    # if circular dependency found then add error object to parent lib
     # and skip next steps
     if found:
-      error_name = current.name + ': circular error'
-      data[current.name].add_connection(error_name)
-      stack.append(Lib({
-        'name': error_name,
-        'error': True,
-        'description': 'Circular dependency'
-      }))
+      stack[depth - 2].add_error(Error(current.name, 'circular'))
       continue
 
     # adding current lib to result list
@@ -84,15 +79,12 @@ def process_dependencies():
       current.dependencies.pop(child, None)
       child_path = node_modules_path + '/' + child + '/package.json'
       try:
-        child_data = json.load(open(child_path))
+        child_data = open_json_file(child_path)
+        stack.append(Lib(child_data))
       except:
-        child_data = {
-          'name': child,
-          'error': True,
-          'description': 'package not found in node_modules folder'
-        }
-      current.connections.append(child_data['name'])
-      stack.append(Lib(child_data))
+        current.add_error(Error(child, 'missing'))
+      finally:
+        current.connections.append(child_data['name'])
     else:
       stack.pop(len(stack) - 1)
 
@@ -101,9 +93,7 @@ def get_dependencies():
   print('Getting project tree...')
   result = {}
   for key in data:
-    result[key] = data[key].__dict__
-  # with open('data.json', 'w', encoding='utf-8') as f:
-  #   json.dump(result, f, ensure_ascii=False, indent=4)
+    result[key] = to_dict(data[key])
   return {
     'root': root.name,
     'dependencies': result,
@@ -112,8 +102,8 @@ def get_dependencies():
 
 # getting count data by usage data
 def get_frequency():
-  result = {}
   print('Getting frequency data...')
+  result = {}
   for node in data:
     for dependency in data[node].connections:
       if dependency in result:
@@ -121,24 +111,36 @@ def get_frequency():
       else:
         result[dependency] = {
           'count': 1,
-          'data': data[dependency].__dict__
+          'data': to_dict(data[dependency])
         }
   return result 
 
 def get_updates():
-  global updates_data
   print('Getting updates data...')
+  global updates_data
   if not updates_data:
-    command = 'npm outdated --json --all'
-    result = subprocess.check_output(command, shell=True, cwd=path)
+    command = ['npm', 'outdated', '--json', '--all']
+    result = subprocess.run(command, capture_output=True, cwd=path).stdout
     updates_data = json.loads(result)
   return updates_data
 
 def get_vulnerabilities():
-  global vulnerabilities_data
   print('Getting vulnerabilities data...')
+  global vulnerabilities_data
   if not vulnerabilities_data:
-    command = 'npm audit --json'
-    result = subprocess.check_output(command, shell=True, cwd=path)
+    command = ['npm', 'audit', '--json']
+    result = subprocess.run(command, capture_output=True, cwd=path).stdout
     vulnerabilities_data = json.loads(result)
   return vulnerabilities_data
+
+def get_issues():
+  print('Getting issues data...')
+  result = {}
+  for key in data:
+    errors = data[key].errors
+    for error in errors:
+      if not error.type in result:
+        result[error.type] = {}
+      result[error.type][error.lib] = to_dict(error)
+  return result
+

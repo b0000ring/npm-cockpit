@@ -48,9 +48,14 @@ export default function dependencies(data, svg, setPath) {
       .call(zoom)
   }
   
-  const colorScale = d3.scaleSequential()
+  // const colorScale = d3.scaleSequential()
+  //   .domain([0, 10])
+  //   .interpolator(d3.interpolateRainbow)
+
+  const colorScale = d3.scaleLinear()
     .domain([0, 10])
-    .interpolator(d3.interpolateRainbow)
+    .range(['#CC66BC', '#80006B'])
+    .interpolate(d3.interpolateHcl);
 
   const g = plot.select('#plot-content')
 
@@ -97,7 +102,7 @@ export default function dependencies(data, svg, setPath) {
       .attr('href', '#node')
       .attr('stroke-width', 2)
       .attr('x', d => d.x - 25).attr('y', d => d.y - 25)
-      .attr('fill', d => d.data.error ? 'red' : colorScale(d.depth))
+      .attr('fill', d => d.data.error ? '#F73E6C' : colorScale(d.depth))
 
     g.append('text')
       .attr('x', d => d.x - 5)
