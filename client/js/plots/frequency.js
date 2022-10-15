@@ -74,7 +74,7 @@ export default function frequency(data, svg) {
     .attr('transform', `translate(0, ${height - margin.bottom})`)
     .call(axisX)
   plot.selectAll('#frequency-xaxis .tick text')
-    .attr("transform", `translate(10, 20) rotate(-45)`)
+    .attr('transform', `translate(10, 20) rotate(-45)`)
 
   function closeDetails() {
     window.dispatchEvent(

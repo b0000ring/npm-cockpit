@@ -68,8 +68,8 @@ export class Dependencies extends Item {
     const input = document.createElement('input')
     input.id = 'dependenices-filter-input'
     input.setAttribute('placeholder', 'Name/Keyword/Author/Version')
-    input.addEventListener("keyup", (event) => {
-      if (event.key === "Enter") {
+    input.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
         this.filter()
       }
     })

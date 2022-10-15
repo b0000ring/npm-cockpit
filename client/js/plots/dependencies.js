@@ -5,7 +5,7 @@ let plot = null
 // TODO refactor
 export default function dependencies(data, svg, setPath) {
   if(!data) {
-    plot.select('#plot-content').selectAll("*").remove()
+    plot.select('#plot-content').selectAll('*').remove()
     return 
   }
   const nodeHeight = 100
@@ -25,7 +25,7 @@ export default function dependencies(data, svg, setPath) {
 
     const zoom = d3.zoom()
       .extent([[0, 0], [width, height]])
-      .on("zoom", zoomed)
+      .on('zoom', zoomed)
 
     plot.append('defs')
       .append('rect')
@@ -59,15 +59,15 @@ export default function dependencies(data, svg, setPath) {
 
   const g = plot.select('#plot-content')
 
-  g.selectAll("*").remove()
+  g.selectAll('*').remove()
 
-  d3.tree().nodeSize([nodeWidth + nodeSeparation, nodeHeight + nodeSeparation])( nodes )
+  d3.tree().nodeSize([nodeWidth + nodeSeparation, nodeHeight + nodeSeparation])(nodes)
 
-  g.selectAll( "path" ).data( nodes.links() ).enter()
-    .append( "path" ).attr( "d", d => lnkMkr(d) )
-    .attr( "stroke", "black" ).attr( "fill", "none" )
+  g.selectAll('path').data(nodes.links()).enter()
+    .append('path').attr('d', d => lnkMkr(d))
+    .attr('stroke', 'black').attr('fill', 'none')
       
-  const selection = g.selectAll("g").data( nodes.descendants() ).enter()
+  const selection = g.selectAll('g').data(nodes.descendants()).enter()
   renderItem(selection)
 
   function closeDetails() {
@@ -136,7 +136,7 @@ export default function dependencies(data, svg, setPath) {
 
   function zoomed({ transform }) {
     closeDetails()
-    plot.select('#plot-content').attr("transform", transform)
+    plot.select('#plot-content').attr('transform', transform)
   }
 }
 

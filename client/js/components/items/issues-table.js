@@ -23,7 +23,6 @@ export class IssuesTable extends Item {
     if(!element) {
       const table = document.createElement('custom-table')
       table.id = 'issues-table'
-      console.log(this.processedData)
       table.__items__ = this.processedData
       table.__columns__ = {
         lib: 'Name',
