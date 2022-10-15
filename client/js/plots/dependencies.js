@@ -55,7 +55,7 @@ export default function dependencies(data, svg, setPath) {
   const colorScale = d3.scaleLinear()
     .domain([0, 10])
     .range(['#CC66BC', '#80006B'])
-    .interpolate(d3.interpolateHcl);
+    .interpolate(d3.interpolateHcl)
 
   const g = plot.select('#plot-content')
 

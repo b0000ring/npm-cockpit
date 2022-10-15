@@ -31,9 +31,13 @@ export default function frequency(data, svg) {
   const max = d3.max(data, item => item[1].count)
   const scaleX = d3.scaleLinear().domain([0, data.length]).range([margin.left, width - margin.right])
   const scaleY = d3.scaleLinear().domain([0, max]).range([margin.top, height - margin.bottom])
-  const colorScale = d3.scaleSequential()
-    .domain([0, data.length])
-    .interpolator(d3.interpolateRainbow)
+  const colorScale = d3.scaleQuantize()
+      .domain([0, data.length])
+      .range([
+        '#FFD0FD', '#FD97FF', '#E585FD', '#D765FF', 
+        '#D14EFF', '#D52EFF', '#FF07F5', '#FF4FF8',
+        '#FC68FF', '#FEB5FF'
+      ]) 
 
   const axisY = d3.axisLeft(
     d3.scaleLinear().domain([0, max]).range([height - margin.top, margin.bottom])
