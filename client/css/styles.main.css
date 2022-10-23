@@ -19,6 +19,11 @@
   src: url(/font/Poppins-Regular.ttf);
 }
 
+@font-face {
+  font-family: Roboto;
+  src: url(/font/Roboto-Regular.ttf);
+}
+
 * {
   font-family: Arimo;
   box-sizing: border-box;

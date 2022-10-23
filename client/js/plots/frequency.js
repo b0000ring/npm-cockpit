@@ -34,9 +34,9 @@ export default function frequency(data, svg) {
   const colorScale = d3.scaleQuantize()
       .domain([0, data.length])
       .range([
-        '#FFD0FD', '#FD97FF', '#E585FD', '#D765FF', 
-        '#D14EFF', '#D52EFF', '#FF07F5', '#FF4FF8',
-        '#FC68FF', '#FEB5FF'
+        '#2F2B58', '#29376B', '#28407C', '#28579E', 
+        '#2D74B6', '#0293C0', '#23AFCE', '#1DCDD9',
+        '#57EBF0', '#8AF8F8'
       ]) 
 
   const axisY = d3.axisLeft(

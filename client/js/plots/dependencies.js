@@ -8,13 +8,12 @@ export default function dependencies(data, svg, setPath) {
     plot.select('#plot-content').selectAll('*').remove()
     return 
   }
-  const nodeHeight = 100
-  const nodeWidth = 200
+  const nodeHeight = 44
+  const nodeWidth = 100
   const nodeSeparation = 30
 
   const nodes = d3.hierarchy(data, d => d.deps)
   const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
-
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
@@ -44,17 +43,13 @@ export default function dependencies(data, svg, setPath) {
     // applying zoom
     plot
       // setting default zoom values
-      .call(zoom.transform, d3.zoomIdentity.translate(350,100).scale(0.5))
+      .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
       .call(zoom)
   }
-  
-  // const colorScale = d3.scaleSequential()
-  //   .domain([0, 10])
-  //   .interpolator(d3.interpolateRainbow)
 
   const colorScale = d3.scaleLinear()
     .domain([0, 10])
-    .range(['#CC66BC', '#80006B'])
+    .range(['#2EBCDB', '#93E2F2'])
     .interpolate(d3.interpolateHcl)
 
   const g = plot.select('#plot-content')
@@ -105,15 +100,19 @@ export default function dependencies(data, svg, setPath) {
       .attr('fill', d => d.data.error ? '#F73E6C' : colorScale(d.depth))
 
     g.append('text')
-      .attr('x', d => d.x - 5)
-      .attr('y', d => d.y + 25)
+      .attr('x', d => d.x - 15)
+      .attr('y', d => d.y + 5)
       .attr('fill', 'white')
+      .style('font-family', 'Roboto')
+      .style('font-size', '10px')
       .text(d => d.data.error ? wrapText(d.data.description) : d.data.version)
       
     g.append('text')
-      .attr('x', d => d.x - 5)
-      .attr('y', d => d.y)
+      .attr('x', d => d.x - 15)
+      .attr('y', d => d.y - 10)
       .text(d => wrapText(d.data.name))
+      .style('font-family', 'Roboto')
+      .style('font-size', '8px')
   }
 
   function showDetails(event, obj) {
