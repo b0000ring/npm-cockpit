@@ -1,18 +1,23 @@
-from flask import Flask
-from waitress import serve
 # import webbrowser
 
-from app.Router import Router
-from app.processing import process_dependencies
+from http.server import HTTPServer
+from socketserver import ThreadingMixIn
 
-app = Flask(__name__, static_url_path='/client')
-# def open_browser():
-    # webbrowser.open_new('http://127.0.0.1:5000/')
+from app.Server import Server
+from app.processing import process_dependencies
+from app.Router import Router
+
+HOST_NAME = '0.0.0.0'
+PORT_NUMBER = 8080
+
+class ThreadingSimpleServer(ThreadingMixIn, HTTPServer):
+    pass
 
 def init():
-    process_dependencies()
-    Router(app)
-    # open_browser()
-
-    # app.run(processes=1) 
-    serve(app, host='0.0.0.0', port=8080, threads=6)
+  process_dependencies()
+  httpd = ThreadingSimpleServer((HOST_NAME, PORT_NUMBER), Server)
+  try:
+      httpd.serve_forever()
+  except KeyboardInterrupt:
+      pass
+  httpd.server_close()

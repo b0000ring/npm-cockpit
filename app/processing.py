@@ -9,10 +9,12 @@ from app.classes.Error import Error
 
 loaded = False
 data = {}
+peer_deps = {}
 updates_data = {}
 vulnerabilities_data = {}
 root = None
 max_depth = 0
+
 
 try:
   sys.argv[1]
@@ -71,7 +73,14 @@ def process_dependencies():
     # adding current lib to result list
     if current.name not in data:
       data[current.name] = current
-    
+
+    #peer dependencies parsing
+    if len(current.peerDependencies.keys()):
+      for key in current.peerDependencies.keys():
+        dep = current.peerDependencies[key]
+        if key not in peer_deps: peer_deps[key] = set()
+        peer_deps[key].add(dep)
+
     # dependencies parsing
     if len(current.dependencies.keys()):
       deps = list(current.dependencies.keys())
@@ -135,6 +144,7 @@ def get_vulnerabilities():
 
 def get_issues():
   print('Getting issues data...')
+  print(peer_deps)
   result = {}
   for key in data:
     errors = data[key].errors

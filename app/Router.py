@@ -1,48 +1,57 @@
-from flask import redirect, send_from_directory, make_response
+import os
+import json
+from mimetypes import guess_type
 
 from app.processing import get_dependencies, get_frequency, get_updates, get_vulnerabilities, get_issues
-from app.layout import get_layout, post_layout
+from app.layout import get_layout
+from app.classes.Response import Response
+from app.utils import open_file
+
+static_folder = '/client'
 
 class Router:
-  def __init__(self, app):
-    @app.route("/api/dependencies")
-    def send_dependencies():
-        return get_dependencies()
+  def __init__(self):
+    self.routes = {
+      '/': self.root,
+      '/api/layout': self.send_layout,
+      '/api/dependencies': self.send_dependencies,
+      '/api/vulnerabilities': self.send_vulnerabilities,
+      '/api/updates': self.send_updates,
+      '/api/frequency': self.send_frequency,
+      '/api/issues': self.send_issues
+    }
 
-    @app.route("/api/vulnerabilities")
-    def send_vulnerabilities():
-        return get_vulnerabilities()
+  def root(self):
+    return self.static('/index.html')
 
-    @app.route("/api/issues")
-    def send_issues():
-        return get_issues()
+  def send_dependencies(self):
+    return Response('application/json', json.dumps(get_dependencies()))
 
-    @app.route("/api/updates")
-    def send_updates():
-        return get_updates()
+  def send_layout(self):
+    return Response('application/json', json.dumps(get_layout()))
 
-    @app.route("/api/security")
-    def send_security():
-        return "{}"
+  def send_vulnerabilities(self):
+    return  Response('application/json', json.dumps(get_vulnerabilities()))
+  
+  def send_issues(self):
+    return Response('application/json', json.dumps(get_issues()))
 
-    @app.route("/api/frequency")
-    def send_frequency():
-        return get_frequency()
+  def send_updates(self):
+    return Response('application/json', json.dumps(get_updates()))
 
-    @app.route("/api/layout", methods = ['GET'])
-    def send_layout():
-        return get_layout()
+  def send_frequency(self):
+    return Response('application/json', json.dumps(get_frequency()))
 
-    @app.route("/api/layout", methods = ['POST'])
-    def save_layout():
-        return post_layout()
+  def static(self, path):
+    final_path = os.getcwd() + static_folder + path
+    isfile = os.path.isfile(final_path)
 
-    @app.route("/")
-    def index():
-        return redirect("/index.html")
+    if isfile:
+      data = open_file(final_path)
+      type = guess_type(final_path)
+      return Response(type[0], data)
+    else:
+      return self.not_found()
 
-    @app.route("/<path:path>")
-    def send_client(path):
-        resp = make_response(send_from_directory('../client', path))
-        resp.headers['Cache-Control'] = 'no-cache'
-        return resp
+  def not_found(self):
+    return Response('text/plain', '404 not found', status = 404)   

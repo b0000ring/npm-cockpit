@@ -1,8 +1,8 @@
-import json
+from app.utils import open_json_file
 
 def get_layout():
   print('Getting layout')
-  return json.load(open('app/layout.json'))
+  return open_json_file('app/layout.json')
 
 def post_layout():
   print('Posting layout')

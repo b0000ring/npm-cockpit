@@ -105,7 +105,7 @@ export default function dependencies(data, svg, setPath) {
       .attr('fill', 'white')
       .style('font-family', 'Roboto')
       .style('font-size', '10px')
-      .text(d => d.data.error ? wrapText(d.data.description) : d.data.version)
+      .text(d => d.data.error ? wrapText(d.data.description, 15) : d.data.version)
       
     g.append('text')
       .attr('x', d => d.x - 15)
