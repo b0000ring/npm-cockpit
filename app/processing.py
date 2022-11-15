@@ -2,6 +2,7 @@ import sys
 import os
 import subprocess
 import json
+from threading import Thread
 
 from app.utils import open_json_file, to_dict
 from app.classes.Lib import Lib
@@ -14,6 +15,9 @@ updates_data = {}
 vulnerabilities_data = {}
 root = None
 max_depth = 0
+
+ut = None
+vt = None
 
 
 try:
@@ -124,22 +128,40 @@ def get_frequency():
         }
   return result 
 
+def pull_updates():
+  global updates_data
+  command = ['npm', 'outdated', '--json', '--all']
+  result = subprocess.run(command, capture_output=True, cwd=path).stdout
+  updates_data = json.loads(result)
+
 def get_updates():
   print('Getting updates data...')
   global updates_data
+  global ut
   if not updates_data:
-    command = ['npm', 'outdated', '--json', '--all']
-    result = subprocess.run(command, capture_output=True, cwd=path).stdout
-    updates_data = json.loads(result)
+    if not ut:
+      print('start thread')
+      ut = Thread(target=pull_updates)
+      ut.start()
+    print('connect thread')
+    ut.join()
   return updates_data
+
+def pull_vulnerabilities():
+  global vulnerabilities_data
+  command = ['npm', 'audit', '--json']
+  result = subprocess.run(command, capture_output=True, cwd=path).stdout
+  vulnerabilities_data = json.loads(result)
 
 def get_vulnerabilities():
   print('Getting vulnerabilities data...')
   global vulnerabilities_data
+  global vt
   if not vulnerabilities_data:
-    command = ['npm', 'audit', '--json']
-    result = subprocess.run(command, capture_output=True, cwd=path).stdout
-    vulnerabilities_data = json.loads(result)
+    if not vt:
+      vt = Thread(target=pull_vulnerabilities)
+      vt.start()
+    vt.join()
   return vulnerabilities_data
 
 def get_issues():

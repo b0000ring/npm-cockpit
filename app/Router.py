@@ -44,6 +44,10 @@ class Router:
 
   def static(self, path):
     final_path = os.getcwd() + static_folder + path
+
+    if '..' in path:
+      return Response('text/plain', '403 forbidden', status = 403)  
+
     isfile = os.path.isfile(final_path)
 
     if isfile:
