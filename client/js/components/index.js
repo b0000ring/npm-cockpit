@@ -4,12 +4,13 @@ import { Popups } from './popups.js'
 // items
 import { 
   Frequency,
-  Dependencies, 
+  DependenciesTree, 
   Updates, 
   Vulnerabilities,
   UpdatesTable, 
   VulnerabilitiesTable,
   IssuesTable,
+  DependenciesNetwork
 } from './items/index.js'
 
 // elements
@@ -23,7 +24,8 @@ window.customElements.define('dashboard-item', DashboardItem)
 window.customElements.define('popups-root', Popups)
 window.customElements.define('frequency-item', Frequency)
 window.customElements.define('vulnerabilities-item', Vulnerabilities)
-window.customElements.define('dependencies-item', Dependencies)
+window.customElements.define('dependencies-tree-item', DependenciesTree)
+window.customElements.define('dependencies-network-item', DependenciesNetwork)
 window.customElements.define('updates-item', Updates)
 window.customElements.define('updates-table', UpdatesTable)
 window.customElements.define('issues-table', IssuesTable)

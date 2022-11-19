@@ -166,7 +166,6 @@ def get_vulnerabilities():
 
 def get_issues():
   print('Getting issues data...')
-  print(peer_deps)
   result = {}
   for key in data:
     errors = data[key].errors

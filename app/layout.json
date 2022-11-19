@@ -1,9 +1,14 @@
 {
   "layout": [
     {
-      "w": 3,
-      "title": "Dependencies",
-      "component": "dependencies-item"
+      "w": 4,
+      "title": "Dependencies tree",
+      "component": "dependencies-tree-item"
+    },
+    {
+      "w": 4,
+      "title": "Dependencies network",
+      "component": "dependencies-network-item"
     },
     {
       "w": 1,
@@ -26,12 +31,12 @@
       "component": "updates-table"
     },
     {
-      "w": 3,
+      "w": 2,
       "title": "Vulnerabilities List",
       "component": "vulnerabilities-table"
     },
     {
-      "w": 3,
+      "w": 2,
       "title": "Issues List",
       "component": "issues-table"
     }

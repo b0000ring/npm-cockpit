@@ -1,7 +1,7 @@
-import dependenciesPlot from '/js/plots/dependencies.js'
+import dependenciesPlot from '/js/plots/dependencies-tree.js'
 import Item from './Item.js'
 
-export class Dependencies extends Item {
+export class DependenciesTree extends Item {
   options = {
     limitation: 1,
     filter: '',

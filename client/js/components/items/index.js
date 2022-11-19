@@ -1,5 +1,6 @@
 export { Frequency } from './frequency.js'
-export { Dependencies } from './dependencies.js'
+export { DependenciesTree } from './dependencies-tree.js'
+export { DependenciesNetwork } from './dependencies-network.js'
 export { Updates } from './updates.js'
 export { Vulnerabilities } from './vulnerabilities.js'
 export { UpdatesTable } from './updates-table.js'

@@ -10,7 +10,10 @@ class Server(BaseHTTPRequestHandler):
     return
     
   def do_GET(self):
-    self.respond()
+    try:
+      self.respond()
+    except:
+      self.send_response(400)
     
   def do_POST(self):
     return
