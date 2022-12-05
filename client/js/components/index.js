@@ -1,7 +1,7 @@
 import { Dashboard } from './dashboard.js'
-import { DashboardItem } from './dashboard-item.js'
+import { Widget } from './widget.js'
 import { Popups } from './popups.js'
-// items
+// widgets
 import { 
   Frequency,
   DependenciesTree, 
@@ -20,7 +20,7 @@ import { CustomTable } from './elements/table.js'
 import { ModuleDataPopup, GroupDataPopup } from './popups/index.js'
 
 window.customElements.define('npm-dashboard', Dashboard)
-window.customElements.define('dashboard-item', DashboardItem)
+window.customElements.define('dashboard-widget', Widget)
 window.customElements.define('popups-root', Popups)
 window.customElements.define('frequency-item', Frequency)
 window.customElements.define('vulnerabilities-item', Vulnerabilities)

@@ -24,7 +24,7 @@ export default function vulnerabilities({total, info, ...data}, svg) {
 
   const width = parseInt(plot.style('width'))
   const height = parseInt(plot.style('height'))
-  const padding = 30
+  const padding = 50
   const radius = Math.min(width, height) / 2 - padding
 
   const colorScale = d3.scaleOrdinal()

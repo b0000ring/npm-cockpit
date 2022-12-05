@@ -5,17 +5,17 @@ export class GroupDataPopup extends Popup {
   connectedCallback() {
     const data = this.__data__
     const root = document.createElement('div')
-    root.className = 'modal-content modal-small'
+    root.className = 'popup-content popup-small'
 
     const header = document.createElement('div')
-    header.className = 'modal-header'
+    header.className = 'popup-header'
     header.textContent = `${data.name}: ${data.count || 'unknown'}`
     
     const body = document.createElement('div')
-    body.className = 'modal-body'
+    body.className = 'popup-body'
 
     const description = document.createElement('div')
-    description.className = 'modal-section'
+    description.className = 'popup-section'
     description.textContent = data.description || ''
 
     body.append(description)

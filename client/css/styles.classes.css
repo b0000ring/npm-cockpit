@@ -1,0 +1,130 @@
+/* ______DASHBOARD_______ */
+.dashboard-section {
+  padding: 32px;
+  margin: auto;
+  margin-bottom: 64px;
+  background-color: #F6F6F6;
+  border-radius: 8px;
+}
+
+.dashboard-section-content {
+  display: grid;
+  grid-gap: 16px 16px;
+}
+
+.dashboard-section-title {
+  font-family: PoppinsBold;
+  color: #68A2AA;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+
+.item {
+  height: 100%;
+}
+
+/* ______POPUP_______ */
+.popup-content {
+  box-shadow: 2px 2px 6px 0px rgba(50, 50, 50, 0.75);
+  position: fixed;
+  background-color: white;
+  z-index: 999;
+  border: 1px solid #BBE3ED;
+}
+
+.popup-big {
+  width: 600px;
+}
+
+.mopopupdal-small {
+  width: 300px;
+}
+
+.popup-header {
+  box-sizing: border-box;
+  padding: 12px;
+  font-weight: bold;
+  color: #5F7278;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #BBE3ED;
+}
+
+.popup-body {
+  max-height: 300px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.popup-section {
+  padding: 16px 8px;
+  border-bottom: 1px solid #66BFBF;
+  color: #5F7278;
+}
+
+.popup-section:last-child {
+  border-bottom: none;
+}
+
+.popup-content .table td, .popup-content .table th {
+  border-color: #E0E7E8;
+  padding: 16px;
+}
+
+.popup-content .table th {
+  color: #BCC1C2;
+}
+
+.popup-content .table td {
+  color: #5F7278;
+}
+
+/* ________TABLE________ */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table thead {
+  position: sticky;
+  top: 0px;
+  background: white;
+  box-shadow: inset 0 -2px 0 #BBE3ED;
+}
+.table th {
+  color: #68A2AA;
+  font-family: Poppins;
+  font-size: 0.9rem;
+  min-width: 120px;
+}
+.table td, table th {
+  border: 1px solid #BBE3ED;
+}
+.table tr:first-child th, .table tr:first-child td {
+  border-top: 0;
+}
+.table tr:last-child td, .table tr:last-child th {
+  border-bottom: 0;
+}
+.table tr td:first-child,
+.table tr th:first-child {
+  border-left: 0;
+}
+.table tr td:last-child,
+.table tr th:last-child {
+  border-right: 0;
+}
+
+.table td {
+  color: #5F7278;
+}
+
+.table th, .table td {
+  padding: 8px;
+}
+
+.total {
+  font-family: Poppins;
+  fill: #5F7278;
+}

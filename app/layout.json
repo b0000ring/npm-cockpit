@@ -1,44 +1,82 @@
 {
   "layout": [
     {
-      "w": 4,
-      "title": "Dependencies tree",
-      "component": "dependencies-tree-item"
+      "title": "General info",
+      "widgets": [
+        {
+          "w": 3,
+          "h": 3,
+          "title": "Vulnerabilities",
+          "component": "vulnerabilities-item"
+        },
+        {
+          "w": 3,
+          "h": 3,
+          "title": "Updates",
+          "component": "updates-item"
+        },
+        {
+          "h": 4,
+          "w": 6,
+          "title": "Frequency",
+          "component": "frequency-item"
+        }
+      ]
     },
     {
-      "w": 4,
-      "title": "Dependencies network",
-      "component": "dependencies-network-item"
-    },
-    {
-      "w": 1,
-      "title": "Updates",
-      "component": "updates-item"
-    },
-    {
-      "w": 1,
-      "title": "Vulnerabilities",
-      "component": "vulnerabilities-item"
-    },
-    {
-      "w": 2,
-      "title": "Frequency",
-      "component": "frequency-item"
-    },
-    {
-      "w": 3,
       "title": "Updates List",
-      "component": "updates-table"
+      "widgets": [
+        {
+          "w": 10,
+          "h": 6,
+          "title": "",
+          "component": "updates-table"
+        }
+      ]
     },
     {
-      "w": 2,
       "title": "Vulnerabilities List",
-      "component": "vulnerabilities-table"
+      "widgets": [
+        {
+          "w": 10,
+          "h": 6,
+          "title": "",
+          "component": "vulnerabilities-table"
+        }
+      ]
     },
     {
-      "w": 2,
       "title": "Issues List",
-      "component": "issues-table"
+      "widgets": [
+        {
+          "w": 10,
+          "h": 6,
+          "title": "",
+          "component": "issues-table"
+        }
+      ]
+    },
+    {
+      "title": "Dependencies tree",
+      "widgets": [
+        {
+          "w": 10,
+          "h": 6,
+          "title": "",
+          "component": "dependencies-tree-item"
+        }
+      ]
+    },
+    {
+      "title": "Dependencies network",
+      "widgets": [
+        {
+          "w": 10,
+          "h": 6,
+          "title": "",
+          "component": "dependencies-network-item"
+        }
+      ]
     }
   ]
 }

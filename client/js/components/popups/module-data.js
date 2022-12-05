@@ -54,10 +54,10 @@ export class ModuleDataPopup extends Popup {
   connectedCallback() {
     const data = this.__data__
     const root = document.createElement('div')
-    root.className = 'modal-content modal-big'
+    root.className = 'popup-content popup-big'
 
     const header = document.createElement('div')
-    header.className = 'modal-header'
+    header.className = 'popup-header'
     header.textContent = data.name
 
     const npmLink = document.createElement('a')
@@ -66,7 +66,7 @@ export class ModuleDataPopup extends Popup {
     npmLink.textContent = 'NPM'
     
     const body = document.createElement('div')
-    body.className = 'modal-body'
+    body.className = 'popup-body'
 
     const table = document.createElement('table')
     table.className = 'table'

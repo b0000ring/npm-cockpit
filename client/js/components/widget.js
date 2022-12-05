@@ -1,4 +1,4 @@
-export class DashboardItem extends HTMLElement {
+export class Widget extends HTMLElement {
   connectedCallback() {
     const name = this.getAttribute('name')
     const component = this.getAttribute('component')

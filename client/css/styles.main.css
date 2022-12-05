@@ -1,9 +1,3 @@
-/* main color palette 
-  #66BFBF
-  #EAF6F6
-  #FFFFFF
-  #FF0063
-*/
 @font-face {
   font-family: Arimo;
   src: url(/font/Arimo-Regular.ttf);
@@ -45,7 +39,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 header {
@@ -65,7 +58,7 @@ header {
 
 main {
   padding: 24px;
-  /* margin: auto; */
+  flex: 1;
 }
 
 footer {
