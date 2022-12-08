@@ -84,6 +84,30 @@ def get_dependencies():
     'depth': max_depth
   }
 
-def get_data():
+# getting count data by usage data
+def get_frequency():
+  print('Getting frequency data...')
   global data
-  return data
+  result = {}
+  for node in data:
+    for dependency in data[node].connections:
+      if dependency in result:
+        result[dependency]['count'] += 1
+      else:
+        result[dependency] = {
+          'count': 1,
+          'data': to_dict(data[dependency])
+        }
+  return result 
+
+def get_issues():
+  print('Getting issues data...')
+  global data
+  result = {}
+  for key in data:
+    errors = data[key].errors
+    for error in errors:
+      if not error.type in result:
+        result[error.type] = {}
+      result[error.type][error.lib] = to_dict(error)
+  return result

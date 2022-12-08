@@ -6,11 +6,9 @@ from app.layout import get_layout
 from app.classes.Response import Response
 from app.utils import open_file
 
-from app.dependencies import get_dependencies
-from app.frequency import get_frequency
-from app.issues import get_issues
-from app.updates import get_updates
-from app.vulnerabilities import get_vulnerabilities
+from app.data.dependencies import get_dependencies, get_frequency, get_issues
+from app.data.updates import get_updates
+from app.data.vulnerabilities import get_vulnerabilities
 
 static_folder = '/client'
 

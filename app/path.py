@@ -4,7 +4,7 @@ import os
 try:
   sys.argv[1]
 except:
-  print('ERROR: Please, provide path to target folder')
+  print('ERROR: Please, provide the path to folder with package.json and node_modules')
   exit()
 
 path = sys.argv[1]

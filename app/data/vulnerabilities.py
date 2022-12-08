@@ -5,7 +5,6 @@ from threading import Thread
 from app.path import get_path
 
 vulnerabilities_data = {}
-
 thread = None
 
 def pull_vulnerabilities():
