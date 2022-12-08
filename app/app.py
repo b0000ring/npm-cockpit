@@ -4,7 +4,7 @@ from http.server import HTTPServer
 from socketserver import ThreadingMixIn
 
 from app.Server import Server
-from app.processing import process_dependencies
+from app.dependencies import process_dependencies
 from app.Router import Router
 
 HOST_NAME = '0.0.0.0'
