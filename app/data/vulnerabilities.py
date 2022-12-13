@@ -17,10 +17,10 @@ def pull_vulnerabilities():
 def get_vulnerabilities():
   print('Getting vulnerabilities data...')
   global vulnerabilities_data
-  global vt
+  global thread
   if not vulnerabilities_data:
-    if not vt:
-      vt = Thread(target=pull_vulnerabilities)
-      vt.start()
-    vt.join()
+    if not thread:
+      thread = Thread(target=pull_vulnerabilities)
+      thread.start()
+    thread.join()
   return vulnerabilities_data

@@ -28,7 +28,7 @@ export default function frequency(data, svg) {
   const width = parseInt(plot.style('width'))
   const height = parseInt(plot.style('height'))
   const barWidth = (width - margin.left - margin.right) / data.length
-  const max = d3.max(data, item => item[1].count)
+  const max = d3.max(data, item => item.count)
   const scaleX = d3.scaleLinear().domain([0, data.length]).range([margin.left, width - margin.right])
   const scaleY = d3.scaleLinear().domain([0, max]).range([margin.top, height - margin.bottom])
   const colorScale = d3.scaleQuantize()
@@ -40,9 +40,14 @@ export default function frequency(data, svg) {
       ]) 
 
   const axisY = d3.axisLeft(
-    d3.scaleLinear().domain([0, max]).range([height - margin.top, margin.bottom])
+    d3.scaleLinear()
+      .domain([0, max])
+      .range([height - margin.top, margin.bottom])
   ).ticks(10, 'f')
-  const axisX = d3.axisBottom(scaleX).ticks(data.length).tickFormat((d, i) => wrapText(data[i]?.[0], 10)).tickSize(0)
+  const axisX = d3.axisBottom(scaleX)
+    .ticks(data.length)
+    .tickFormat((d, i) => wrapText(data[i]?.data.name, 10))
+    .tickSize(0)
 
   const items = plot.select('#frequency-items')
 
@@ -50,9 +55,9 @@ export default function frequency(data, svg) {
     .data(data)
     .join('rect')
     .attr('x', (d, i) => scaleX(i))
-    .attr('y', d => height - scaleY(d[1].count)) 
+    .attr('y', d => height - scaleY(d.count)) 
     .attr('width', barWidth)
-    .attr('height', d => scaleY(d[1].count) - margin.bottom) 
+    .attr('height', d => scaleY(d.count) - margin.bottom) 
     .attr('fill', (d, i) => colorScale(i))
     .on('mouseenter', function(e, d) {
       showDetails(e, d)
@@ -86,7 +91,7 @@ export default function frequency(data, svg) {
 
   function showDetails(event, obj) {
     const {x, y, width, height} = event.target.getBoundingClientRect()
-    const details = obj[1].data
+    const details = obj.data
 
     window.dispatchEvent(
       new CustomEvent('popups-add', {

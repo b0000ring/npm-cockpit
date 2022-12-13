@@ -1,8 +1,11 @@
+import os
+
 from app.utils import open_json_file, to_dict
 from app.classes.Lib import Lib
 from app.classes.Error import Error
 from app.path import get_package_json_path, get_node_modules_path
 
+# key: name, value: arr of package versions (Lib)
 data = {}
 peer_deps = {}
 root = None
@@ -30,6 +33,7 @@ def process_dependencies():
     if depth > max_depth:
       max_depth = depth
 
+    # getting a package for processing
     current = stack[depth - 1]
     found = False
 
@@ -42,12 +46,14 @@ def process_dependencies():
     # if circular dependency found then add error object to parent lib
     # and skip next steps
     if found:
-      stack[depth - 2].add_error(Error(current.name, 'circular'))
+      stack[depth - 2].add_error(Error('circular', current.name, current.version))
       continue
 
     # adding current lib to result list
     if current.name not in data:
-      data[current.name] = current
+      data[current.name] = [current]
+    elif not is_version_exists( data[current.name], current.version):
+      data[current.name].append(current)
 
     #peer dependencies parsing
     if len(current.peerDependencies.keys()):
@@ -57,57 +63,60 @@ def process_dependencies():
         peer_deps[key].add(dep)
 
     # dependencies parsing
-    if len(current.dependencies.keys()):
-      deps = list(current.dependencies.keys())
-      child = deps[0]
-      current.dependencies.pop(child, None)
-      child_path = node_modules_path + '/' + child + '/package.json'
+    child = current.process_dependency()
+    
+    if child:
+      name = child[0]
+      version = child[1]
+      child_folder_path = name
+      
+      # if another version already found check local package node_modules
+      if name in data and is_local_dependency(current.name, name):
+        child_folder_path = current.name + '/node_modules/' + name
+
+      child_path = node_modules_path + '/' + child_folder_path +  '/package.json'
       try:
         child_data = open_json_file(child_path)
         stack.append(Lib(child_data))
       except:
-        current.add_error(Error(child, 'missing'))
+        current.add_error(Error('missing', name, version))
       finally:
-        current.connections.append(child_data['name'])
+        current.add_connection({'name': child_data['name'], 'version': child_data['version']})
     else:
       stack.pop(len(stack) - 1)
+
+def is_version_exists(versions, version):
+  return next((item for item in versions if item.version == version), False)
+
+def is_local_dependency(root, name):
+  node_modules_path = get_node_modules_path()
+  path = node_modules_path + '/' + root + '/node_modules/' + name
+  return os.path.isdir(path)
 
 # getting dependencies tree data
 def get_dependencies():
   print('Getting project tree...')
   result = {}
   for key in data:
-    result[key] = to_dict(data[key])
+    deps = []
+    for l in data[key]:
+      deps.append(l.get_data())
+    result[key] = deps
   return {
     'root': root.name,
     'dependencies': result,
     'depth': max_depth
   }
 
-# getting count data by usage data
-def get_frequency():
-  print('Getting frequency data...')
-  global data
-  result = {}
-  for node in data:
-    for dependency in data[node].connections:
-      if dependency in result:
-        result[dependency]['count'] += 1
-      else:
-        result[dependency] = {
-          'count': 1,
-          'data': to_dict(data[dependency])
-        }
-  return result 
-
 def get_issues():
   print('Getting issues data...')
   global data
   result = {}
   for key in data:
-    errors = data[key].errors
-    for error in errors:
-      if not error.type in result:
-        result[error.type] = {}
-      result[error.type][error.lib] = to_dict(error)
+    for package in data[key]:
+      errors = package.errors
+      for error in errors:
+        if not error.type in result:
+          result[error.type] = {}
+        result[error.type][error.lib] = to_dict(error)
   return result

@@ -17,7 +17,7 @@ onmessage = function(e) {
   let count = 0
   const { dependencies, root} = e.data[0]
   const { limitation, filter, path } = e.data[1]
-  const tree = processTree(dependencies[root], 1)
+  const tree = processTree(dependencies[root][0], 1)
   postMessage({
     count,
     tree
@@ -29,7 +29,8 @@ onmessage = function(e) {
     // getting dependencies for node
     if(!(level > limitation) || path[level - 1] === node.name) {
       deps = connections.map(item => {
-        const depNode = dependencies[item]
+        const { name, version } = item
+        const depNode = dependencies[name].find(dep => dep.version === version)
         return processTree(depNode, level + 1)
       }).filter(Boolean)
     } 
@@ -38,7 +39,7 @@ onmessage = function(e) {
     if(filter && !deps.length && !checkNode(node, filter)) {
       return null
     }
-
+  
     // adding errors to tree
     node.errors.forEach(error => deps.push(getError(error)))
 

@@ -26,6 +26,7 @@ export class IssuesTable extends Item {
       table.__items__ = this.processedData
       table.__columns__ = {
         lib: 'Name',
+        version: 'Version',
         type: 'Type',
       }
       this.append(table)

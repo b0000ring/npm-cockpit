@@ -6,7 +6,7 @@ from app.layout import get_layout
 from app.classes.Response import Response
 from app.utils import open_file
 
-from app.data.dependencies import get_dependencies, get_frequency, get_issues
+from app.data.dependencies import get_dependencies, get_issues
 from app.data.updates import get_updates
 from app.data.vulnerabilities import get_vulnerabilities
 
@@ -20,7 +20,6 @@ class Router:
       '/api/dependencies': self.send_dependencies,
       '/api/vulnerabilities': self.send_vulnerabilities,
       '/api/updates': self.send_updates,
-      '/api/frequency': self.send_frequency,
       '/api/issues': self.send_issues
     }
 
@@ -41,9 +40,6 @@ class Router:
 
   def send_updates(self):
     return Response('application/json', json.dumps(get_updates()))
-
-  def send_frequency(self):
-    return Response('application/json', json.dumps(get_frequency()))
 
   def static(self, path):
     final_path = os.getcwd() + static_folder + path

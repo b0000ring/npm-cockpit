@@ -3,7 +3,7 @@ import frequencyPlot from '/js/plots/frequency.js'
 
 export class Frequency extends Item {
   constructor() {
-    super('/api/frequency')
+    super('/api/dependencies')
 
     this.frequencyWorker = new Worker('/js/workers/frequency.js')
     this.frequencyWorker.onmessage = (e) => {
