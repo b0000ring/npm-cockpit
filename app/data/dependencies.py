@@ -6,12 +6,14 @@ from app.classes.Error import Error
 from app.path import get_package_json_path, get_node_modules_path
 
 # key: name, value: arr of package versions (Lib)
+# TODO refactor to be a flat list
 data = {}
 peer_deps = {}
 root = None
 max_depth = 0
 loaded = False
 
+# TODO refactor this
 def process_dependencies():
   global data
   global root

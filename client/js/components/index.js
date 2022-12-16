@@ -10,7 +10,8 @@ import {
   UpdatesTable, 
   VulnerabilitiesTable,
   IssuesTable,
-  DependenciesNetwork
+  DependenciesNetwork,
+  Weight
 } from './items/index.js'
 
 // elements
@@ -23,6 +24,7 @@ window.customElements.define('npm-dashboard', Dashboard)
 window.customElements.define('dashboard-widget', Widget)
 window.customElements.define('popups-root', Popups)
 window.customElements.define('frequency-item', Frequency)
+window.customElements.define('weight-item', Weight)
 window.customElements.define('vulnerabilities-item', Vulnerabilities)
 window.customElements.define('dependencies-tree-item', DependenciesTree)
 window.customElements.define('dependencies-network-item', DependenciesNetwork)

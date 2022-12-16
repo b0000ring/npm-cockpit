@@ -33,7 +33,5 @@ onmessage = function(e) {
     .sort((item1, item2) => item2.count - item1.count)
     .slice(0, 10)
 
-  console.log(top10)
-
   postMessage(top10)
 }

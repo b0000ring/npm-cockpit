@@ -2,7 +2,6 @@ from http.server import BaseHTTPRequestHandler
 
 from app.Router import Router
 
-
 class Server(BaseHTTPRequestHandler):
   router = Router()
 
@@ -27,6 +26,7 @@ class Server(BaseHTTPRequestHandler):
     self.send_response(response.status)
     self.send_header('Content-type', response.type)
     self.end_headers()
+
     try:
       return bytes(response.data, 'utf-8')
     except:
