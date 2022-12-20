@@ -3,7 +3,7 @@ onmessage = function(e) {
   const result = []
   Object.entries(libs).forEach(item => {
     const [name, data] = item
-    const {current, latest} = data
+    const {current, latest, wanted} = data
     let type = ''
 
     if(!current || !latest) return
@@ -23,7 +23,8 @@ onmessage = function(e) {
       name,
       type,
       current,
-      latest
+      latest,
+      wanted
     })
   })
 

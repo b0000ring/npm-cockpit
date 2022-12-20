@@ -27,6 +27,7 @@ export class UpdatesTable extends Item {
       table.__columns__ = {
         name: 'Name',
         current: 'Current',
+        wanted: 'Wanted',
         latest: 'Latest',
         type: 'Type'
       }

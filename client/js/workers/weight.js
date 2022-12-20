@@ -2,8 +2,6 @@ onmessage = function(e) {
   const { dependencies, root } = e.data
   const rootDeps = dependencies[root][0].connections
 
-  console.log(Object.keys(dependencies).length)
-
   // name: {count: number, data: obj}
   const result = []
 
@@ -37,7 +35,9 @@ onmessage = function(e) {
     })
   })  
 
-  console.log(result)
-
-  postMessage(result.sort((item1, item2) => item2.count - item1.count))
+  postMessage(
+    result
+      .sort((item1, item2) => item2.count - item1.count)
+      .slice(0, 10)
+  )
 }

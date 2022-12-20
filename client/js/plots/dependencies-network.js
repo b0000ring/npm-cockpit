@@ -15,6 +15,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
     plot = d3.select(svg)
       .attr('width', '100%')
       .attr('height', '100%')
+      .style('background', '#37334D')
 
     height = parseInt(plot.style('height'))
     width = parseInt(plot.style('width'))
@@ -43,6 +44,40 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
   g.append('g')
     .attr('id', 'nodes')
 
+  const createdNodes = d3.select('#nodes')
+    .selectAll('g')
+    .data(nodes)
+    .join('g')
+    .attr('class', 'node')
+
+  createdNodes
+    .append('text')
+    .text(d => d.name)
+    .attr('x', 12)
+    .attr('y', '20')
+    .style('pointer-events', 'none')
+
+  createdNodes
+    .insert('rect', 'text')
+    .attr('width', (d, i) => {
+      const nodes = createdNodes.nodes()
+      const node = nodes[i]
+      const width = node.getBoundingClientRect().width
+      return width * 2 + 24
+    })
+    .attr('height', 32)
+    .attr('rx', 24)
+    .attr('fill', 'white')
+    .attr('stroke-width', '1')
+    .attr('stroke', '#8CBAFF')
+    .style('cursor', 'pointer')
+    .on('mouseenter', function (e, d) {
+      showDetails(e, d)
+    })
+    .on('mouseleave', function() {
+      closeDetails()
+    })
+
   d3.forceSimulation(nodes)
     .force('charge', d3.forceManyBody().strength(-200))
     .force('center', d3.forceCenter(width / 2, height / 2))
@@ -70,34 +105,15 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
       .attr('y2', function(d) {
         return d.target.y
       })
-      .style('stroke', '#ccc')
+      .style('stroke', '#8CBAFF')
   }
   
   function updateNodes() {
     d3.select('#nodes')
-      .selectAll('text')
+      .selectAll('g')
       .data(nodes)
-      .join('text')
-      .text(function(d) {
-        return d.name
-      })
-      .attr('x', function(d) {
-        return d.x
-      })
-      .attr('y', function(d) {
-        return d.y
-      })
-      .attr('dy', function(d) {
-        return 5
-      })
-      .style('cursor', 'pointer')
-      .style('fill', '#black')
-      .on('mouseenter', function (e, d) {
-        showDetails(e, d)
-      })
-      .on('mouseleave', function() {
-        closeDetails()
-      })
+      .join('g')
+      .attr('transform', d => `translate(${d.x - 10} ${d.y - 10})`)      
   }
 
   function closeDetails() {

@@ -11,7 +11,8 @@ import {
   VulnerabilitiesTable,
   IssuesTable,
   DependenciesNetwork,
-  Weight
+  Weight,
+  PackageData
 } from './items/index.js'
 
 // elements
@@ -23,6 +24,7 @@ import { ModuleDataPopup, GroupDataPopup } from './popups/index.js'
 window.customElements.define('npm-dashboard', Dashboard)
 window.customElements.define('dashboard-widget', Widget)
 window.customElements.define('popups-root', Popups)
+window.customElements.define('package-data', PackageData)
 window.customElements.define('frequency-item', Frequency)
 window.customElements.define('weight-item', Weight)
 window.customElements.define('vulnerabilities-item', Vulnerabilities)

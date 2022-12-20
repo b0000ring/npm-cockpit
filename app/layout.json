@@ -1,6 +1,17 @@
 {
   "layout": [
     {
+      "title": "Package Data",
+      "widgets": [
+        {
+          "h": 6,
+          "w": 10,
+          "title": "",
+          "component": "package-data"
+        }
+      ]
+    },
+    {
       "title": "General info",
       "widgets": [
         {

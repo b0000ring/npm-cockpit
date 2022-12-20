@@ -10,27 +10,27 @@ export default function frequency(data, svg) {
       .attr('height', '100%')
 
     plot.append('g')
+      .attr('id', 'frequency-items')
+
+    plot.append('g')
       .attr('id', 'frequency-yaxis')
       .attr('transform', 'translate(30, 0)')
 
     plot.append('g')
       .attr('id', 'frequency-xaxis')
-
-    plot.append('g')
-      .attr('id', 'frequency-items')
   }
 
   if(!data) {
     return
   }
 
-  const margin = {left: 40, right: 40, top: 70, bottom: 70}
+  const margin = {left: 160, right: 30, top: 60, bottom: 30}
   const width = parseInt(plot.style('width'))
   const height = parseInt(plot.style('height'))
-  const barWidth = (width - margin.left - margin.right) / data.length
+  const barHeight= (height - margin.top - margin.bottom) / data.length
   const max = d3.max(data, item => item.count)
-  const scaleX = d3.scaleLinear().domain([0, data.length]).range([margin.left, width - margin.right])
-  const scaleY = d3.scaleLinear().domain([0, max]).range([margin.top, height - margin.bottom])
+  const scaleX = d3.scaleLinear().domain([0, max]).range([margin.left, width - margin.right])
+  const scaleY = d3.scaleLinear().domain([0, data.length]).range([margin.top, height - margin.bottom])
   const colorScale = d3.scaleQuantize()
       .domain([0, data.length])
       .range([
@@ -39,25 +39,23 @@ export default function frequency(data, svg) {
         '#57EBF0', '#8AF8F8'
       ]) 
 
-  const axisY = d3.axisLeft(
-    d3.scaleLinear()
-      .domain([0, max])
-      .range([height - margin.top, margin.bottom])
-  ).ticks(10, 'f')
-  const axisX = d3.axisBottom(scaleX)
+  const axisY = d3.axisLeft(scaleY)
     .ticks(data.length)
-    .tickFormat((d, i) => wrapText(data[i]?.data.name, 10))
+    .tickFormat((d, i) => wrapText(data[i]?.data.name, 25))
     .tickSize(0)
+  
+  const axisX = d3.axisBottom(scaleX)
+    .ticks(max < 10 ? max : 10, 'd')
 
   const items = plot.select('#frequency-items')
 
   items.selectAll('rect')
     .data(data)
     .join('rect')
-    .attr('x', (d, i) => scaleX(i))
-    .attr('y', d => height - scaleY(d.count)) 
-    .attr('width', barWidth)
-    .attr('height', d => scaleY(d.count) - margin.bottom) 
+    .attr('x', (d, i) => scaleX(0))
+    .attr('y', (d, i) => scaleY(i)) 
+    .attr('width', d => scaleX(d.count) - margin.left)
+    .attr('height', barHeight) 
     .attr('fill', (d, i) => colorScale(i))
     .on('mouseenter', function(e, d) {
       showDetails(e, d)
@@ -72,14 +70,16 @@ export default function frequency(data, svg) {
     })
 
   plot.select('#frequency-yaxis')
-    .attr('transform', 'translate(30, 0)')
+    .attr('transform', 'translate(150, 0)')
     .call(axisY)
 
+  plot.selectAll('#frequency-yaxis .tick text')
+    .attr('transform', `translate(-5, ${barHeight / 2})`)
+
   plot.select('#frequency-xaxis')
-    .attr('transform', `translate(0, ${height - margin.bottom})`)
+    .attr('transform', `translate(0, ${height - margin.bottom + 5})`)
     .call(axisX)
-  plot.selectAll('#frequency-xaxis .tick text')
-    .attr('transform', `translate(10, 20) rotate(-45)`)
+
 
   function closeDetails() {
     window.dispatchEvent(
