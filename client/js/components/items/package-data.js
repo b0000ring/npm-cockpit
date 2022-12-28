@@ -6,6 +6,6 @@ export class PackageData extends Item {
   }
 
   render() {
-    console.log(this.data)
+
   }
 }

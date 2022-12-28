@@ -2,6 +2,12 @@ export class DependencyItem extends HTMLElement {
 
   isVersionsListOpen = false
 
+  static get observedAttributes() { return ['updatable', 'vulnerable']; }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
   toggleVersionsList = () => {
     this.isVersionsListOpen = !this.isVersionsListOpen
     this.render()
@@ -76,6 +82,34 @@ export class DependencyItem extends HTMLElement {
     return container
   }
 
+  renderIndicators() {
+    const updatable = this.updatable
+    const vulnerable = this.vulnerable
+
+    if(!updatable && !vulnerable) return ''
+
+    const container = document.createElement('div')
+    container.className = 'dependency-item_indicators'
+
+    if(updatable) {
+      const updateIndicator = document.createElement('div')
+      updateIndicator.className = 'dependency-item_indicators_update'
+      updateIndicator.textContent = 'U'
+      updateIndicator.title = 'Update available'
+      container.append(updateIndicator)
+    }
+
+    if(vulnerable) {
+      const vulerableIndicator = document.createElement('div')
+      vulerableIndicator.className = 'dependency-item_indicators_vulnerable'
+      vulerableIndicator.textContent = 'V'
+      vulerableIndicator.title = 'Vulnerability found'
+      container.append(vulerableIndicator)
+    }
+
+    return container
+  }
+
   render() {
     //TODO change to normal re-render
     this.textContent = ''
@@ -87,13 +121,16 @@ export class DependencyItem extends HTMLElement {
     const header = document.createElement('div')
     header.className = 'dependency-item_header'
 
-    header.append(this.renderName(name, versions[0]))
+    header.append(this.renderName(name, versions[0]), this.renderIndicators())
     container.append(header, this.renderVersions(versions))
 
     this.append(container, this.renderVersionsList(versions))
   }
 
   connectedCallback() {
+    const {name} = this.__data__
+
+    this.setAttribute('data-dependency-name', name)
     this.render()
   }
 }

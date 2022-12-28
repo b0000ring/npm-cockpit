@@ -127,6 +127,43 @@ dependency-item .dependency-item_versions-list-wrapper {
   background: #FAFAFA;
 }
 
+dependency-item .dependency-item_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+dependency-item .dependency-item_indicators {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  margin-right: 8px;
+}
+
+dependency-item .dependency-item_indicators_vulnerable, dependency-item .dependency-item_indicators_update {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+dependency-item .dependency-item_indicators_update {
+  width: 34px;
+  height: 34px;
+  background: #5AA3BA;
+  color: white;
+  border-radius: 50%;
+}
+
+dependency-item .dependency-item_indicators_vulnerable {
+  width: 34px;
+  height: 34px;
+  color: white;
+  background: #FF688E;
+  border-radius: 8px;
+}
+
 version-item {
   display: flex;
   justify-content: flex-start;

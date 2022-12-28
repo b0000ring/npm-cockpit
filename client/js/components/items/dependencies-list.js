@@ -1,8 +1,11 @@
 import Item from './Item.js'
+import { makeRequest } from '../../utils.js'
 
 export class DependenciesList extends Item {
 
   processedData = {}
+  updates = {}
+  vulnerabilities = {}
 
   constructor() {
     super('/api/dependencies')
@@ -15,27 +18,35 @@ export class DependenciesList extends Item {
     }
   }
 
-  processData() {
+  async processData() {
     super.loading = true
+
+    const vulnerabilitiesData = await makeRequest('/api/vulnerabilities')
+    const updates = await makeRequest('/api/updates')
+    const { vulnerabilities } = vulnerabilitiesData
+
+    this.updates = updates
+    this.vulnerabilities = vulnerabilities
+
     this.listWorker.postMessage(this.data)
     this.render()
   }
 
   render() {
-    const items = []
     if(!this.data) return
 
     const dependencies = this.processedData
-    Object.entries(dependencies)
-      .sort((item1, item2) => item1[0].localeCompare(item2[0]))
-      .forEach(dependency => {
+    const items = Object.entries(dependencies)
+      .map(dependency => {
         const [name, versions] = dependency
         const dependencyItem = document.createElement('dependency-item')
+        if(this.updates[name]) dependencyItem.updatable = true
+        if(this.vulnerabilities[name]) dependencyItem.vulnerable = true
         dependencyItem.__data__ = {
           name,
           versions
         }
-        items.push(dependencyItem)
+        return dependencyItem
       })
 
     this.append(...items)
