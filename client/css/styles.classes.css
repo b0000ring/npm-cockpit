@@ -16,10 +16,9 @@
 .dashboard-section-title {
   font-family: PoppinsBold;
   color: #68A2AA;
-  font-size: 20px;
+  font-size: 1.3rem;
   margin-top: 0;
 }
-
 
 .item {
   height: 100%;

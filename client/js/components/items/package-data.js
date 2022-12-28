@@ -2,18 +2,10 @@ import Item from './Item.js'
 
 export class PackageData extends Item {
   constructor() {
-    super('/api/dependencies')
-  }
-
-  resize() {
-   
-  }
-
-  processData() {
-    
+    super('/api/package')
   }
 
   render() {
-    
+    console.log(this.data)
   }
 }

@@ -2,13 +2,14 @@ import os
 import json
 from mimetypes import guess_type
 
-from app.layout import get_layout
 from app.classes.Response import Response
 from app.utils import open_file
 
+from app.data.layout import get_layout
 from app.data.dependencies import get_dependencies, get_issues
 from app.data.updates import get_updates
 from app.data.vulnerabilities import get_vulnerabilities
+from app.data.package import get_package_data
 
 static_folder = '/client'
 
@@ -20,7 +21,8 @@ class Router:
       '/api/dependencies': self.send_dependencies,
       '/api/vulnerabilities': self.send_vulnerabilities,
       '/api/updates': self.send_updates,
-      '/api/issues': self.send_issues
+      '/api/issues': self.send_issues,
+      '/api/package': self.send_package_data
     }
 
   def root(self):
@@ -37,6 +39,9 @@ class Router:
   
   def send_issues(self):
     return Response('application/json', json.dumps(get_issues()))
+
+  def send_package_data(self):
+    return Response('application/json', json.dumps(get_package_data()))
 
   def send_updates(self):
     return Response('application/json', json.dumps(get_updates()))

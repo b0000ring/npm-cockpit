@@ -4,6 +4,16 @@
 }
 
 @font-face {
+  font-family: ArimoBold;
+  src: url(/font/Arimo-Bold.ttf);
+}
+
+@font-face {
+  font-family: ArimoSemiBold;
+  src: url(/font/Arimo-SemiBold.ttf);
+}
+
+@font-face {
   font-family: PoppinsBold;
   src: url(/font/Poppins-Bold.ttf);
 }

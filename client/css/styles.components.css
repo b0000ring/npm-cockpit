@@ -25,7 +25,7 @@ dashboard-widget h2 {
   color: #48577D;
   height: 55px;
   position: absolute;
-  padding: 0 8px;
+  padding: 0 16px;
   top: 0;
   margin: 0;
   display: flex;
@@ -63,4 +63,120 @@ loading-element object {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+dependencies-list {
+  display: block;
+  overflow: auto;
+}
+
+dependency-item {
+  border-top: 1px solid #BBE3ED;
+  display: block;
+  padding-bottom: 2px;
+}
+
+dependency-item:first-child {
+  border-top: none;
+}
+
+dependency-item .dependency-item_data {
+  padding: 16px 8px;
+}
+
+dependency-item .dependency-item_name-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+dependency-item .dependency-item_name {
+  color: #498DB3;
+  font-family: 'ArimoSemiBold';
+  font-size: 1.2rem;
+}
+
+dependency-item .dependency-item_versions-tags {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 16px;
+}
+
+dependency-item .dependency-item_versions-list_trigger {
+  cursor: pointer;
+  background: #FAFAFA;
+  color: #8B8D8D;
+  padding: 6px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+dependency-item .dependency-item_versions-list_trigger_icon {
+  margin-right: 8px;
+}
+
+dependency-item .dependency-item_versions-list-opened .dependency-item_versions-list_trigger_icon {
+  transform: rotate(90deg);
+}
+
+dependency-item .dependency-item_versions-list-wrapper {
+  padding: 0 8px;
+  background: #FAFAFA;
+}
+
+version-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid #E0E7E8;
+  padding: 16px 12px;
+}
+
+version-item:last-child {
+  border-bottom: none;
+}
+
+version-item .version-item_name {
+  font-size: 1.1rem;
+  color: #8E8E8E;
+  margin-right: 8px;
+}
+
+version-item dependency-info {
+  background: #C0C0C0;
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+dependency-version {
+  padding: 8px;
+  font-size: 0.8rem;
+  color: #8B8D8D;
+  font-family: ArimoBold;
+  letter-spacing: 0.015em;
+  background: #E8E8E8;
+  margin-left: 8px;
+}
+
+dependency-version.version-tag-highest {
+  color: white;
+  background: #C0C0C0;
+}
+
+dependency-info {
+  margin-left: 16px;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  color: white;
+  font-weight: bold;
+  background-color: #5AA3BA;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

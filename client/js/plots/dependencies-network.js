@@ -56,6 +56,8 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
     .attr('x', 12)
     .attr('y', '20')
     .style('pointer-events', 'none')
+    .style('fill', '#4B5C6C')
+    .style('font-family', 'Arimo')
 
   createdNodes
     .insert('rect', 'text')
