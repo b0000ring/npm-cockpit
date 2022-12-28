@@ -2,7 +2,6 @@ export class DependencyInfo extends HTMLElement {
   connectedCallback() {
     const data = this.__data__
 
-    this.textContent = 'i'
     this.addEventListener('mouseenter', function(e) {
       const shift = 10 
       const {x, y, width, height} = e.target.getBoundingClientRect()
@@ -19,6 +18,7 @@ export class DependencyInfo extends HTMLElement {
         })
       )
     })
+    
     this.addEventListener('mouseleave', function() {
       window.dispatchEvent(
         new CustomEvent('popups-remove', {

@@ -2,12 +2,6 @@ export class DependencyItem extends HTMLElement {
 
   isVersionsListOpen = false
 
-  static get observedAttributes() { return ['updatable', 'vulnerable']; }
-
-  attributeChangedCallback() {
-    this.render()
-  }
-
   toggleVersionsList = () => {
     this.isVersionsListOpen = !this.isVersionsListOpen
     this.render()
@@ -53,12 +47,17 @@ export class DependencyItem extends HTMLElement {
     const container = document.createElement('div')
     container.className = 'dependency-item_versions-tags'
 
-    const items = versions.map((data, i) => {
+    const items = versions.map((data) => {
+      const info = document.createElement('dependency-info')
+      info.__data__ = data
+
       const component = document.createElement('dependency-version')
       component.version = data.version
-      component.isHighest = i === 0
+      component.isHighest = versions.length === 1
 
-      return component
+      info.append(component)
+
+      return info
     })
 
     container.append(...items)
@@ -66,7 +65,7 @@ export class DependencyItem extends HTMLElement {
     return container
   }
 
-  renderName(value, data) {
+  renderName(value) {
     const container = document.createElement('div')
     container.className = 'dependency-item_name-container'
     
@@ -74,10 +73,7 @@ export class DependencyItem extends HTMLElement {
     name.className = 'dependency-item_name'
     name.textContent = value
 
-    const info = document.createElement('dependency-info')
-    info.__data__ = data
-
-    container.append(name, info)
+    container.append(name)
 
     return container
   }
@@ -128,9 +124,6 @@ export class DependencyItem extends HTMLElement {
   }
 
   connectedCallback() {
-    const {name} = this.__data__
-
-    this.setAttribute('data-dependency-name', name)
     this.render()
   }
 }

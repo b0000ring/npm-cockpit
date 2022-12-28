@@ -182,12 +182,6 @@ version-item .version-item_name {
   margin-right: 8px;
 }
 
-version-item dependency-info {
-  background: #C0C0C0;
-  margin-left: 0;
-  margin-right: 8px;
-}
-
 dependency-version {
   padding: 8px;
   font-size: 0.8rem;
@@ -204,16 +198,5 @@ dependency-version.version-tag-highest {
 }
 
 dependency-info {
-  margin-left: 16px;
   cursor: pointer;
-  width: 18px;
-  height: 18px;
-  color: white;
-  font-weight: bold;
-  background-color: #5AA3BA;
-  border-radius: 50%;
-  font-size: 0.7rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

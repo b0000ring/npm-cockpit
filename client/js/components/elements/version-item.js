@@ -3,11 +3,16 @@ export class VersionItem extends HTMLElement {
   data = {}
 
   renderVersion() {
+    const info = document.createElement('dependency-info')
+    info.__data__ = this.data
+
     const component = document.createElement('dependency-version')
     component.version = this.data.version
     component.isHighest = true
 
-    return component
+    info.append(component)
+
+    return info
   }
 
   renderName() {
@@ -18,16 +23,9 @@ export class VersionItem extends HTMLElement {
     return name
   }
 
-  renderInfo() {
-    const info = document.createElement('dependency-info')
-    info.__data__ = this.data
-
-    return info
-  }
-
   render() {
     this.data = this.__data__
-    this.append(this.renderName(), this.renderInfo(), this.renderVersion())
+    this.append(this.renderName(), this.renderVersion())
   }
 
   connectedCallback() {
