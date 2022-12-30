@@ -12,17 +12,6 @@
       ]
     },
     {
-      "title": "Dependencies list",
-      "widgets": [
-        {
-          "h": 6,
-          "w": 10,
-          "title": "",
-          "component": "dependencies-list"
-        }
-      ]
-    },
-    {
       "title": "General info",
       "widgets": [
         {
@@ -48,6 +37,17 @@
           "h": 3,
           "title": "Updates",
           "component": "updates-item"
+        }
+      ]
+    },
+    {
+      "title": "Dependencies list",
+      "widgets": [
+        {
+          "h": 6,
+          "w": 10,
+          "title": "",
+          "component": "dependencies-list"
         }
       ]
     },

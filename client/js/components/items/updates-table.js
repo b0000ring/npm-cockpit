@@ -31,6 +31,15 @@ export class UpdatesTable extends Item {
         latest: 'Latest',
         type: 'Type'
       }
+      table.__settings__ = {
+        type: {
+          color: {
+            major: 'rgb(239, 83, 80)',
+            minor: 'rgb(255, 152, 0)',
+            patch: 'rgb(76, 175, 80)',
+          }
+        }
+      }
       this.append(table)
     }
   }

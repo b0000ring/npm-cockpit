@@ -1,4 +1,23 @@
 export class CustomTable extends HTMLElement {
+
+  applyStyle(column, data, cell) {
+    const settings = this.__settings__
+
+    if(settings?.[column]?.color) {
+      cell.className += ' chip'
+      cell.style.backgroundColor = settings[column].color[data]
+      cell.style.color = 'white'
+    }
+  }
+
+  getCellContent(column, data) {
+    const content = document.createElement('div')
+    content.textContent = data
+
+    this.applyStyle(column, data, content)
+    return content
+  }
+
   connectedCallback() {
     const data = this.__items__
     const columns = this.__columns__
@@ -20,7 +39,7 @@ export class CustomTable extends HTMLElement {
       const row = document.createElement('tr')
       Object.keys(columns).forEach(key => {
         const td = document.createElement('td')
-        td.textContent = item[key]
+        td.append(this.getCellContent(key, item[key]))
         row.append(td)
       })
       tbody.append(row)

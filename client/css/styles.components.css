@@ -10,19 +10,19 @@ npm-dashboard {
 dashboard-widget {
   position: relative;
   background-color: #FFFFFF;
-  border-radius: 8px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  box-shadow: rgb(50 50 93 / 2%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
 dashboard-widget h2 {
-  letter-spacing: 0.5px;
-  font-family: Poppins;
-  font-weight: 700;
   font-size: 1rem;
-  color: #48577D;
+  font-weight: 500;
+  line-height: 1.25;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: rgba(0, 0, 0, 0.87);
   height: 55px;
   position: absolute;
   padding: 0 16px;
@@ -49,8 +49,7 @@ popups-root {
 
 updates-table, vulnerabilities-table, issues-table {
   overflow-y: scroll;
-  border-radius: 8px;
-  border: 1px solid #BBE3ED;
+  border-radius: 6px;
 }
 
 .total {
@@ -71,7 +70,7 @@ dependencies-list {
 }
 
 dependency-item {
-  border-top: 1px solid #BBE3ED;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   display: block;
   padding-bottom: 2px;
 }
@@ -91,9 +90,10 @@ dependency-item .dependency-item_name-container {
 }
 
 dependency-item .dependency-item_name {
-  color: #498DB3;
-  font-family: 'ArimoSemiBold';
+  color: rgba(0, 0, 0, 0.87);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1.2rem;
+  font-weight: 400;
 }
 
 dependency-item .dependency-item_versions-tags {
@@ -105,13 +105,12 @@ dependency-item .dependency-item_versions-tags {
 
 dependency-item .dependency-item_versions-list_trigger {
   cursor: pointer;
-  background: #FAFAFA;
-  color: #8B8D8D;
-  padding: 6px 0;
+  color: rgba(0, 0, 0, 0.87);
+  padding: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #DDDDDD;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 dependency-item .dependency-item_versions-list_trigger_icon {
@@ -151,7 +150,7 @@ dependency-item .dependency-item_indicators_vulnerable, dependency-item .depende
 dependency-item .dependency-item_indicators_update {
   width: 34px;
   height: 34px;
-  background: #5AA3BA;
+  background: rgb(76, 175, 80);
   color: white;
   border-radius: 50%;
 }
@@ -160,7 +159,7 @@ dependency-item .dependency-item_indicators_vulnerable {
   width: 34px;
   height: 34px;
   color: white;
-  background: #FF688E;
+  background: rgb(239, 83, 80);
   border-radius: 8px;
 }
 
@@ -185,16 +184,17 @@ version-item .version-item_name {
 dependency-version {
   padding: 8px;
   font-size: 0.8rem;
-  color: #8B8D8D;
+  color: white;
   font-family: ArimoBold;
   letter-spacing: 0.015em;
-  background: #E8E8E8;
+  background: rgb(2, 136, 209);
+  border-radius: 6px;
   margin-left: 8px;
 }
 
 dependency-version.version-tag-highest {
   color: white;
-  background: #C0C0C0;
+  background: rgb(55, 111, 208);
 }
 
 dependency-info {

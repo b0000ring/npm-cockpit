@@ -35,7 +35,7 @@ export default function updates(data, svg) {
 
   const colorScale = d3.scaleOrdinal()
   .domain(['major', 'minor', 'patch'])
-  .range(['#F73E6C', '#FBE900', '#43FAC3'])
+  .range(['rgb(239, 83, 80)', 'rgb(255, 152, 0)', 'rgb(76, 175, 80)'])
 
   const pie = d3.pie()
     .value(d => d.count)

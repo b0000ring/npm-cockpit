@@ -4,8 +4,8 @@
   padding-top: 24px;
   margin: auto;
   margin-bottom: 64px;
-  background-color: #F6F6F6;
-  border-radius: 8px;
+  background-color: rgb(247, 249, 252);
+  border-radius: 6px;
 }
 
 .dashboard-section-content {
@@ -14,8 +14,8 @@
 }
 
 .dashboard-section-title {
-  font-family: PoppinsBold;
-  color: #68A2AA;
+  font-family: 'ArimoSemiBold';
+  color: rgba(0, 0, 0, 0.87);
   font-size: 1.3rem;
   margin-top: 0;
 }
@@ -30,7 +30,8 @@
   position: fixed;
   background-color: white;
   z-index: 999;
-  border: 1px solid #BBE3ED;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 6px;
 }
 
 .popup-big {
@@ -45,11 +46,12 @@
   box-sizing: border-box;
   padding: 12px;
   font-weight: bold;
-  color: #5F7278;
+  color: rgba(0, 0, 0, 0.87);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #BBE3ED;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  font-family: 'ArimoSemiBold';
 }
 
 .popup-body {
@@ -60,8 +62,8 @@
 
 .popup-section {
   padding: 16px 8px;
-  border-bottom: 1px solid #66BFBF;
-  color: #5F7278;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .popup-section:last-child {
@@ -74,57 +76,82 @@
 }
 
 .popup-content .table th {
-  color: #BCC1C2;
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.popup-content .table tr:last-child th, .popup-content .table tr:last-child td {
+  border-bottom: none;
+}
+
+.popup-content .table th {
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .popup-content .table td {
-  color: #5F7278;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 /* ________TABLE________ */
 .table {
   width: 100%;
   border-collapse: collapse;
+  border-spacing: 0px;
 }
+
+.table tr {
+  color: inherit;
+  display: table-row;
+  vertical-align: middle;
+  outline: 0px;
+}
+
 .table thead {
   position: sticky;
   top: 0px;
   background: white;
-  box-shadow: inset 0 -2px 0 #BBE3ED;
-}
-.table th {
-  color: #68A2AA;
-  font-family: Poppins;
-  font-size: 0.9rem;
-  min-width: 120px;
-}
-.table td, table th {
-  border: 1px solid #BBE3ED;
-}
-.table tr:first-child th, .table tr:first-child td {
-  border-top: 0;
-}
-.table tr:last-child td, .table tr:last-child th {
-  border-bottom: 0;
-}
-.table tr td:first-child,
-.table tr th:first-child {
-  border-left: 0;
-}
-.table tr td:last-child,
-.table tr th:last-child {
-  border-right: 0;
+  box-shadow: inset 0 -1px 0 rgb(224, 224, 224);
 }
 
-.table td {
-  color: #5F7278;
+/* TODO remove duplicates */
+.table thead tr th {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.39286rem;
+  display: table-cell;
+  vertical-align: inherit;
+  text-align: left;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87);
 }
 
-.table th, .table td {
-  padding: 8px;
+.table tbody {
+  display: table-row-group;
+}
+
+.table tbody tr td {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.43;
+  display: table-cell;
+  vertical-align: inherit;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  text-align: left;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  padding: 4px 12px;
+  width: fit-content;
 }
 
 .total {
   font-family: Poppins;
-  fill: #5F7278;
+  fill: rgba(0, 0, 0, 0.87);
 }

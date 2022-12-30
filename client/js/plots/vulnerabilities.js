@@ -29,7 +29,7 @@ export default function vulnerabilities({total, info, ...data}, svg) {
 
   const colorScale = d3.scaleOrdinal()
   .domain(['critical', 'high', 'moderate', 'low'])
-  .range(['#F73E6C', '#FFC23D', '#FCFF82', '#43FAC3', '#2779FF'])
+  .range(['rgb(239, 83, 80)', 'rgb(255, 152, 0)', '#fbc02d', 'rgb(76, 175, 80)', '#2779FF'])
 
   const vulnerabilities = Object.entries(data)
 

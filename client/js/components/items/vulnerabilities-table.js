@@ -29,6 +29,22 @@ export class VulnerabilitiesTable extends Item {
         severity: 'Severity',
         fixAvailable: 'Fix Available'
       }
+      table.__settings__ = {
+        severity: {
+          color: {
+            critical: 'rgb(239, 83, 80)',
+            high: 'rgb(255, 152, 0)',
+            moderate: '#fbc02d',
+            low: 'rgb(76, 175, 80)'
+          }
+        },
+        fixAvailable: {
+          color: {
+            true: 'rgb(76, 175, 80)',
+            false: 'rgb(239, 83, 80)',
+          }
+        }
+      }
       this.append(table)
     }
   }

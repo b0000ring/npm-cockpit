@@ -7,7 +7,8 @@ onmessage = function(e) {
     
     result.push({
       name,
-      fixAvailable: !!fixAvailable,
+      // maybe an object
+      fixAvailable: (!!fixAvailable).toString(),
       severity
     })
   })
