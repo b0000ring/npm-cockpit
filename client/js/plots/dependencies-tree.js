@@ -8,12 +8,13 @@ export default function dependencies(data, svg, setPath) {
     plot.select('#plot-content').selectAll('*').remove()
     return 
   }
-  const nodeHeight = 44
+  const nodeRadius = 20
+  const nodeHeight = 50
   const nodeWidth = 100
-  const nodeSeparation = 30
+  const nodeSeparation = 100
 
   const nodes = d3.hierarchy(data, d => d.deps)
-  const lnkMkr = d3.linkHorizontal().x(d => d.x).y(d => d.y)
+  const lnkMkr = d3.linkHorizontal().x(d => d.y).y(d => d.x)
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
@@ -27,11 +28,10 @@ export default function dependencies(data, svg, setPath) {
       .on('zoom', zoomed)
 
     plot.append('defs')
-      .append('rect')
+      .append('circle')
       .attr('id', 'node')
-      .attr('width', nodeWidth)
-      .attr('height', nodeHeight)
-      .style('stroke', 'black')
+      .attr('r', nodeRadius)
+      .style('stroke', '#63a3ee')
       .style('stroke-width', '1')
       .style('rx', '10')
       .style('ry', '10')
@@ -47,20 +47,15 @@ export default function dependencies(data, svg, setPath) {
       .call(zoom)
   }
 
-  const colorScale = d3.scaleLinear()
-    .domain([0, 10])
-    .range(['#2EBCDB', '#93E2F2'])
-    .interpolate(d3.interpolateHcl)
-
   const g = plot.select('#plot-content')
 
   g.selectAll('*').remove()
 
-  d3.tree().nodeSize([nodeWidth + nodeSeparation, nodeHeight + nodeSeparation])(nodes)
+  d3.tree().nodeSize([nodeHeight + nodeSeparation, nodeWidth + nodeSeparation * 2])(nodes)
 
   g.selectAll('path').data(nodes.links()).enter()
     .append('path').attr('d', d => lnkMkr(d))
-    .attr('stroke', 'black').attr('fill', 'none')
+    .attr('stroke', '#e0e4e7').attr('fill', 'none')
       
   const selection = g.selectAll('g').data(nodes.descendants()).enter()
   renderItem(selection)
@@ -75,6 +70,12 @@ export default function dependencies(data, svg, setPath) {
 
   function renderItem(selection) {
     const g = selection.append('g')
+
+    g.append('use')
+      .attr('href', '#node')
+      .attr('stroke-width', 2)
+      .attr('x', d => d.y).attr('y', d => d.x)
+      .attr('fill', d => d.data.error ? '#F73E6C' : '#5ca9f8')
       .style('cursor', d => d.data.connections?.length > 0 ? 'pointer' : 'default')
       .attr('text-anchor', 'start')
       .on('mouseenter', function (e, d) {
@@ -92,27 +93,15 @@ export default function dependencies(data, svg, setPath) {
         const path = nodes.path(d)
         setPath(path.map(item => item.data.name))
       })
-
-    g.append('use')
-      .attr('href', '#node')
-      .attr('stroke-width', 2)
-      .attr('x', d => d.x - 25).attr('y', d => d.y - 25)
-      .attr('fill', d => d.data.error ? '#F73E6C' : colorScale(d.depth))
-
-    g.append('text')
-      .attr('x', d => d.x - 15)
-      .attr('y', d => d.y + 5)
-      .attr('fill', 'white')
-      .style('font-family', 'Roboto')
-      .style('font-size', '10px')
-      .text(d => d.data.error ? wrapText(d.data.description, 15) : d.data.version)
       
     g.append('text')
-      .attr('x', d => d.x - 15)
-      .attr('y', d => d.y - 10)
-      .text(d => wrapText(d.data.name))
+      .attr('x', d => d.y - 25)
+      .attr('y', d => d.x + 5)
+      .attr('text-anchor', 'end')
+      .text(d => d.data.name)
       .style('font-family', 'Roboto')
-      .style('font-size', '8px')
+      .style('font-size', '24px')
+      .attr('fill', '#9d9d9d')
   }
 
   function showDetails(event, obj) {
@@ -125,8 +114,8 @@ export default function dependencies(data, svg, setPath) {
           popup: 'module-data-popup',
           options: {
             __data__: details,
-            x: x + width - shift,
-            y: y + height - shift
+            x: x + width + shift,
+            y: y + height + shift
           }
         }
       })
