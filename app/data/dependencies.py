@@ -69,8 +69,6 @@ def process_dependencies():
     
     if child:
       name = child[0]
-      if name == 'protocols':
-        print(child[1], current.name)
       version = child[1]
       child_folder_path = name
       
@@ -81,8 +79,6 @@ def process_dependencies():
       child_path = node_modules_path + '/' + child_folder_path +  '/package.json'
       try:
         child_data = open_json_file(child_path)
-        if name == 'protocols':
-          print(child_data['version'], child_path)
         stack.append(Lib(child_data))
       except:
         current.add_error(Error('missing', name, version))

@@ -51,7 +51,7 @@ export default function dependencies(data, svg, setPath) {
 
   g.selectAll('*').remove()
 
-  d3.tree().nodeSize([nodeHeight + nodeSeparation, nodeWidth + nodeSeparation * 2])(nodes)
+  d3.tree().nodeSize([nodeHeight + nodeSeparation, nodeWidth + nodeSeparation * 5])(nodes)
 
   g.selectAll('path').data(nodes.links()).enter()
     .append('path').attr('d', d => lnkMkr(d))
