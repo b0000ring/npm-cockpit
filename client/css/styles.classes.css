@@ -4,7 +4,7 @@
   padding-top: 24px;
   margin: auto;
   margin-bottom: 64px;
-  background-color: rgb(247, 249, 252);
+  background-color: var(--secondary);
   border-radius: 6px;
 }
 
@@ -15,7 +15,7 @@
 
 .dashboard-section-title {
   font-family: 'ArimoSemiBold';
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
   font-size: 1.3rem;
   margin-top: 0;
 }
@@ -28,9 +28,9 @@
 .popup-content {
   box-shadow: 2px 2px 6px 0px rgba(50, 50, 50, 0.75);
   position: fixed;
-  background-color: white;
+  background-color: var(--main);
   z-index: 999;
-  border: 1px solid rgb(224, 224, 224);
+  border: 1px solid var(--border);
   border-radius: 6px;
 }
 
@@ -46,11 +46,11 @@
   box-sizing: border-box;
   padding: 12px;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgb(224, 224, 224);
+  border-bottom: 1px solid var(--border);
   font-family: 'ArimoSemiBold';
 }
 
@@ -62,8 +62,8 @@
 
 .popup-section {
   padding: 16px 8px;
-  border-bottom: 1px solid rgb(224, 224, 224);
-  color: rgba(0, 0, 0, 0.87);
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
 }
 
 .popup-section:last-child {
@@ -71,12 +71,12 @@
 }
 
 .popup-content .table td, .popup-content .table th {
-  border-color: #E0E7E8;
+  border-color: var(--border);
   padding: 16px;
 }
 
 .popup-content .table th {
-  border-bottom: 1px solid rgb(224, 224, 224);
+  border-bottom: 1px solid var(--border);
 }
 
 .popup-content .table tr:last-child th, .popup-content .table tr:last-child td {
@@ -84,11 +84,11 @@
 }
 
 .popup-content .table th {
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
 }
 
 .popup-content .table td {
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
 }
 
 /* ________TABLE________ */
@@ -108,8 +108,8 @@
 .table thead {
   position: sticky;
   top: 0px;
-  background: white;
-  box-shadow: inset 0 -1px 0 rgb(224, 224, 224);
+  background: var(--main);
+  box-shadow: inset 0 -1px 0 var(--border);
 }
 
 /* TODO remove duplicates */
@@ -122,7 +122,7 @@
   vertical-align: inherit;
   text-align: left;
   padding: 16px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
 }
 
 .table tbody {
@@ -136,10 +136,10 @@
   line-height: 1.43;
   display: table-cell;
   vertical-align: inherit;
-  border-bottom: 1px solid rgb(224, 224, 224);
+  border-bottom: 1px solid var(--border);
   text-align: left;
   padding: 16px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
 }
 
 .chip {
@@ -153,5 +153,35 @@
 
 .total {
   font-family: Poppins;
-  fill: rgba(0, 0, 0, 0.87);
+  fill: var(--text);
+}
+
+.logo {
+  font-family: PoppinsBold;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  margin-left: 32px;
+  font-weight: 700;
+  color: rgb(238, 238, 238);
+}
+
+.color-switch {
+  margin-right: 32px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dark .color-switch {
+  transform: rotate(180deg);
+}
+
+.tick text {
+  fill: var(--text); 
+}
+
+.axis path, .axis line {
+  stroke: var(--border)
 }

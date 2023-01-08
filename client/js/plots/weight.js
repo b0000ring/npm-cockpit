@@ -3,21 +3,23 @@ import { wrapText } from './utils.js'
 let plot = null
 
 //TODO refactor
-export default function frequency(data, svg) {
+export default function weight(data, svg) {
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
       .attr('height', '100%')
 
     plot.append('g')
-      .attr('id', 'frequency-items')
+      .attr('id', 'weight-items')
+      .attr('class', 'axis')
 
     plot.append('g')
-      .attr('id', 'frequency-yaxis')
+      .attr('id', 'weight-yaxis')
       .attr('transform', 'translate(30, 0)')
 
     plot.append('g')
-      .attr('id', 'frequency-xaxis')
+      .attr('id', 'weight-xaxis')
+      .attr('class', 'axis')
   }
 
   if(!data) {
@@ -47,7 +49,7 @@ export default function frequency(data, svg) {
   const axisX = d3.axisBottom(scaleX)
     .ticks(max < 10 ? max : 10, 'd')
 
-  const items = plot.select('#frequency-items')
+  const items = plot.select('#weight-items')
 
   items.selectAll('rect')
     .data(data)
@@ -69,14 +71,14 @@ export default function frequency(data, svg) {
       closeDetails()
     })
 
-  plot.select('#frequency-yaxis')
+  plot.select('#weight-yaxis')
     .attr('transform', 'translate(150, 0)')
     .call(axisY)
 
-  plot.selectAll('#frequency-yaxis .tick text')
+  plot.selectAll('#weight-yaxis .tick text')
     .attr('transform', `translate(-5, ${barHeight / 2})`)
 
-  plot.select('#frequency-xaxis')
+  plot.select('#weight-xaxis')
     .attr('transform', `translate(0, ${height - margin.bottom + 5})`)
     .call(axisX)
 

@@ -14,10 +14,12 @@ export default function frequency(data, svg) {
 
     plot.append('g')
       .attr('id', 'frequency-yaxis')
+      .attr('class', 'axis')
       .attr('transform', 'translate(30, 0)')
 
     plot.append('g')
       .attr('id', 'frequency-xaxis')
+      .attr('class', 'axis')
   }
 
   if(!data) {

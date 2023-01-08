@@ -9,7 +9,7 @@ npm-dashboard {
 
 dashboard-widget {
   position: relative;
-  background-color: #FFFFFF;
+  background-color: var(--main);
   border-radius: 6px;
   box-shadow: rgb(50 50 93 / 2%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
   box-sizing: border-box;
@@ -22,7 +22,7 @@ dashboard-widget h2 {
   font-weight: 500;
   line-height: 1.25;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
   height: 55px;
   position: absolute;
   padding: 0 16px;
@@ -87,13 +87,13 @@ dependencies-list .dependencies-list_filters dependency-filter {
 }
 
 dependency-item {
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid var(--border);
   display: block;
   padding-bottom: 2px;
 }
 
 dependency-item:only-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid var(--border);
 }
 
 dependency-item:first-child {
@@ -111,7 +111,7 @@ dependency-item .dependency-item_name-container {
 }
 
 dependency-item .dependency-item_name {
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1.2rem;
   font-weight: 400;
@@ -126,12 +126,12 @@ dependency-item .dependency-item_versions-tags {
 
 dependency-item .dependency-item_versions-list_trigger {
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text);
   padding: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid var(--border);
 }
 
 dependency-item .dependency-item_versions-list_trigger_icon {
@@ -144,7 +144,7 @@ dependency-item .dependency-item_versions-list-opened .dependency-item_versions-
 
 dependency-item .dependency-item_versions-list-wrapper {
   padding: 0 8px;
-  background: #FAFAFA;
+  background: var(--main);
 }
 
 dependency-item .dependency-item_header {
@@ -172,14 +172,14 @@ dependency-item .dependency-item_indicators_update {
   width: 34px;
   height: 34px;
   background: rgb(76, 175, 80);
-  color: white;
+  color: var(--text-dark);
   border-radius: 50%;
 }
 
 dependency-item .dependency-item_indicators_vulnerable {
   width: 34px;
   height: 34px;
-  color: white;
+  color: var(--text-dark);
   background: rgb(239, 83, 80);
   border-radius: 8px;
 }
@@ -188,7 +188,7 @@ version-item {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 2px solid #E0E7E8;
+  border-bottom: 2px solid var(--border);
   padding: 16px 12px;
 }
 
@@ -198,14 +198,15 @@ version-item:last-child {
 
 version-item .version-item_name {
   font-size: 1.1rem;
-  color: #8E8E8E;
+  color: var(--text);
   margin-right: 8px;
+  opacity: 0.6;
 }
 
 dependency-version {
   padding: 8px;
   font-size: 0.8rem;
-  color: white;
+  color: var(--main);
   font-family: ArimoBold;
   letter-spacing: 0.015em;
   background: rgb(2, 136, 209);
@@ -214,7 +215,7 @@ dependency-version {
 }
 
 dependency-version.version-tag-highest {
-  color: white;
+  color: var(--main);
   background: rgb(55, 111, 208);
 }
 
@@ -229,8 +230,8 @@ dependency-filter {
 
 dependency-filter .dependency-filter_list {
   margin-top: 4px;
-  background-color: rgb(255, 255, 255);
-  color: rgba(0, 0, 0, 0.87);
+  background-color: var(--secondary);
+  color: var(--text);
   border-radius: 4px;
   padding: 8px 0px;
   box-shadow: rgb(50 50 93 / 2%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
@@ -257,6 +258,6 @@ dependency-filter .dependency-filter_clear {
   cursor: pointer;
   position: absolute;
   top: 2px;
-  color: rgba(0, 0, 0, 0.54);
+  color: var(--text);
   right: 8px;
 }
