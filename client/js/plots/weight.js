@@ -11,10 +11,10 @@ export default function weight(data, svg) {
 
     plot.append('g')
       .attr('id', 'weight-items')
-      .attr('class', 'axis')
 
     plot.append('g')
       .attr('id', 'weight-yaxis')
+      .attr('class', 'axis')
       .attr('transform', 'translate(30, 0)')
 
     plot.append('g')
