@@ -5,13 +5,12 @@ export class DependenciesList extends Item {
   processedData = null
   updates = {}
   vulnerabilities = {}
-  filter = ''
 
   constructor() {
     super('/api/dependencies')
 
     window.addEventListener('dependency-filter-applied-deps-list', (e) => {
-      this.filter = e.detail
+      this.applyFilter('dependency', e.detail)
       this.renderDependencies()
     })
 
@@ -37,20 +36,11 @@ export class DependenciesList extends Item {
     this.render()
   }
 
-  renderFilters() {
-    const element = this.querySelector('.dependencies-list_filters')
-    if(element) {
-      return
-    }
-
-    const filters = document.createElement('div')
-    filters.className = 'dependencies-list_filters'
-
+  addFilters(container) {
     const dependencyFilter = document.createElement('dependency-filter')
     dependencyFilter.id = 'deps-list'
-    
-    filters.append(dependencyFilter)
-    this.append(filters)
+
+    container.append(dependencyFilter)
   }
 
   renderDependencies() {
@@ -65,9 +55,16 @@ export class DependenciesList extends Item {
     dependenciesList.textContent = ''
 
     const dependencies = this.processedData
-    const items = Object.entries(dependencies)
-      .filter(item => this.filter ? item[0] === this.filter : true)
-      .map(dependency => {
+    const filter = this.filters['dependency']
+
+    let items = Object.entries(dependencies)
+
+
+    if(filter) {
+      items = items.filter(item => item[0] === filter)
+    }
+
+    items = items.map(dependency => {
         const [name, versions] = dependency
         const dependencyItem = document.createElement('dependency-item')
         if(this.updates[name]) dependencyItem.updatable = true
@@ -87,6 +84,5 @@ export class DependenciesList extends Item {
     if(!this.processedData) return
     
     this.renderDependencies()
-    this.renderFilters()
   }
 }

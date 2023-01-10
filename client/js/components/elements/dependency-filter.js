@@ -47,7 +47,7 @@ export class DependencyFilter extends HTMLElement {
   }
 
   renderList() {
-    let list = this.querySelector('.dependency-filter_list')
+    let list = this.querySelector('ul')
     if(!this.isOpen) {
       list?.remove()
       return
@@ -55,7 +55,6 @@ export class DependencyFilter extends HTMLElement {
 
     if(!list) {
       list = document.createElement('ul')
-      list.className = 'dependency-filter_list'
       // listner for option click
       list.addEventListener('click', (e) => {
         const { target } = e
@@ -78,7 +77,6 @@ export class DependencyFilter extends HTMLElement {
       .slice(0, 10)
       .map(item => {
         const option = document.createElement('li')
-        option.className = 'dependency-filter_list_option'
         option.textContent = item
 
         return option

@@ -24,7 +24,8 @@ import {
   VersionItem,
   DependencyVersion,
   DependencyInfo,
-  DependencyFilter
+  DependencyFilter,
+  CustomSelect
 } from './elements/index.js'
 
 // popups
@@ -39,6 +40,7 @@ window.customElements.define('frequency-item', Frequency)
 window.customElements.define('dependency-filter', DependencyFilter)
 window.customElements.define('weight-item', Weight)
 window.customElements.define('vulnerabilities-item', Vulnerabilities)
+window.customElements.define('custom-select', CustomSelect)
 window.customElements.define('version-item', VersionItem)
 window.customElements.define('dependency-version', DependencyVersion)
 window.customElements.define('dependency-info', DependencyInfo)

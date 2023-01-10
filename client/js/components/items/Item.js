@@ -3,12 +3,17 @@ import { makeRequest } from '../../utils.js'
 export default class Item extends HTMLElement {
   data = null
   loadingTimeout = null
+  filters = {}
 
   /**
    * @param {boolean} value
    */
   set loading(value) {
     value ? this.showLoading() : this.hideLoading()
+  }
+
+  get loading() {
+    !!this.querySelector('loading-element')
   }
 
   constructor(source) {
@@ -25,6 +30,24 @@ export default class Item extends HTMLElement {
     this.render()
   }
 
+  applyFilter(key, value) {
+    this.filters[key] = value
+  }
+
+  renderFilters() {
+    const element = this.querySelector('.filters')
+    if(element) {
+      return
+    }
+
+    const filters = document.createElement('div')
+    filters.className = 'filters'
+
+    this.addFilters?.(filters)
+
+    this.append(filters)
+  }
+
   resize() {
     // should be implemented in successor
   }
@@ -35,12 +58,16 @@ export default class Item extends HTMLElement {
     }
 
     this.loadingTimeout = setTimeout(() => {
+      this.style.pointerEvents = 'none'
+      this.style.opacity = '0.6'
       this.appendChild(document.createElement('loading-element'))
     }, 300)
   }
 
   hideLoading() {
     clearTimeout(this.loadingTimeout)
+    this.style.pointerEvents = 'auto'
+    this.style.opacity = '1'
     this.querySelector('loading-element')?.remove()
   }
 
@@ -51,6 +78,7 @@ export default class Item extends HTMLElement {
   connectedCallback() {
     this.className = 'item'
     this.render()
+    this.renderFilters()
 
     window.addEventListener('dashboard-resize', () => {
       this.resize()

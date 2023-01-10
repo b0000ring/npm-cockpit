@@ -68,7 +68,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
       return width * 2 + 24
     })
     .attr('height', 32)
-    .attr('rx', 24)
+    .attr('rx', 16)
     .attr('fill', 'white')
     .attr('stroke-width', '1')
     .attr('stroke', '#8CBAFF')

@@ -185,3 +185,11 @@
 .axis path, .axis line {
   stroke: var(--border)
 }
+
+.filters {
+  display: flex;
+  gap: 16px;
+  position: absolute;
+  top: -50px;
+  right: 8px;
+}
