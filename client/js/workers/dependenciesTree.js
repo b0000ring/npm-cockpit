@@ -15,9 +15,9 @@ const errorData = {
 
 onmessage = function(e) {
   let count = 0
-  const { dependencies, root} = e.data[0]
-  const { limitation, target, path } = e.data[1]
-  const tree = processTree(dependencies[root][0], 1)
+  const { dependencies, root, depth} = e.data[0]
+  const { target, path } = e.data[1]
+  const tree = processTree(dependencies[root][0], 0)
   postMessage({
     count,
     tree
@@ -26,51 +26,49 @@ onmessage = function(e) {
   function processTree(node, level) {
     const { connections } = node
     let deps = []
+
     // getting dependencies for node
-    if(!(level > limitation) || path[level - 1] === node.name || target) {
+    if(path[level] === node.name || target && (level < depth)) {
       deps = connections.map(item => {
         const { name, version } = item
         const depNode = dependencies[name].find(dep => dep.version === version)
         return processTree(depNode, level + 1)
       }).filter(Boolean)
-    } 
+    }
 
+    node.name === 'react' && console.log(level !== path.length, !path.includes(node.name), node.name !== path[level])
     // filtering
-    if(target && !deps.length && target !== node.name) {
+    if(
+      // if target selected and if node is leaf (deps.length is empty)
+      // check - is node the target by comparing name, if not exclude node
+      // from result
+      (target && !deps.length && target !== node.name) || 
+      // if path to node selected check - is current depth level is not the final 
+      // (by comparing current level and length of path) and then exclude the node 
+      // if not in path, by comparing node name by the path value for the node depth level
+      (path.length && (level !== path.length && node.name !== path[level]))
+    ) {
       return null
     }
-  
-    // adding errors to tree
-    node.errors.forEach(error => deps.push(getError(error)))
 
+    // adding errors if conditions met
+    if(
+      // if target is set check that current node is the target
+      (!target || node.name === target) &&
+      // if path is set check that showing node leafs (by checking 
+      // that node is the last path element)
+      (!path.length || node.name === path[path.length - 1])
+    ) {
+      node.errors.forEach(error => deps.push(getError(error)))
+    }
+  
     count += 1
+
     return {
       ...node,
       deps: deps
     }
   }
-}
-
-function checkNode(node, value) {
-  const { author, name, keywords, version } = node
-  return checkValue(author, value) ||
-    checkValue(name, value) ||
-    checkValue(keywords, value) ||
-    checkValue(version, value)
-}
-
-function checkValue(field, value) {
-  if(!field) return
-
-  if(Array.isArray(field)) {
-    return !!field.find(item => item.includes(value))
-  }
-
-  if(typeof field === 'object') {
-    return !!Object.entries(field).find(entry => entry[1].includes(value))
-  }
-
-  return field.includes(value)
 }
 
 function getError(error) {

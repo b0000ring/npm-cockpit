@@ -90,6 +90,15 @@ dependency-item:first-child {
   border-top: none;
 }
 
+dependency-item .dependency-item_description {
+  margin-top: 8px;
+  margin-left: 8px;
+  color: var(--text);
+  opacity: 0.6;
+  font-size: 12px;
+  max-width: 50%;
+}
+
 dependency-item .dependency-item_data {
   padding: 16px 8px;
 }
@@ -105,6 +114,7 @@ dependency-item .dependency-item_name {
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1.2rem;
   font-weight: 400;
+  margin-left: 8px;
 }
 
 dependency-item .dependency-item_versions-tags {
@@ -199,17 +209,14 @@ dependency-version {
   color: var(--main-light);
   font-family: ArimoBold;
   letter-spacing: 0.015em;
-  background: rgb(2, 136, 209);
+  background: rgb(55, 111, 208);
   border-radius: 6px;
   margin-left: 8px;
 }
 
-dependency-version.version-tag-highest {
-  background: rgb(55, 111, 208);
-}
-
 dependency-info {
   cursor: pointer;
+  display: flex;
 }
 
 dependency-filter {

@@ -1,7 +1,10 @@
 onmessage = function(e) {
   let count = 0
-  const { dependencies } = e.data[0]
+  const { dependencies, root } = e.data[0]
+  const target = e.data[1]
   const network = processNetwork()
+
+  console.log(target)
 
   postMessage({
     count,
@@ -32,6 +35,8 @@ onmessage = function(e) {
       })
       links.push(...connections)
     })
+
+    // probably target check should be somewhere here
 
     return {
       nodes,

@@ -71,7 +71,6 @@ export class DependencyFilter extends HTMLElement {
 
     // clear the element content before rendering options
     list.textContent = ''
-    
     const content = this.deps
       .filter(item => item.startsWith(this.filter))
       .slice(0, 10)

@@ -5,7 +5,13 @@
       "widgets": [
         {
           "h": 6,
-          "w": 10,
+          "w": 5,
+          "title": "",
+          "component": "package-data"
+        },
+        {
+          "h": 6,
+          "w": 5,
           "title": "",
           "component": "package-data"
         }

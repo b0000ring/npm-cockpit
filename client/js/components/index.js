@@ -21,7 +21,6 @@ import {
   Loading,
   CustomTable,
   DependencyItem,
-  VersionItem,
   DependencyVersion,
   DependencyInfo,
   DependencyFilter,
@@ -41,7 +40,6 @@ window.customElements.define('dependency-filter', DependencyFilter)
 window.customElements.define('weight-item', Weight)
 window.customElements.define('vulnerabilities-item', Vulnerabilities)
 window.customElements.define('custom-select', CustomSelect)
-window.customElements.define('version-item', VersionItem)
 window.customElements.define('dependency-version', DependencyVersion)
 window.customElements.define('dependency-info', DependencyInfo)
 window.customElements.define('dependencies-tree-item', DependenciesTree)

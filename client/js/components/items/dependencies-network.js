@@ -2,14 +2,15 @@ import dependenciesNetworkPlot from '/js/plots/dependencies-network.js'
 import Item from './Item.js'
 
 export class DependenciesNetwork extends Item {
-  options = {
-  
-  }
-
   processedData = {}
 
   constructor() {
     super('/api/dependencies')
+
+    window.addEventListener('dependency-filter-applied-deps-network', (e) => {
+      this.applyFilter('dependency', e.detail)
+      this.processData()
+    })
    
     this.treeWorker = new Worker('/js/workers/dependenciesNetwork.js')
     this.treeWorker.onmessage = (e) => {
@@ -21,8 +22,15 @@ export class DependenciesNetwork extends Item {
 
   processData() {
     super.loading = true
-    this.treeWorker.postMessage([this.data, this.options])
+    this.treeWorker.postMessage([this.data, this.filters.dependency])
     this.render()
+  }
+
+  addFilters(container) {
+    const dependencyFilter = document.createElement('dependency-filter')
+    dependencyFilter.id = 'deps-network'
+
+    container.append(dependencyFilter)
   }
 
   renderPlot() {
