@@ -42,10 +42,10 @@ export class DependenciesNetwork extends Item {
       this.append(element)
     }
    
-    dependenciesNetworkPlot(this.processedData, element)
+    dependenciesNetworkPlot(this.processedData, element, this.filters.dependency, this.data.root)
   }
 
   render() {
-    this.renderPlot()
+    !super.loading && this.renderPlot()
   }
 }

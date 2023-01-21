@@ -1,21 +1,21 @@
 let plot = null
+let simulation = null
 
-function dependenciesNetworkPlot({ nodes, links }, svg) {
+let height = null 
+let width = null 
+
+
+// add opacity except the path to selected node on click
+function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
   if(!nodes || !links) {
     plot?.select('#plot-content').selectAll('*').remove()
     return 
   }
 
-  const nodeSeparation = 100
-
-  let height = null 
-  let width = null 
-
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
       .attr('height', '100%')
-      .style('background', '#37334D')
 
     height = parseInt(plot.style('height'))
     width = parseInt(plot.style('width'))
@@ -32,6 +32,20 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
       // setting default zoom values
       .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
       .call(zoom)
+
+    plot.append('defs')
+      .append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 0 10 10')
+      .attr('refX', '5')
+      .attr('refY', '5')
+      .attr('markerWidth', '6')
+      .attr('markerHeight', '6')
+      .attr('orient', 'auto-start-reverse')
+      .append('path')
+      .attr('d', 'M 0 0 L 10 5 L 0 10 z')
+      .style('stroke', '#e0e4e7')
+      .style('fill', '#e0e4e7')
   }
 
   const g = plot.select('#plot-content')
@@ -53,25 +67,31 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
   createdNodes
     .append('text')
     .text(d => d.name)
-    .attr('x', 12)
-    .attr('y', '20')
+    .attr('x', 30)
+    .attr('y', 5)
     .style('pointer-events', 'none')
-    .style('fill', '#4B5C6C')
-    .style('font-family', 'Arimo')
+    .style('font-family', 'Roboto')
+    .style('font-size', '24px')
+    .attr('fill', '#9d9d9d')
 
   createdNodes
-    .insert('rect', 'text')
-    .attr('width', (d, i) => {
-      const nodes = createdNodes.nodes()
-      const node = nodes[i]
-      const width = node.getBoundingClientRect().width
-      return width * 2 + 24
+    .insert('circle', 'text')
+    .attr('r', 20)
+    .style('stroke', '#63a3ee')
+    .style('stroke-width', '1')
+    .style('rx', '10')
+    .style('ry', '10')
+    .style('box-shadow', '5px 10px')
+    .attr('fill', d => {
+      if(d.name === target) {
+        return '#cefad0'
+      }
+      if(d.name === root) {
+        return '#ffcccb'
+      }
+
+      return '#5ca9f8'
     })
-    .attr('height', 32)
-    .attr('rx', 16)
-    .attr('fill', 'white')
-    .attr('stroke-width', '1')
-    .attr('stroke', '#8CBAFF')
     .style('cursor', 'pointer')
     .on('mouseenter', function (e, d) {
       showDetails(e, d)
@@ -80,34 +100,28 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
       closeDetails()
     })
 
-  d3.forceSimulation(nodes)
-    .force('charge', d3.forceManyBody().strength(-200))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('link', d3.forceLink().links(links).distance(nodeSeparation))
-    .force('collide', d3.forceCollide().radius(100))
+  simulation?.stop()
+
+  simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id((_, i) => i))
+    .force("charge", d3.forceManyBody().strength(-300))
+    .force("x", d3.forceX())
+    .force("y", d3.forceY())
+    .force('collide', d3.forceCollide(d => 80))
     .on('tick', () => {
       updateLinks()
       updateNodes()
     })
 
+
   function updateLinks() {
     d3.select('#links')
-      .selectAll('line')
+      .selectAll('polyline')
       .data(links)
-      .join('line')
-      .attr('x1', function(d) {
-        return d.source.x
-      })
-      .attr('y1', function(d) {
-        return d.source.y
-      })
-      .attr('x2', function(d) {
-        return d.target.x
-      })
-      .attr('y2', function(d) {
-        return d.target.y
-      })
-      .style('stroke', '#8CBAFF')
+      .join('polyline')
+      .attr('points', d => `${d.source.x},${d.source.y} ${(d.source.x + d.target.x) / 2},${(d.source.y + d.target.y) / 2} ${d.target.x},${d.target.y}`)
+      .style('stroke', '#e0e4e7')
+      .attr('marker-mid', 'url(#arrow)')
   }
   
   function updateNodes() {
@@ -115,7 +129,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
       .selectAll('g')
       .data(nodes)
       .join('g')
-      .attr('transform', d => `translate(${d.x - 10} ${d.y - 10})`)      
+      .attr('transform', d => `translate(${d.x} ${d.y})`)      
   }
 
   function closeDetails() {
@@ -134,7 +148,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg) {
   function showDetails(event, obj) {
     const shift = 10 
     const {x, y, width, height} = event.target.getBoundingClientRect()
-    const details = obj.data
+    const details = obj
     window.dispatchEvent(
       new CustomEvent('popups-add', {
         detail: {

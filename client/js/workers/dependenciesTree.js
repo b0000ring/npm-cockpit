@@ -36,7 +36,6 @@ onmessage = function(e) {
       }).filter(Boolean)
     }
 
-    node.name === 'react' && console.log(level !== path.length, !path.includes(node.name), node.name !== path[level])
     // filtering
     if(
       // if target selected and if node is leaf (deps.length is empty)

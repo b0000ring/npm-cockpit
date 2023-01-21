@@ -1,5 +1,3 @@
-import { wrapText } from './utils.js'
-
 let plot = null
 
 // TODO refactor

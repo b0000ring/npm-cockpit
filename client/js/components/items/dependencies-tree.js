@@ -13,7 +13,7 @@ export class DependenciesTree extends Item {
     super('/api/dependencies')
 
     window.addEventListener('dependency-filter-applied-deps-tree', (e) => {
-      this.options.path = []
+      this.options.path = (e.detail ? [] : [this.data.root])
       this.applyFilter('dependency', e.detail)
       this.processData()
     })

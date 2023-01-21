@@ -4,16 +4,18 @@ export default class Item extends HTMLElement {
   data = null
   loadingTimeout = null
   filters = {}
+  innerLoading = false
 
   /**
    * @param {boolean} value
    */
   set loading(value) {
+    this.innerLoading = value
     value ? this.showLoading() : this.hideLoading()
   }
 
   get loading() {
-    !!this.querySelector('loading-element')
+    return this.innerLoading
   }
 
   constructor(source) {
