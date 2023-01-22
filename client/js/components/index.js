@@ -13,12 +13,13 @@ import {
   DependenciesNetwork,
   Weight,
   PackageData,
-  DependenciesList
+  DependenciesList,
+  BasicInfo
 } from './items/index.js'
 
 // elements
 import { 
-  Loading,
+  Icon,
   CustomTable,
   DependencyItem,
   DependencyVersion,
@@ -34,6 +35,7 @@ window.customElements.define('npm-dashboard', Dashboard)
 window.customElements.define('dashboard-widget', Widget)
 window.customElements.define('popups-root', Popups)
 window.customElements.define('package-data', PackageData)
+window.customElements.define('basic-info', BasicInfo)
 window.customElements.define('dependencies-list', DependenciesList)
 window.customElements.define('frequency-item', Frequency)
 window.customElements.define('dependency-filter', DependencyFilter)
@@ -48,7 +50,7 @@ window.customElements.define('updates-item', Updates)
 window.customElements.define('updates-table', UpdatesTable)
 window.customElements.define('issues-table', IssuesTable)
 window.customElements.define('vulnerabilities-table', VulnerabilitiesTable)
-window.customElements.define('loading-element', Loading)
+window.customElements.define('icon-element', Icon)
 window.customElements.define('dependency-item', DependencyItem)
 window.customElements.define('module-data-popup', ModuleDataPopup)
 window.customElements.define('group-data-popup', GroupDataPopup)

@@ -40,15 +40,15 @@ def process_dependencies():
     found = False
 
     # prevent from circular dependencies endless cycle
-    for prev in stack[:len(stack) - 1]:
+    for i, prev in enumerate(stack[:len(stack) - 1]):
       if current.name == prev.name:
         stack.pop(len(stack) - 1)
-        found = True
+        found = i
   
     # if circular dependency found then add error object to parent lib
     # and skip next steps
-    if found:
-      stack[depth - 2].add_error(Error('circular', current.name, current.version))
+    if found != False:
+      stack[found].add_error(Error('circular', current.name, current.version))
       continue
 
     # adding current lib to result list

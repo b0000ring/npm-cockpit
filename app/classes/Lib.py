@@ -26,7 +26,10 @@ class Lib:
       return (child, version)
 
   def add_error(self, error):
-    self.errors.append(error)
+    exist = next((item for item in self.errors if item['type'] == error['type'] and item['lib'] == error['lib']), None)
+
+    if not exist:
+      self.errors.append(error)
   
   def add_connection(self, data):
     if data in self.connections:

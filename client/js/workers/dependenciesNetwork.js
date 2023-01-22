@@ -57,9 +57,10 @@ onmessage = function(e) {
 
   function findPath(name, version) {
     const parents = Object.values(dependencies).flat().filter(
-        item => item.connections?.find(
-            connection => connection.name === name && connection.version === version
-          )
+        // exclude nodes with corrupted data or circular deps
+        item => !item.errors.length && item.connections?.find(
+          connection => connection.name === name && connection.version === version
+        )
       )
 
     const ancestors = parents.map(dep => findPath(dep.name, dep.version))

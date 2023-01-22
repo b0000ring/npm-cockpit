@@ -32,16 +32,6 @@ dashboard-widget h2 {
   align-items: center;
 }
 
-loading-element {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.05);
-  left: 0;
-  top: 0;
-  border-radius: 6px;
-}
-
 popups-root {
   position: absolute;
   top: 0;
@@ -56,13 +46,6 @@ updates-table, vulnerabilities-table, issues-table {
 .total {
   font-family: Poppins;
   fill: #5F7278;
-}
-
-loading-element object {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 dependencies-list {
@@ -166,22 +149,6 @@ dependency-item .dependency-item_indicators_vulnerable, dependency-item .depende
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
-
-dependency-item .dependency-item_indicators_update {
-  width: 34px;
-  height: 34px;
-  background: rgb(76, 175, 80);
-  color: var(--text-dark);
-  border-radius: 50%;
-}
-
-dependency-item .dependency-item_indicators_vulnerable {
-  width: 34px;
-  height: 34px;
-  color: var(--text-dark);
-  background: rgb(239, 83, 80);
-  border-radius: 8px;
 }
 
 version-item {
@@ -293,4 +260,43 @@ custom-select .custom-select_trigger span:first-child {
 
 custom-select .custom-select_trigger .unselected {
   color: #757575;
+}
+
+package-data, basic-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+package-data .filters, basic-info .filters {
+  display: none;
+}
+
+package-data .package-data_section, basic-info .basic-info_section {
+  font-size: 1rem;
+  color: var(--text);
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+}
+
+package-data .package-data_section:last-child, basic-info .basic-info_section:last-child {
+  border-bottom: none;
+}
+
+package-data .package-data_section_title, basic-info .basic-info_section_title {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+basic-info .basic-info_section_without_indicator span {
+  color: var(--text);
+}
+
+basic-info .basic-info_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

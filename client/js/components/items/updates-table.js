@@ -18,6 +18,11 @@ export class UpdatesTable extends Item {
       this.renderTable()
     })
 
+    window.addEventListener('custom-select-applied-updates-list-updatable', (e) => {
+      this.applyFilter('updatable', e.detail)
+      this.renderTable()
+    })
+
     this.updatesWorker = new Worker('/js/workers/updatesTable.js')
     this.updatesWorker.onmessage = (e) => {
       this.processedData = e.data
@@ -36,8 +41,9 @@ export class UpdatesTable extends Item {
     const element = this.querySelector('custom-table')
     element?.remove()
 
-    const depFilter = this.filters['dependency']
-    const typeFilter = this.filters['type']
+    const depFilter = this.filters.dependency
+    const typeFilter = this.filters.type
+    const updatableFilter = this.filters.updatable
 
     let data = this.processedData.filter((item) => {
       if(depFilter && !(item.name === depFilter)) {
@@ -45,6 +51,10 @@ export class UpdatesTable extends Item {
       }
 
       if(typeFilter && !(item.type === typeFilter)) {
+        return false
+      }
+
+      if(updatableFilter && !(item.updatable.toString() === updatableFilter)) {
         return false
       }
 
@@ -59,7 +69,8 @@ export class UpdatesTable extends Item {
       current: 'Current',
       wanted: 'Wanted',
       latest: 'Latest',
-      type: 'Type'
+      type: 'Type',
+      updatable: 'Updatable'
     }
     table.__settings__ = {
       type: {
@@ -67,6 +78,12 @@ export class UpdatesTable extends Item {
           major: 'rgb(239, 83, 80)',
           minor: 'rgb(255, 152, 0)',
           patch: 'rgb(76, 175, 80)',
+        }
+      },
+      updatable: {
+        color: {
+          true: 'rgb(76, 175, 80)',
+          false: 'rgb(239, 83, 80)',
         }
       }
     }
@@ -82,7 +99,12 @@ export class UpdatesTable extends Item {
     typeFilter.__options__ = typeOptions
     typeFilter.__placeholder__ = 'Select type'
 
-    container.append(dependencyFilter, typeFilter)
+    const updatable = document.createElement('custom-select')
+    updatable.id = 'updates-list-updatable'
+    updatable.__options__ = ['true', 'false']
+    updatable.__placeholder__ = 'Updatable'
+
+    container.append(dependencyFilter, typeFilter, updatable)
   }
 
   render() {

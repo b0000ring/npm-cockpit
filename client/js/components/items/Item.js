@@ -62,7 +62,15 @@ export default class Item extends HTMLElement {
     this.loadingTimeout = setTimeout(() => {
       this.style.pointerEvents = 'none'
       this.style.opacity = '0.6'
-      this.appendChild(document.createElement('loading-element'))
+  
+      const loadingIcon = document.createElement('icon-element')
+      loadingIcon.className = 'loading'
+      loadingIcon.id = 'loading'
+      loadingIcon.data = '/static/loading.svg'
+      loadingIcon.width = '100'
+      loadingIcon.height = '100'
+
+      this.appendChild(loadingIcon)
     }, 300)
   }
 
@@ -70,7 +78,7 @@ export default class Item extends HTMLElement {
     clearTimeout(this.loadingTimeout)
     this.style.pointerEvents = 'auto'
     this.style.opacity = '1'
-    this.querySelector('loading-element')?.remove()
+    this.querySelector('#loading')?.remove()
   }
 
   render() {

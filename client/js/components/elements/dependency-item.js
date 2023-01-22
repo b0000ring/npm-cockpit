@@ -35,29 +35,39 @@ export class DependencyItem extends HTMLElement {
   }
 
   renderIndicators() {
-    const updatable = this.updatable
-    const vulnerable = this.vulnerable
-
-    if(!updatable && !vulnerable) return ''
-
     const container = document.createElement('div')
     container.className = 'dependency-item_indicators'
 
+    const updatable = this.updatable
+    const vulnerable = this.vulnerable
+
     if(updatable) {
-      const updateIndicator = document.createElement('div')
-      updateIndicator.className = 'dependency-item_indicators_update'
-      updateIndicator.textContent = 'U'
+      const updateIndicator = document.createElement('img')
       updateIndicator.title = 'Update available'
+      updateIndicator.src = '/static/update-icon.svg'
+      updateIndicator.className = 'indicator'
       container.append(updateIndicator)
     }
 
     if(vulnerable) {
-      const vulerableIndicator = document.createElement('div')
-      vulerableIndicator.className = 'dependency-item_indicators_vulnerable'
-      vulerableIndicator.textContent = 'V'
+      const vulerableIndicator = document.createElement('img')
       vulerableIndicator.title = 'Vulnerability found'
+      vulerableIndicator.src = '/static/vuln-icon.svg'
+      vulerableIndicator.className = 'indicator'
       container.append(vulerableIndicator)
     }
+
+    const treeIcon = document.createElement('img')
+    treeIcon.title = 'Show in tree'
+    treeIcon.src = '/static/tree-icon.svg'
+    treeIcon.className = 'indicator button'
+    container.append(treeIcon)
+
+    const netIcon = document.createElement('img')
+    netIcon.title = 'Show in network'
+    netIcon.src = '/static/net-icon.svg'
+    netIcon.className = 'indicator button'
+    container.append(netIcon)
 
     return container
   }

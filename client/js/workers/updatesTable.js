@@ -6,7 +6,7 @@ onmessage = function(e) {
     const {current, latest, wanted} = data
     let type = ''
 
-    if(!current || !latest) return
+    if(!current || !latest || !wanted) return
 
     const [currentMajor, currentMinor, currentPatch] = current.split('.').map(num => parseInt(num, 10))
     const [latestMajor, latestMinor, latestPatch] = latest.split('.').map(num => parseInt(num, 10))
@@ -19,12 +19,15 @@ onmessage = function(e) {
       type = 'patch'
     }
 
+    const updatable = current !== wanted
+
     result.push({
       name,
       type,
       current,
       latest,
-      wanted
+      wanted,
+      updatable
     })
   })
 
