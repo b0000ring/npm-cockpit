@@ -7,7 +7,7 @@ export class DependenciesNetwork extends Item {
   constructor() {
     super('/api/dependencies')
 
-    window.addEventListener('dependency-filter-applied-deps-network', (e) => {
+    window.addEventListener('dependency-filter-applied-dependencies-network', (e) => {
       this.applyFilter('dependency', e.detail)
       this.processData()
     })
@@ -28,7 +28,7 @@ export class DependenciesNetwork extends Item {
 
   addFilters(container) {
     const dependencyFilter = document.createElement('dependency-filter')
-    dependencyFilter.id = 'deps-network'
+    dependencyFilter.id = 'dependencies-network'
 
     container.append(dependencyFilter)
   }

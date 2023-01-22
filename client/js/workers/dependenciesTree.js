@@ -32,7 +32,7 @@ onmessage = function(e) {
       deps = connections.map(item => {
         const { name, version } = item
         const depNode = dependencies[name].find(dep => dep.version === version)
-        if(node.errors.length && target) return
+        if(node.errors.find(error => error.type === 'circular') && target) return
         return processTree(depNode, level + 1)
       }).filter(Boolean)
     }

@@ -106,5 +106,10 @@ export class DependencyFilter extends HTMLElement {
   connectedCallback() {
     this.renderInput()
     this.renderClear()
+
+    window.addEventListener(`dependency-filter-applied-${this.id}`, (e) => {
+      this.filter = e.detail
+      this.renderInput()
+    })
   }
 }

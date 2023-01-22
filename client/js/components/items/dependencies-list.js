@@ -9,7 +9,7 @@ export class DependenciesList extends Item {
   constructor() {
     super('/api/dependencies')
 
-    window.addEventListener('dependency-filter-applied-deps-list', (e) => {
+    window.addEventListener('dependency-filter-applied-dependencies-list', (e) => {
       this.applyFilter('dependency', e.detail)
       this.renderDependencies()
     })
@@ -38,7 +38,7 @@ export class DependenciesList extends Item {
 
   addFilters(container) {
     const dependencyFilter = document.createElement('dependency-filter')
-    dependencyFilter.id = 'deps-list'
+    dependencyFilter.id = 'dependencies-list'
 
     container.append(dependencyFilter)
   }
@@ -67,6 +67,22 @@ export class DependenciesList extends Item {
     items = items.map(dependency => {
         const [name, versions] = dependency
         const dependencyItem = document.createElement('dependency-item')
+        dependencyItem.addEventListener('click', (e) => {
+          e.stopPropagation()
+          const target = e.target['data-target']
+          const dependency = e.target['data-dependency']
+
+          if(!target) return
+
+          window.dispatchEvent(
+            new CustomEvent(`dashboard-scroll`, {detail: target})
+          )
+
+          window.dispatchEvent(
+            new CustomEvent(`dependency-filter-applied-${target}`, {detail: dependency})
+          )
+        })
+
         if(this.updates[name]) dependencyItem.updatable = true
         if(this.vulnerabilities[name]) dependencyItem.vulnerable = true
         dependencyItem.__data__ = {

@@ -12,7 +12,7 @@ export class DependenciesTree extends Item {
   constructor() {
     super('/api/dependencies')
 
-    window.addEventListener('dependency-filter-applied-deps-tree', (e) => {
+    window.addEventListener('dependency-filter-applied-dependencies-tree', (e) => {
       this.options.path = (e.detail ? [] : [this.data.root])
       this.applyFilter('dependency', e.detail)
       this.processData()
@@ -48,7 +48,7 @@ export class DependenciesTree extends Item {
 
   addFilters(container) {
     const dependencyFilter = document.createElement('dependency-filter')
-    dependencyFilter.id = 'deps-tree'
+    dependencyFilter.id = 'dependencies-tree'
 
     container.append(dependencyFilter)
   }

@@ -35,14 +35,18 @@ export class DependencyItem extends HTMLElement {
   }
 
   renderIndicators() {
+    const { name } = this.__data__
     const container = document.createElement('div')
     container.className = 'dependency-item_indicators'
 
     const updatable = this.updatable
     const vulnerable = this.vulnerable
 
+    // refactor
     if(updatable) {
       const updateIndicator = document.createElement('img')
+      updateIndicator['data-target'] = 'updates-list'
+      updateIndicator['data-dependency'] = name
       updateIndicator.title = 'Update available'
       updateIndicator.src = '/static/update-icon.svg'
       updateIndicator.className = 'indicator'
@@ -51,6 +55,8 @@ export class DependencyItem extends HTMLElement {
 
     if(vulnerable) {
       const vulerableIndicator = document.createElement('img')
+      vulerableIndicator['data-target'] = 'vulnerabilities-list'
+      vulerableIndicator['data-dependency'] = name
       vulerableIndicator.title = 'Vulnerability found'
       vulerableIndicator.src = '/static/vuln-icon.svg'
       vulerableIndicator.className = 'indicator'
@@ -58,12 +64,16 @@ export class DependencyItem extends HTMLElement {
     }
 
     const treeIcon = document.createElement('img')
+    treeIcon['data-target'] = 'dependencies-tree'
+    treeIcon['data-dependency'] = name
     treeIcon.title = 'Show in tree'
     treeIcon.src = '/static/tree-icon.svg'
     treeIcon.className = 'indicator button'
     container.append(treeIcon)
 
     const netIcon = document.createElement('img')
+    netIcon['data-target'] = 'dependencies-network'
+    netIcon['data-dependency'] = name
     netIcon.title = 'Show in network'
     netIcon.src = '/static/net-icon.svg'
     netIcon.className = 'indicator button'

@@ -58,7 +58,7 @@ onmessage = function(e) {
   function findPath(name, version) {
     const parents = Object.values(dependencies).flat().filter(
         // exclude nodes with corrupted data or circular deps
-        item => !item.errors.length && item.connections?.find(
+        item => !item.errors.find(error => error.type === 'circular') && item.connections?.find(
           connection => connection.name === name && connection.version === version
         )
       )

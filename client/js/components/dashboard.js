@@ -8,12 +8,21 @@ export class Dashboard extends HTMLElement {
   constructor() {
     super()
 
+    window.addEventListener('dashboard-scroll', (e) => {
+      this.scrollToSection(e.detail)
+    })
+
     fetch('/api/layout')
       .then(result => result.json())
       .then(data => {
         this.layout = data.layout
         this.render()
       })
+  }
+
+  scrollToSection(section) {
+    const element = this.querySelector(`#${section}`)
+    element.scrollIntoView({behavior: 'smooth'})
   }
 
   renderWidget(data) {
@@ -29,6 +38,7 @@ export class Dashboard extends HTMLElement {
   renderSection(data) {
     const wrapper = document.createElement('div')
     wrapper.className = 'dashboard-section'
+    wrapper.id = data.id
   
     const title = document.createElement('h2')
     title.className= 'dashboard-section-title'
