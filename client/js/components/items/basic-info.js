@@ -42,7 +42,7 @@ export class BasicInfo extends Item {
     this.render()
   }
 
-  createSection(title, total, direct, indicator) {
+  createSection(title, total, direct, indicator, target) {
     const container = document.createElement('div')
     container.className = 'basic-info_section'
 
@@ -65,15 +65,20 @@ export class BasicInfo extends Item {
     }
 
     dataContainer.append(titleContainer, totalContainer, ' / ' , directContainer)
-
-    const indicatorElement = document.createElement('img')
+    container.append(dataContainer)
 
     if(total > 0 && indicator) {
+      const indicatorElement = document.createElement('img')
       indicatorElement.src = indicator
       indicatorElement.className = 'indicator'
+      indicatorElement.addEventListener('click', () => {
+        window.dispatchEvent(
+          new CustomEvent(`dashboard-scroll`, {detail: target})
+        )
+      })
+      container.append(indicatorElement)
     }
 
-    container.append(dataContainer, indicatorElement)
     return container
   }
 
@@ -82,8 +87,8 @@ export class BasicInfo extends Item {
 
     const totalDeps = this.createSection('Dependencies total / direct', this.nodes, this.directDependencies)
     totalDeps.className += ' basic-info_section_without_indicator'
-    const totalUpdates = this.createSection('Updates total / direct', this.updates, this.directUpdates, '/static/update-icon.svg')
-    const totalVuln = this.createSection('Vulnerabilities total / direct', this.vulnerabilities, this.directVulns, '/static/vuln-icon.svg')
+    const totalUpdates = this.createSection('Updates total / direct', this.updates, this.directUpdates, '/static/update-icon.svg', 'updates-list')
+    const totalVuln = this.createSection('Vulnerabilities total / direct', this.vulnerabilities, this.directVulns, '/static/vuln-icon.svg', 'vulnerabilities-list')
     this.append(totalDeps, totalUpdates, totalVuln)
   }
 
