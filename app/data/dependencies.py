@@ -80,10 +80,11 @@ def process_dependencies():
       try:
         child_data = open_json_file(child_path)
         stack.append(Lib(child_data, child_folder_path))
+        current.add_connection({'name': name, 'version': child_data['version']})
       except:
         current.add_error(Error('missing', name, version))
-      finally:
-        current.add_connection({'name': name, 'version': child_data['version']})
+        current.add_connection({'name': name, 'version': ''})
+        
     else:
       stack.pop(len(stack) - 1)
 

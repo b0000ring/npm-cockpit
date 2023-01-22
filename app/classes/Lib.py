@@ -2,7 +2,7 @@ import copy
 
 from app.utils import to_dict
 
-attributes = ['name', 'peerDependencies', 'dependencies', 'author', 'description', 'keywords', 'license', 'repository', 'version', 'path']
+attributes = ['name', 'devDependencies' 'dependencies', 'author', 'description', 'keywords', 'license', 'repository', 'version', 'path']
 
 class Lib:
   def __init__(self, data, path):
@@ -15,8 +15,10 @@ class Lib:
     for k, v in data.items():
       if(k in attributes):
         setattr(self, k, v)
-      if k == 'dependencies':
-        self.unprocessed_deps = copy.deepcopy(v)
+      # dev dependencies should be added only for root package because only those are actually installed
+      # path == '' means root package (empty node_modules path)
+      if k == 'dependencies' or (k == 'devDependencies' and path == ''):
+        self.unprocessed_deps.update(copy.deepcopy(v))
 
   def process_dependency(self):
     if len(self.unprocessed_deps.keys()):
