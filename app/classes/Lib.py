@@ -2,14 +2,15 @@ import copy
 
 from app.utils import to_dict
 
-attributes = ['name', 'peerDependencies', 'dependencies', 'author', 'description', 'keywords', 'license', 'repository', 'version']
+attributes = ['name', 'peerDependencies', 'dependencies', 'author', 'description', 'keywords', 'license', 'repository', 'version', 'path']
 
 class Lib:
-  def __init__(self, data):
+  def __init__(self, data, path):
     self.errors = []
     self.connections = []
     self.unprocessed_deps = {}
     self.peerDependencies = {}
+    self.path = path
 
     for k, v in data.items():
       if(k in attributes):

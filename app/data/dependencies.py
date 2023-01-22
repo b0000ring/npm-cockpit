@@ -3,12 +3,11 @@ import os
 from app.utils import open_json_file, to_dict
 from app.classes.Lib import Lib
 from app.classes.Error import Error
-from app.path import get_package_json_path, get_node_modules_path
+from app.path import get_package_json_path, get_node_modules_path, get_path
 
 # key: name, value: arr of package versions (Lib)
-# TODO refactor to be a flat list
 data = {}
-peer_deps = {}
+dev_deps = {}
 root = None
 max_depth = 0
 loaded = False
@@ -23,7 +22,7 @@ def process_dependencies():
   node_modules_path = get_node_modules_path()
 
   root_data = open_json_file(package_json_path)
-  root = Lib(root_data)
+  root = Lib(root_data, '')
   # updatable
   stack = [root]
 
@@ -57,12 +56,12 @@ def process_dependencies():
     elif not is_version_exists( data[current.name], current.version):
       data[current.name].append(current)
 
-    #peer dependencies parsing
-    if len(current.peerDependencies.keys()):
-      for key in current.peerDependencies.keys():
-        dep = current.peerDependencies[key]
-        if key not in peer_deps: peer_deps[key] = set()
-        peer_deps[key].add(dep)
+    # #peer dependencies parsing
+    # if len(current.peerDependencies.keys()):
+    #   for key in current.peerDependencies.keys():
+    #     dep = current.peerDependencies[key]
+    #     if key not in dev_deps: dev_deps[key] = set()
+    #     dev_deps[key].add(dep)
 
     # dependencies parsing
     child = current.process_dependency()
@@ -73,26 +72,27 @@ def process_dependencies():
       child_folder_path = name
       
       # if another version already found check local package node_modules
-      if is_local_dependency(current.name, name):
-        child_folder_path = current.name + '/node_modules/' + name
+      if is_local_dependency(current.path, name):
+        child_folder_path = current.path + '/node_modules/' + name
 
       child_path = node_modules_path + '/' + child_folder_path +  '/package.json'
+
       try:
         child_data = open_json_file(child_path)
-        stack.append(Lib(child_data))
+        stack.append(Lib(child_data, child_folder_path))
       except:
         current.add_error(Error('missing', name, version))
       finally:
-        current.add_connection({'name': child_data['name'], 'version': child_data['version']})
+        current.add_connection({'name': name, 'version': child_data['version']})
     else:
       stack.pop(len(stack) - 1)
 
 def is_version_exists(versions, version):
   return next((item for item in versions if item.version == version), False)
 
-def is_local_dependency(root, name):
+def is_local_dependency(current, name):
   node_modules_path = get_node_modules_path()
-  path = node_modules_path + '/' + root + '/node_modules/' + name
+  path = node_modules_path + '/' + current + '/node_modules/' + name
   return os.path.isdir(path)
 
 # getting dependencies tree data

@@ -1,6 +1,6 @@
 import { Popup } from './Popup.js'
 
-const included = ['author', 'description', 'keywords', 'license', 'repository', 'version']
+const included = ['author', 'description', 'keywords', 'license', 'repository', 'version', 'path']
 
 export class ModuleDataPopup extends Popup {
   createRow(key, content) {

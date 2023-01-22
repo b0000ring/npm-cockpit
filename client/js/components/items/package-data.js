@@ -17,6 +17,14 @@ export class PackageData extends Item {
     return container
   }
 
+  getAuthor(data) {
+    if(typeof data === 'string') {
+      return data
+    }
+
+    return Object.entries(data).map(item => `${item[0]}: ${item[1]}`).join(', ')
+  }
+
   render() {
     if(!this.data) {
       return
@@ -24,7 +32,7 @@ export class PackageData extends Item {
 
     const name = this.createSection('Name', this.data.name)
     const description = this.createSection('Description', this.data.description)
-    const author = this.createSection('Author', this.data.author)
+    const author = this.createSection('Author', this.getAuthor(this.data.author))
     const version = this.createSection('Version', this.data.version)
     const repository = this.createSection('Repository', this.data.repository?.url || this.data.repository)
     const license = this.createSection('License', this.data.license)
