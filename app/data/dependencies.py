@@ -56,13 +56,6 @@ def process_dependencies():
     elif not is_version_exists( data[current.name], current.version):
       data[current.name].append(current)
 
-    # #peer dependencies parsing
-    # if len(current.peerDependencies.keys()):
-    #   for key in current.peerDependencies.keys():
-    #     dep = current.peerDependencies[key]
-    #     if key not in dev_deps: dev_deps[key] = set()
-    #     dev_deps[key].add(dep)
-
     # dependencies parsing
     child = current.process_dependency()
     

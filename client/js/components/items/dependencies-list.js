@@ -27,10 +27,12 @@ export class DependenciesList extends Item {
 
     const vulnerabilitiesData = await makeRequest('/api/vulnerabilities')
     const updates = await makeRequest('/api/updates')
+    const deprecated = await makeRequest('/api/deprecated')
     const { vulnerabilities } = vulnerabilitiesData
 
     this.updates = updates
     this.vulnerabilities = vulnerabilities
+    this.deprecated = deprecated
 
     this.listWorker.postMessage(this.data)
     this.render()
@@ -85,6 +87,8 @@ export class DependenciesList extends Item {
 
         if(this.updates[name]) dependencyItem.updatable = true
         if(this.vulnerabilities[name]) dependencyItem.vulnerable = true
+        if(this.deprecated[name]) dependencyItem.deprecated = true
+      
         dependencyItem.__data__ = {
           name,
           versions

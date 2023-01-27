@@ -10,6 +10,7 @@ from app.data.dependencies import get_dependencies, get_issues
 from app.data.updates import get_updates
 from app.data.vulnerabilities import get_vulnerabilities
 from app.data.package import get_package_data
+from app.data.deprecated import get_deprecated
 
 static_folder = '/client'
 
@@ -22,7 +23,8 @@ class Router:
       '/api/vulnerabilities': self.send_vulnerabilities,
       '/api/updates': self.send_updates,
       '/api/issues': self.send_issues,
-      '/api/package': self.send_package_data
+      '/api/package': self.send_package_data,
+      '/api/deprecated': self.send_deprecated_data
     }
 
   def root(self):
@@ -30,6 +32,9 @@ class Router:
 
   def send_dependencies(self):
     return Response('application/json', json.dumps(get_dependencies()))
+
+  def send_deprecated_data(self):
+    return Response('application/json', json.dumps(get_deprecated()))
 
   def send_layout(self):
     return Response('application/json', json.dumps(get_layout()))

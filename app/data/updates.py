@@ -20,9 +20,7 @@ def get_updates():
   global thread
   if not updates_data:
     if not thread:
-      print('start thread')
       thread = Thread(target=pull_updates)
       thread.start()
-    print('connect thread')
     thread.join()
   return updates_data

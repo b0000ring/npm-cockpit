@@ -38,7 +38,7 @@ popups-root {
   left: 0;
 }
 
-updates-table, vulnerabilities-table, issues-table {
+updates-table, vulnerabilities-table, issues-table, deprecated-table {
   overflow-y: scroll;
   border-radius: 6px;
 }

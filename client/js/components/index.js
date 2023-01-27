@@ -14,7 +14,8 @@ import {
   Weight,
   PackageData,
   DependenciesList,
-  BasicInfo
+  BasicInfo,
+  DeprecatedTable
 } from './items/index.js'
 
 // elements
@@ -55,3 +56,5 @@ window.customElements.define('dependency-item', DependencyItem)
 window.customElements.define('module-data-popup', ModuleDataPopup)
 window.customElements.define('group-data-popup', GroupDataPopup)
 window.customElements.define('custom-table', CustomTable)
+window.customElements.define('deprecated-table', DeprecatedTable)
+

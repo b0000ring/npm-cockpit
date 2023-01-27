@@ -41,6 +41,7 @@ export class DependencyItem extends HTMLElement {
 
     const updatable = this.updatable
     const vulnerable = this.vulnerable
+    const deprecated = this.deprecated
 
     // refactor
     if(updatable) {
@@ -61,6 +62,16 @@ export class DependencyItem extends HTMLElement {
       vulerableIndicator.src = '/static/vuln-icon.svg'
       vulerableIndicator.className = 'indicator'
       container.append(vulerableIndicator)
+    }
+
+    if(deprecated) {
+      const deprecatedIndicator = document.createElement('img')
+      deprecatedIndicator['data-target'] = 'deprecated-list'
+      deprecatedIndicator['data-dependency'] = name
+      deprecatedIndicator.title = 'Deprecated'
+      deprecatedIndicator.src = '/static/dep-icon.svg'
+      deprecatedIndicator.className = 'indicator'
+      container.append(deprecatedIndicator)
     }
 
     const treeIcon = document.createElement('img')

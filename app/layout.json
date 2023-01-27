@@ -85,6 +85,18 @@
       ]
     },
     {
+      "id": "deprecated-list",
+      "title": "Deprecated List",
+      "widgets": [
+        {
+          "w": 10,
+          "h": 6,
+          "title": "",
+          "component": "deprecated-table"
+        }
+      ]
+    },
+    {
       "id": "issues-list",
       "title": "Issues List",
       "widgets": [

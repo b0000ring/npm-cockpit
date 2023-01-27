@@ -2,13 +2,14 @@ import Item from './Item.js'
 import { makeRequest } from '../../utils.js'
 
 export class BasicInfo extends Item {
-  updates = null
-  vulnerabilities = null
-  nodes = null
+  updates = 0
+  vulnerabilities = 0
+  nodes = 0
+  deprecated = 0
   directDependencies = 0
   directUpdates = 0
   directVulns = 0
-  // deprecated: null
+  directDeprecated = 0
 
   constructor() {
     super('/api/dependencies')
@@ -19,13 +20,16 @@ export class BasicInfo extends Item {
 
     const vulnerabilitiesData = await makeRequest('/api/vulnerabilities')
     const updates = await makeRequest('/api/updates')
+    const deprecated = await makeRequest('/api/deprecated')
     const { vulnerabilities } = vulnerabilitiesData
     const vulnLibs = Object.keys(vulnerabilities)
     const updatesLibs = Object.keys(updates)
+    const deprecatedLibs = Object.keys(deprecated)
 
     this.nodes = Object.keys(this.data.dependencies).length
     this.updates = updatesLibs.length
     this.vulnerabilities = vulnLibs.length
+    this.deprecated = deprecatedLibs.length
 
     const root = this.data.dependencies[this.data.root][0]
     this.directDependencies = root.connections.length
@@ -35,6 +39,9 @@ export class BasicInfo extends Item {
       }
       if(vulnLibs.includes(item.name)) {
         this.directVulns += 1
+      }
+      if(deprecatedLibs.includes(item.name)) {
+        this.directDeprecated += 1
       }
     })
 
@@ -87,9 +94,10 @@ export class BasicInfo extends Item {
 
     const totalDeps = this.createSection('Dependencies total / direct', this.nodes, this.directDependencies)
     totalDeps.className += ' basic-info_section_without_indicator'
-    const totalUpdates = this.createSection('Updates total / direct', this.updates, this.directUpdates, '/static/update-icon.svg', 'updates-list')
-    const totalVuln = this.createSection('Vulnerabilities total / direct', this.vulnerabilities, this.directVulns, '/static/vuln-icon.svg', 'vulnerabilities-list')
-    this.append(totalDeps, totalUpdates, totalVuln)
+    const updates = this.createSection('Updates total / direct', this.updates, this.directUpdates, '/static/update-icon.svg', 'updates-list')
+    const vuln = this.createSection('Vulnerabilities total / direct', this.vulnerabilities, this.directVulns, '/static/vuln-icon.svg', 'vulnerabilities-list')
+    const totalDep = this.createSection('Deprecated', this.deprecated, this.directDeprecated, '/static/dep-icon.svg', 'deprecated-list')
+    this.append(totalDeps, updates, vuln, totalDep)
   }
 
 }
