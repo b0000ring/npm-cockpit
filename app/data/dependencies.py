@@ -59,6 +59,8 @@ def process_dependencies():
     # dependencies parsing
     child = current.process_dependency()
     
+    # TODO refactor
+    # add check is version exists in array before searching in directories
     if child:
       name = child[0]
       version = child[1]
@@ -76,7 +78,7 @@ def process_dependencies():
         current.add_connection({'name': name, 'version': child_data['version']})
       except:
         current.add_error(Error('missing', name, version))
-        current.add_connection({'name': name, 'version': ''})
+        #current.add_connection({'name': name, 'version': ''})
         
     else:
       stack.pop(len(stack) - 1)

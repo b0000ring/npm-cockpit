@@ -17,3 +17,7 @@ def open_file(path):
   except:
      with open(path, 'rb') as file:
       return file.read()
+
+# TODO implement
+def check_semver():
+  None

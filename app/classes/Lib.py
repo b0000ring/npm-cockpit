@@ -35,7 +35,8 @@ class Lib:
       self.errors.append(error)
   
   def add_connection(self, data):
-    if data in self.connections:
+    exist = next((item for item in self.connections if item['name'] == data['name']), None)
+    if exist:
       return
     self.connections.append(data)
 
