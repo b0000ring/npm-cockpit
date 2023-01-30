@@ -300,3 +300,15 @@ basic-info .basic-info_section {
   justify-content: space-between;
   align-items: center;
 }
+
+section-info-popup .popup-content {
+  max-width: 500px;
+}
+
+section-info-popup .popup-content div {
+  margin-bottom: 8px;
+}
+
+section-info-popup .popup-content div:last-child {
+  margin-bottom: 0;
+}

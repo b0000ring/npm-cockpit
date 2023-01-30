@@ -1,5 +1,22 @@
 export class CustomTable extends HTMLElement {
 
+  constructor() {
+    super()
+
+    this.addEventListener('click', (e) => {
+      if(e.target['data-name']) {
+        e.stopPropagation()
+        window.dispatchEvent(
+          new CustomEvent(`dashboard-scroll`, {detail: 'dependencies-list'})
+        )
+
+        window.dispatchEvent(
+          new CustomEvent(`dependency-filter-applied-dependencies-list`, {detail: e.target['data-name']})
+        )
+      }
+    })
+  }
+
   applyStyle(column, data, cell) {
     const settings = this.__settings__
 
@@ -13,6 +30,13 @@ export class CustomTable extends HTMLElement {
   getCellContent(column, data) {
     const content = document.createElement('div')
     content.textContent = data
+
+    // making all dep names a link to deps list widget
+    if(column === 'name') {
+      content.className = 'link'
+      content['data-name'] = data
+      content.title = 'Show in dependencies list'
+    }
 
     this.applyStyle(column, data, content)
     return content

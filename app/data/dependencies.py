@@ -116,5 +116,5 @@ def get_issues():
       for error in errors:
         if not error.type in result:
           result[error.type] = {}
-        result[error.type][error.lib] = to_dict(error)
+        result[error.type][error.name] = to_dict(error)
   return result

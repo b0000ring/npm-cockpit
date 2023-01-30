@@ -30,7 +30,7 @@ import {
 } from './elements/index.js'
 
 // popups
-import { ModuleDataPopup, GroupDataPopup } from './popups/index.js'
+import { ModuleDataPopup, GroupDataPopup, SectionInfoPopup } from './popups/index.js'
 
 window.customElements.define('npm-dashboard', Dashboard)
 window.customElements.define('dashboard-widget', Widget)
@@ -54,6 +54,7 @@ window.customElements.define('vulnerabilities-table', VulnerabilitiesTable)
 window.customElements.define('icon-element', Icon)
 window.customElements.define('dependency-item', DependencyItem)
 window.customElements.define('module-data-popup', ModuleDataPopup)
+window.customElements.define('section-info-popup', SectionInfoPopup)
 window.customElements.define('group-data-popup', GroupDataPopup)
 window.customElements.define('custom-table', CustomTable)
 window.customElements.define('deprecated-table', DeprecatedTable)

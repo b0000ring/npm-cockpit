@@ -94,9 +94,11 @@ export class BasicInfo extends Item {
 
     const totalDeps = this.createSection('Dependencies total / direct', this.nodes, this.directDependencies)
     totalDeps.className += ' basic-info_section_without_indicator'
+
     const updates = this.createSection('Updates total / direct', this.updates, this.directUpdates, '/static/update-icon.svg', 'updates-list')
     const vuln = this.createSection('Vulnerabilities total / direct', this.vulnerabilities, this.directVulns, '/static/vuln-icon.svg', 'vulnerabilities-list')
     const totalDep = this.createSection('Deprecated', this.deprecated, this.directDeprecated, '/static/dep-icon.svg', 'deprecated-list')
+    
     this.append(totalDeps, updates, vuln, totalDep)
   }
 

@@ -25,7 +25,7 @@ export class IssuesTable extends Item {
       table.id = 'issues-table'
       table.__items__ = this.processedData
       table.__columns__ = {
-        lib: 'Name',
+        name: 'Name',
         version: 'Version',
         type: 'Type',
       }

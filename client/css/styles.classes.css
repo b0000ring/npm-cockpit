@@ -8,16 +8,27 @@
   border-radius: 6px;
 }
 
+.dashboard-section_header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
 .dashboard-section-content {
   display: grid;
   grid-gap: 16px 16px;
 }
 
-.dashboard-section-title {
+.dashboard-section_header_title {
   font-family: 'ArimoSemiBold';
   color: var(--text);
   font-size: 1.3rem;
-  margin-top: 0;
+  margin: 0;
+}
+
+.dashboard-section_header_info {
+  cursor: help;
+  margin-left: 12px;
 }
 
 .item {
@@ -38,7 +49,7 @@
   width: 600px;
 }
 
-.mopopupdal-small {
+.popup-small {
   width: 300px;
 }
 
@@ -190,7 +201,7 @@
   display: flex;
   gap: 16px;
   position: absolute;
-  top: -50px;
+  top: -48px;
   right: 8px;
 }
 
