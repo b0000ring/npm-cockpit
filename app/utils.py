@@ -1,4 +1,5 @@
 import json
+import socket
 
 def open_json_file(path):
   try:
@@ -21,3 +22,13 @@ def open_file(path):
 # TODO implement
 def check_semver():
   None
+
+def port_check(host, port):
+  print(host, port)
+  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  s.settimeout(2) #Timeout in case of port not open
+  try:
+    s.bind((host, port)) 
+    return True
+  except:
+    return False
