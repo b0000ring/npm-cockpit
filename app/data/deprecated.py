@@ -2,7 +2,6 @@ import concurrent.futures
 import requests
 from threading import Thread
 
-from app.path import get_path
 from app.data.dependencies import data
 
 thread = None

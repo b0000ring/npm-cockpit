@@ -18,7 +18,7 @@ export class PackageData extends Item {
   }
 
   getAuthor(data) {
-    if(typeof data === 'string') {
+    if(!data || typeof data === 'string') {
       return data
     }
 
@@ -36,7 +36,7 @@ export class PackageData extends Item {
     const version = this.createSection('Version', this.data.version)
     const repository = this.createSection('Repository', this.data.repository?.url || this.data.repository)
     const license = this.createSection('License', this.data.license)
-    const keywords = this.createSection('Keywords', this.data.keywords.join(', '))
+    const keywords = this.createSection('Keywords', this.data.keywords?.join(', '))
 
     this.append(name, description, author, version, repository, license, keywords)
   }
