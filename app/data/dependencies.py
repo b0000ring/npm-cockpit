@@ -14,6 +14,8 @@ loaded = False
 
 # TODO refactor this
 def process_dependencies():
+  print('parsing dependencies tree...')
+
   global data
   global root
   global max_depth
@@ -82,6 +84,7 @@ def process_dependencies():
         
     else:
       stack.pop(len(stack) - 1)
+  print('dependencies tree parsed successfully')
 
 def is_version_exists(versions, version):
   return next((item for item in versions if item.version == version), False)
@@ -93,7 +96,6 @@ def is_local_dependency(current, name):
 
 # getting dependencies tree data
 def get_dependencies():
-  print('Getting project tree...')
   result = {}
   for key in data:
     deps = []
@@ -107,7 +109,6 @@ def get_dependencies():
   }
 
 def get_issues():
-  print('Getting issues data...')
   global data
   result = {}
   for key in data:

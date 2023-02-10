@@ -12,6 +12,11 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
     return 
   }
 
+  // making default node static
+  const rootObj = nodes.find(d => d.name === root)
+  rootObj.fx = 0
+  rootObj.fy = height / 2
+  
   if(!plot) {
     plot = d3.select(svg)
       .attr('width', '100%')
@@ -30,7 +35,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
     // applying zoom
     plot
       // setting default zoom values
-      .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
+      .call(zoom.transform, d3.zoomIdentity.translate(40, height / 2).scale(0.4))
       .call(zoom)
 
     plot.append('defs')
@@ -103,10 +108,16 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
   simulation?.stop()
 
   simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id((_, i) => i))
-    .force("charge", d3.forceManyBody().strength(-300))
-    .force("x", d3.forceX())
-    .force("y", d3.forceY())
+    .force("charge", d3.forceManyBody().strength(-100))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("link", d3.forceLink(links).distance(100).id((d, i) => i))
+    .force("x", d3.forceX().strength(1).x(d => {
+      if (d.name === root) {
+        return width;
+      }
+      return width / 2;
+    }))
+    .force("y", d3.forceY().strength(0))
     .force('collide', d3.forceCollide(d => 80))
     .on('tick', () => {
       updateLinks()

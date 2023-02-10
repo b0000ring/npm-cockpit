@@ -8,19 +8,25 @@ vulnerabilities_data = {}
 thread = None
 
 def pull_vulnerabilities():
+  print('getting vulnerabilities data...')
   global vulnerabilities_data
-  path = get_path()
-  command = ['npm', 'audit', '--json']
-  result = subprocess.run(command, capture_output=True, cwd=path).stdout
-  vulnerabilities_data = json.loads(result)
+  try:
+    path = get_path()
+    command = ['npm', 'audit', '--json']
+    result = subprocess.run(command, capture_output=True, cwd=path).stdout
+    vulnerabilities_data = json.loads(result)
+    print('vulnerabilities data received successfully')
+  except:
+    pass
+
 
 def get_vulnerabilities():
-  print('Getting vulnerabilities data...')
   global vulnerabilities_data
   global thread
   if not vulnerabilities_data:
     if not thread:
-      thread = Thread(target=pull_vulnerabilities)
+      thread = Thread(target=pull_vulnerabilities, daemon=True)
       thread.start()
     thread.join()
   return vulnerabilities_data
+  

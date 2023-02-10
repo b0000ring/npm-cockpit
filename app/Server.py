@@ -5,6 +5,11 @@ from app.Router import Router
 class Server(BaseHTTPRequestHandler):
   router = Router()
 
+  def log_request(self, format, *args):
+      return
+  def log_message(self, format, *args):
+    return
+
   def do_HEAD(self):
     return
     
