@@ -15,7 +15,7 @@ def pull_updates():
     command = ['npm', 'outdated', '--json', '--all']
     result = subprocess.run(command, capture_output=True, cwd=path).stdout
     updates_data = json.loads(result)
-    print('updates data received successfully')
+    print('updates data received successfully', flush=True)
   except:
     pass
 

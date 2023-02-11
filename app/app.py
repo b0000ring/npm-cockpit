@@ -14,7 +14,7 @@ def init():
 
   isOpen = port_check(HOST_NAME, PORT_NUMBER)
   if not isOpen:
-    print('ERROR: port ' + str(PORT_NUMBER) + ' is not available. Provide available port as the second command param')
+    print('ERROR: port ' + str(PORT_NUMBER) + ' is not available. Provide available port as the second command param', flush=True)
     exit()
 
   class ThreadingSimpleServer(ThreadingMixIn, HTTPServer):
@@ -23,9 +23,9 @@ def init():
   process_dependencies()
   httpd = ThreadingSimpleServer((HOST_NAME, PORT_NUMBER), Server)
   try:
-    print('server is running on http://%s:%s' % (HOST_NAME, PORT_NUMBER))
+    print('server is running on http://%s:%s' % (HOST_NAME, PORT_NUMBER), flush=True)
     httpd.serve_forever()
   except KeyboardInterrupt:
-    print('\nExiting app...')
+    print('\nExiting app...', flush=True)
 
   httpd.server_close()

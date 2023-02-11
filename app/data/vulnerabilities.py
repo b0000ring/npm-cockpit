@@ -8,14 +8,14 @@ vulnerabilities_data = {}
 thread = None
 
 def pull_vulnerabilities():
-  print('getting vulnerabilities data...')
+  print('getting vulnerabilities data...', flush=True)
   global vulnerabilities_data
   try:
     path = get_path()
     command = ['npm', 'audit', '--json']
     result = subprocess.run(command, capture_output=True, cwd=path).stdout
     vulnerabilities_data = json.loads(result)
-    print('vulnerabilities data received successfully')
+    print('vulnerabilities data received successfully', flush=True)
   except:
     pass
 

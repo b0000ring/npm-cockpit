@@ -16,14 +16,14 @@ def pull_package_data(name):
       deprecated_data[name] = data['deprecated']
 
 def get_deprecated_data():
-  print('getting deprecation data...')
+  print('getting deprecation data...', flush=True)
   global data
   with concurrent.futures.ThreadPoolExecutor() as executor:
     futures = []
     for lib in data: 
       futures.append(executor.submit(pull_package_data, name=lib))
     concurrent.futures.wait(futures)
-  print('deprecation data received successfully')
+  print('deprecation data received successfully', flush=True)
 
 def get_deprecated():
   global deprecated_data

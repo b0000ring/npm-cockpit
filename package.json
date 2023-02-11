@@ -1,0 +1,14 @@
+{
+  "author": "Aleksandr Chirkin <hello@alexchirkin.me> (https://github.com/b0000ring)",
+  "license": "MIT",
+  "name": "npm-dashboard",
+  "main": "./index.js",
+  "description": "Interact with a long-running python child process",
+  "version": "0.1.0",
+  "homepage": "https://github.com/b0000ring/npm-dashboard",
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/b0000ring/npm-dashboard.git"
+  },
+  "engines": { "node": ">= 10.0.0" }
+}

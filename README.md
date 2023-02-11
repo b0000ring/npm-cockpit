@@ -1,27 +1,26 @@
-# npm-dashboard
-
-NPM-DASHBOARD
+# NPM-DASHBOARD
 
 A user-friendly application for JavaScript developers to visualize the dependency tree of their NPM packages and get statistical info about application dependencies tree state.
 
-Features
+## Features
 
 Visual representation of the entire dependency tree of a project.
 Detailed information about each package, including version, description, and related links.
 Search function to quickly find specific package.
 Identify potential issues such as outdated, deprecated or vulnerable packages.
 
-Requirements
+## Requirements
 
 Node.js and NPM installed on your computer
 Application folder should contain node_modules folder with installed dependencies
 Terminal or command prompt access
 
-Download page
+## Usage
 
+### NPM
+`npx npm-dashboard ~/code/my-awesome-node-project/ 8081`
 
-Run command example
-npmdashboard ~/code/my-awesome-node-project/ 8081
+where
 
-my-awesome-node-project - a folder with package.json and node_modules folder
-8081 - available local port to serve the app
+`~/code/my-awesome-node-project/` - a path to project folder with package.json and node_modules inside
+`8081` - available local port to serve the app

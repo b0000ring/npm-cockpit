@@ -4,7 +4,7 @@ import os
 try:
   sys.argv[1]
 except:
-  print('ERROR: Please, provide the path to folder with package.json and node_modules')
+  print('ERROR: Please, provide the path to folder with package.json and node_modules', flush=True)
   exit()
 
 path = sys.argv[1]
@@ -16,10 +16,10 @@ isfile = os.path.isfile(package_json_path)
 
 # provided path validation
 if not(isfile):
-  print('ERROR: Target folder should contain package.json file')
+  print('ERROR: Target folder should contain package.json file', flush=True)
   exit()
 if not(isfolder):
-  print('ERROR: Target folder should contain node_modules folder')
+  print('ERROR: Target folder should contain node_modules folder', flush=True)
   exit()
 
 def get_path():

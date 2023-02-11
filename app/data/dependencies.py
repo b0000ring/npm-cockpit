@@ -14,7 +14,7 @@ loaded = False
 
 # TODO refactor this
 def process_dependencies():
-  print('parsing dependencies tree...')
+  print('parsing dependencies tree...', flush=True)
 
   global data
   global root
@@ -84,7 +84,7 @@ def process_dependencies():
         
     else:
       stack.pop(len(stack) - 1)
-  print('dependencies tree parsed successfully')
+  print('dependencies tree parsed successfully', flush=True)
 
 def is_version_exists(versions, version):
   return next((item for item in versions if item.version == version), False)
