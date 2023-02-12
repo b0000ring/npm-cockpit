@@ -33,3 +33,8 @@ where
 
 ### NPM dependency in package
 `npm install npm-cockpit` and add the run script in the package json with proper params
+
+## Development
+- `git clone https://github.com/b0000ring/npm-cockpit.git`
+- `cd npm-cockpit`
+- `node index.js [path] [port]` or `python __main__.py [path] [port]`
