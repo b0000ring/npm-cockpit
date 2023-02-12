@@ -12,7 +12,7 @@ export class Dashboard extends HTMLElement {
       this.scrollToSection(e.detail)
     })
 
-    fetch('/api/layout')
+    fetch('/layout.json')
       .then(result => result.json())
       .then(data => {
         this.layout = data.layout

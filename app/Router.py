@@ -5,20 +5,16 @@ from mimetypes import guess_type
 from app.classes.Response import Response
 from app.utils import open_file
 
-from app.data.layout import get_layout
 from app.data.dependencies import get_dependencies, get_issues
 from app.data.updates import get_updates
 from app.data.vulnerabilities import get_vulnerabilities
 from app.data.package import get_package_data
 from app.data.deprecated import get_deprecated
 
-static_folder = '/client'
-
 class Router:
   def __init__(self):
     self.routes = {
       '/': self.root,
-      '/api/layout': self.send_layout,
       '/api/dependencies': self.send_dependencies,
       '/api/vulnerabilities': self.send_vulnerabilities,
       '/api/updates': self.send_updates,
@@ -36,9 +32,6 @@ class Router:
   def send_deprecated_data(self):
     return Response('application/json', json.dumps(get_deprecated()))
 
-  def send_layout(self):
-    return Response('application/json', json.dumps(get_layout()))
-
   def send_vulnerabilities(self):
     return  Response('application/json', json.dumps(get_vulnerabilities()))
   
@@ -52,8 +45,9 @@ class Router:
     return Response('application/json', json.dumps(get_updates()))
 
   def static(self, path):
-    final_path = os.getcwd() + static_folder + path
-
+    static_folder = '/client'
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    final_path = dir_path + '/..' + static_folder + path
     if '..' in path:
       return Response('text/plain', '403 forbidden', status = 403)  
 
