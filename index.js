@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { spawn } = require('child_process');
 
 const args = ['./__main__.py', ...process.argv.slice(2)]

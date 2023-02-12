@@ -4,11 +4,21 @@
   "name": "npm-cockpit",
   "main": "./index.js",
   "description": "Interact with a long-running python child process",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/b0000ring/npm-cockpit",
   "repository": {
       "type": "git",
       "url": "git://github.com/b0000ring/npm-cockpit.git"
   },
+  "keywords": [
+    "command",
+    "dashboard",
+    "npm",
+    "statistic",
+    "dependencies",
+    "packages",
+    "info"
+  ],
+  "bin": "./index.js",
   "engines": { "node": ">= 10.0.0" }
 }
