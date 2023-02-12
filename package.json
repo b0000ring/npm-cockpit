@@ -3,7 +3,7 @@
   "license": "MIT",
   "name": "npm-cockpit",
   "main": "./index.js",
-  "description": "Interact with a long-running python child process",
+  "description": "Installable command-line tool which helps to track nodejs project dependencies state",
   "version": "0.1.2",
   "homepage": "https://github.com/b0000ring/npm-cockpit",
   "repository": {

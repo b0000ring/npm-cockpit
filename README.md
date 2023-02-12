@@ -18,10 +18,13 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ## Usage
 
-### NPM
-`npx npm-cockpit ~/code/my-awesome-node-project/ 8081`
+### NPM globally installed
+`npm install --global npm-cockpit`
+`npm-cockpit [path] [port]`
 
 where
+`path` - a path to project folder with package.json and node_modules inside
+`port` - available local port to serve the app
 
-`~/code/my-awesome-node-project/` - a path to project folder with package.json and node_modules inside
-`8081` - available local port to serve the app
+### NPM dependency in package
+`npm install npm-cockpit` and add the run script in the package json with proper params
