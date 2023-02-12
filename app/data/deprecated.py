@@ -2,7 +2,7 @@ import concurrent.futures
 import requests
 from threading import Thread
 
-from app.data.dependencies import data
+from app.data.dependencies import dependencies
 
 thread = None
 deprecated_data = {}
@@ -17,17 +17,15 @@ def pull_package_data(name):
 
 def get_deprecated_data():
   print('getting deprecation data...', flush=True)
-  global data
   with concurrent.futures.ThreadPoolExecutor() as executor:
     futures = []
-    for lib in data: 
+    for lib in dependencies: 
       futures.append(executor.submit(pull_package_data, name=lib))
     concurrent.futures.wait(futures)
   print('deprecation data received successfully', flush=True)
 
 def get_deprecated():
   global deprecated_data
-  global data
   global thread
   if not deprecated_data:
     if not thread:

@@ -43,7 +43,7 @@ export default function frequency(data, svg) {
 
   const axisY = d3.axisLeft(scaleY)
     .ticks(data.length)
-    .tickFormat((d, i) => wrapText(data[i]?.data.name, 25))
+    .tickFormat((d, i) => wrapText(data[i]?.data.name, 20))
     .tickSize(0)
   
   const axisX = d3.axisBottom(scaleX)

@@ -97,14 +97,16 @@ export default function dependencies(data, svg, setPath) {
       .attr('y', d => d.x + 5)
       .attr('text-anchor', 'end')
       .text(d => d.data.name)
-      .style('font-family', 'Roboto')
+      .style('font-family', 'Arimo')
       .style('font-size', '24px')
       .attr('fill', '#9d9d9d')
   }
 
   function showDetails(event, obj) {
     const shift = 10 
-    const {x, y, width, height} = event.target.getBoundingClientRect()
+    const {width, height} = event.target.getBoundingClientRect()
+    const x = event.clientX
+    const y = event.clientY
     const details = obj.data
     window.dispatchEvent(
       new CustomEvent('popups-add', {

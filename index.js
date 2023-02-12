@@ -16,7 +16,7 @@ pythonProcess.on('close', () => {
   pythonProcess.kill()
 });
 
-pythonProcess.on('error', function (e) {
+pythonProcess.on('error', function () {
   console.log("Failed to start python server, is `python` command available?")
 });
 

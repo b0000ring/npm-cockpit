@@ -125,9 +125,8 @@
 
 /* TODO remove duplicates */
 .table thead tr th {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-weight: 500;
-  font-size: 0.8125rem;
+  font-family: ArimoSemiBold;
+  font-size: 1rem;
   line-height: 1.39286rem;
   display: table-cell;
   vertical-align: inherit;
@@ -141,9 +140,8 @@
 }
 
 .table tbody tr td {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-weight: 400;
-  font-size: 0.8125rem;
+  font-family: Arimo;
+  font-size: 1rem;
   line-height: 1.43;
   display: table-cell;
   vertical-align: inherit;
@@ -163,12 +161,11 @@
 }
 
 .total {
-  font-family: Poppins;
   fill: var(--text);
 }
 
 .logo {
-  font-family: PoppinsBold;
+  font-family: ArimoBold;
   font-size: 1.8rem;
   display: flex;
   align-items: center;
@@ -190,7 +187,8 @@
 }
 
 .tick text {
-  fill: var(--text); 
+  fill: var(--text);
+  font-size: 0.8rem; 
 }
 
 .axis path, .axis line {

@@ -75,7 +75,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
     .attr('x', 30)
     .attr('y', 5)
     .style('pointer-events', 'none')
-    .style('font-family', 'Roboto')
+    .style('font-family', 'Arimo')
     .style('font-size', '24px')
     .attr('fill', '#9d9d9d')
 

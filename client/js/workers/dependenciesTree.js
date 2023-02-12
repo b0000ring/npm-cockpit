@@ -75,7 +75,7 @@ function getError(error) {
   const type = errorData[error.type].label || error.type
   const description = errorData[error.type].description || ''
   return {
-    name: `${error.lib}: ${type} error`,
+    name: `${error.name}: ${type} error`,
     description,
     keywords:['error', type],
     error: true
