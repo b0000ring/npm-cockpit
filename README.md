@@ -11,7 +11,7 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ## Requirements
 
-- Node.js and NPM installed on your computer
+- Node.js and NPM installed
 - Application folder should contain node_modules folder with installed dependencies
 - Terminal or command prompt access
 - python command should be available
@@ -23,8 +23,13 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 `npm-cockpit [path] [port]`
 
 where
+
 `path` - a path to project folder with package.json and node_modules inside
-`port` - available local port to serve the app
+
+`port` - available local port to serve the app (default `8080`)
+
+### NPX
+`npx npm-cockpit [path] [port]`
 
 ### NPM dependency in package
 `npm install npm-cockpit` and add the run script in the package json with proper params
