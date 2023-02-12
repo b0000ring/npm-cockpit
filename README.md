@@ -11,9 +11,10 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ## Requirements
 
-Node.js and NPM installed on your computer
-Application folder should contain node_modules folder with installed dependencies
-Terminal or command prompt access
+- Node.js and NPM installed on your computer
+- Application folder should contain node_modules folder with installed dependencies
+- Terminal or command prompt access
+- python command should be available
 
 ## Usage
 

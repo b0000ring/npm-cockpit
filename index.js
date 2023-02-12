@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const args = ['./__main__.py', ...process.argv.slice(2)]
 ;
 
-const pythonProcess = spawn('python3', args);
+const pythonProcess = spawn('python', args);
 
 pythonProcess.stdout.setEncoding('utf8');
 pythonProcess.stdout.on('data', (data) => {
