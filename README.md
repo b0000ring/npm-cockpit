@@ -1,4 +1,4 @@
-# NPM-DASHBOARD
+# NPM-COCKPIT
 
 A user-friendly application for JavaScript developers to visualize the dependency tree of their NPM packages and get statistical info about application dependencies tree state.
 
@@ -18,7 +18,7 @@ Terminal or command prompt access
 ## Usage
 
 ### NPM
-`npx npm-dashboard ~/code/my-awesome-node-project/ 8081`
+`npx npm-cockpit ~/code/my-awesome-node-project/ 8081`
 
 where
 

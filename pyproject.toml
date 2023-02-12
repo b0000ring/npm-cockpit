@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "npm-dashboard"
+name = "npm-cockpit"
 version = "0.1.0"
 description = "installable command-line tool which helps to track nodejs project dependencies state"
 authors = ["Alex Chirkin <hello@alexchirkin.me>"]
 readme = "README.md"
-packages = [{include = "npm_dashboard"}]
+packages = [{include = "npm_cockpit"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
