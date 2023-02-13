@@ -4,9 +4,15 @@ A user-friendly application for JavaScript developers to visualize the dependenc
 
 ## Features
 
-Visual representation of the entire dependency tree of a project.
+Visual representation of the entire dependency tree of a project. With ability to look all the paths for a specific package.
+
+ ![tree chart](https://chartexample.com/images/npm-cockpit/tree.png)
+
+
 Detailed information about each package, including version, description, and related links.
+
 Search function to quickly find specific package.
+
 Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ## Requirements
