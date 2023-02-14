@@ -18,7 +18,7 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ![packages list](https://chartexample.com/images/npm-cockpit/deprecated.jpg)
 
-**AND MANY MORE!**
+**AND MUCH MORE!**
 
 
 ## Requirements
