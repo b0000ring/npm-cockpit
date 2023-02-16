@@ -5,7 +5,7 @@ export class DependenciesTree extends Item {
   options = {
     path: []
   }
-
+  plot = null
   processedData = {}
   nodesCount = 0
 
@@ -77,8 +77,12 @@ export class DependenciesTree extends Item {
       element.id = 'dependencies-plot'
       this.append(element)
     }
-   
-    dependenciesPlot(this.processedData, element, this.setPath.bind(this))
+
+    if(this.plot) {
+      this.plot(this.processedData)
+    } else {
+      this.plot = dependenciesPlot(this.processedData, element, this.setPath.bind(this))
+    }
   }
 
   render() {

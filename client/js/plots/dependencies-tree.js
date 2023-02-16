@@ -1,62 +1,71 @@
-let plot = null
-
-// TODO refactor
 export default function dependencies(data, svg, setPath) {
-  if(!data) {
-    plot.select('#plot-content').selectAll('*').remove()
-    return 
-  }
+  let plot = d3.select(svg)
+    .attr('width', '100%')
+    .attr('height', '100%')
+
   const nodeRadius = 20
   const nodeHeight = 50
   const nodeWidth = 100
   const nodeSeparation = 100
-
-  const nodes = d3.hierarchy(data, d => d.deps)
   const lnkMkr = d3.linkHorizontal().x(d => d.y).y(d => d.x)
-  if(!plot) {
-    plot = d3.select(svg)
-      .attr('width', '100%')
-      .attr('height', '100%')
+  const height = parseInt(plot.style('height'))
+  const width = parseInt(plot.style('width'))
+  const zoom = d3.zoom()
+    .extent([[0, 0], [width, height]])
+    .on('zoom', zoomed)
 
-    const height = parseInt(plot.style('height'))
-    const width = parseInt(plot.style('width'))
+  plot.append('defs')
+    .append('circle')
+    .attr('id', 'node')
+    .attr('r', nodeRadius)
+    .style('stroke', '#63a3ee')
+    .style('stroke-width', '1')
+    .style('rx', '10')
+    .style('ry', '10')
+    .style('box-shadow', '5px 10px')
 
-    const zoom = d3.zoom()
-      .extent([[0, 0], [width, height]])
-      .on('zoom', zoomed)
+  const content = plot.append('g')
+    .attr('id', 'plot-content')
+  content.append('g')
+    .attr('id', 'paths')
+  content.append('g')
+    .attr('id', 'nodes')
 
-    plot.append('defs')
-      .append('circle')
-      .attr('id', 'node')
-      .attr('r', nodeRadius)
-      .style('stroke', '#63a3ee')
-      .style('stroke-width', '1')
-      .style('rx', '10')
-      .style('ry', '10')
-      .style('box-shadow', '5px 10px')
-    
-    plot.append('g')
-      .attr('id', 'plot-content')
+  // applying zoom
+  plot
+    // setting default zoom values
+    .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
+    .call(zoom)
 
-    // applying zoom
-    plot
-      // setting default zoom values
-      .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
-      .call(zoom)
+  render(data)
+
+  return render
+
+  function render(data) {
+    const nodes = d3.hierarchy(data, d => d.deps)
+    const pathsContainer = plot.select('#paths')
+    const nodesContainer = plot.select('#nodes')
+
+    d3.tree().nodeSize([nodeHeight + nodeSeparation, nodeWidth + nodeSeparation * 5])(nodes)
+
+    pathsContainer.selectAll('path')
+      .data(nodes.links())
+      .join('path')
+      .attr('d', d => lnkMkr(d))
+      .attr('stroke-width', 2)
+      .attr('stroke', '#e0e4e7')
+      .attr('fill', 'none')
+        
+    nodesContainer.selectAll('g')
+      .data(nodes.descendants(), d => `${d.data.name}@${d.data.version}`)
+      .join(
+        enter => {
+          renderItem(enter.append('g').attr('transform', d => `translate(${d.y},${d.x})`), nodes)
+        },
+        update => update.attr('transform', d => `translate(${d.y},${d.x})`),
+        exit => exit.remove()
+      )
   }
-
-  const g = plot.select('#plot-content')
-
-  g.selectAll('*').remove()
-
-  d3.tree().nodeSize([nodeHeight + nodeSeparation, nodeWidth + nodeSeparation * 5])(nodes)
-
-  g.selectAll('path').data(nodes.links()).enter()
-    .append('path').attr('d', d => lnkMkr(d))
-    .attr('stroke', '#e0e4e7').attr('fill', 'none')
-      
-  const selection = g.selectAll('g').data(nodes.descendants()).enter()
-  renderItem(selection)
 
   function closeDetails() {
     window.dispatchEvent(
@@ -66,13 +75,12 @@ export default function dependencies(data, svg, setPath) {
     )
   }
 
-  function renderItem(selection) {
-    const g = selection.append('g')
-
-    g.append('use')
+  function renderItem(selection, nodes) {
+    selection.append('use')
       .attr('href', '#node')
       .attr('stroke-width', 2)
-      .attr('x', d => d.y).attr('y', d => d.x)
+      .attr('x', d => 0)
+      .attr('y', 0)
       .attr('fill', d => d.data.error ? '#F73E6C' : '#5ca9f8')
       .style('cursor', d => d.data.connections?.length > 0 ? 'pointer' : 'default')
       .attr('text-anchor', 'start')
@@ -82,7 +90,7 @@ export default function dependencies(data, svg, setPath) {
           .attr('opacity', 0.9)
       })
       .on('mouseleave', function() {
-        closeDetails()
+        setTimeout(closeDetails, 100)
         d3.select(this).select('use')
           .attr('opacity', 1)
       })
@@ -92,14 +100,16 @@ export default function dependencies(data, svg, setPath) {
         setPath(path.map(item => item.data.name))
       })
       
-    g.append('text')
-      .attr('x', d => d.y - 25)
-      .attr('y', d => d.x + 5)
+    selection.append('text')
+      .attr('x', -25)
+      .attr('y', 5)
       .attr('text-anchor', 'end')
       .text(d => d.data.name)
       .style('font-family', 'Arimo')
       .style('font-size', '24px')
       .attr('fill', '#9d9d9d')
+
+    return selection
   }
 
   function showDetails(event, obj) {

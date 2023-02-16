@@ -3,6 +3,7 @@ import Item from './Item.js'
 
 export class DependenciesNetwork extends Item {
   processedData = {}
+  plot = null
 
   constructor() {
     super('/api/dependencies')
@@ -41,8 +42,12 @@ export class DependenciesNetwork extends Item {
       element.id = 'dependencies-network-plot'
       this.append(element)
     }
-   
-    dependenciesNetworkPlot(this.processedData, element, this.filters.dependency, this.data.root)
+
+    if(this.plot) {
+      this.plot(this.processedData, this.filters.dependency, this.data.root)
+    } else {
+      this.plot = dependenciesNetworkPlot(this.processedData, element, this.filters.dependency, this.data.root)
+    }
   }
 
   render() {
