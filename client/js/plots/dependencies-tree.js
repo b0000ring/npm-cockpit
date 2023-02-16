@@ -53,7 +53,7 @@ export default function dependencies(data, svg, setPath) {
       .join('path')
       .attr('d', d => lnkMkr(d))
       .attr('stroke-width', 2)
-      .attr('stroke', '#e0e4e7')
+      .attr('stroke', 'var(--path)')
       .attr('fill', 'none')
         
     nodesContainer.selectAll('g')
@@ -90,11 +90,12 @@ export default function dependencies(data, svg, setPath) {
           .attr('opacity', 0.9)
       })
       .on('mouseleave', function() {
-        setTimeout(closeDetails, 100)
+        closeDetails()
         d3.select(this).select('use')
           .attr('opacity', 1)
       })
       .on('click', function(e, d) {
+        closeDetails()
         if(d.data.connections.length === 0) return
         const path = nodes.path(d)
         setPath(path.map(item => item.data.name))

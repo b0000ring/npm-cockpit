@@ -31,8 +31,8 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
     .attr('orient', 'auto-start-reverse')
     .append('path')
     .attr('d', 'M 0 0 L 10 5 L 0 10 z')
-    .style('stroke', '#e0e4e7')
-    .style('fill', '#e0e4e7')
+    .style('stroke', 'var(--path)')
+    .style('fill', 'var(--path)')
   
   g.append('g')
     .attr('id', 'links')
@@ -132,7 +132,7 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
       .data(links)
       .join('polyline')
       .attr('points', d => `${d.source.x},${d.source.y} ${(d.source.x + d.target.x) / 2},${(d.source.y + d.target.y) / 2} ${d.target.x},${d.target.y}`)
-      .style('stroke', '#e0e4e7')
+      .style('stroke', 'var(--path)')
       .style('stroke-width', 2)
       .attr('marker-mid', 'url(#arrow)')
   }
