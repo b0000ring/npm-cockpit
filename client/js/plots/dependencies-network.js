@@ -94,6 +94,60 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
       .on('mouseleave', function() {
         closeDetails()
       })
+      .on('click', function(e, d) {
+        const { index } = d
+        closeDetails()
+
+        const selected = nodes[index]
+        const parents = findParents(nodes, selected, root)
+        const childs = findChilds(nodes, selected, target)
+        const result = [...parents, ...childs]
+
+        highlightSelected(result)
+      })
+
+      highlightSelected()
+  }
+
+  function highlightSelected(selected) {
+    plot.select('#nodes')
+      .selectAll('g')
+      .attr('opacity', (d) => {
+        const { name, version } = d
+        if(!selected || selected.find(node => node.name === name && node.version === version)) {
+          return 1
+        }
+
+        return 0.2
+      })
+
+    plot.select('#links')
+      .selectAll('polyline')
+      .attr('opacity', (d) => {
+        if(
+            !selected ||
+            selected.find(node => node.name === d.source.name && node.version === d.source.version) && 
+            selected.find(node => node.name === d.target.name && node.version === d.target.version)
+          ) {
+          return 1
+        }
+
+        return 0.2
+      })
+  }
+
+  function findParents(nodes, selected, root) {
+    const parents = nodes.filter(node => node.connections.find(connection => connection.name === selected.name && connection.version === selected.version))
+    return [...parents, ...parents.map(item => findParents(nodes, item, root))].flat()
+  }
+
+  function findChilds(nodes, selected, target) {
+    const childs = selected.connections.map(connection => {
+      const node = nodes.find(node => node.name === connection.name && node.version === connection.version)
+      if(!node) return
+      return findChilds(nodes, node, target)
+    })
+    return [selected, ...childs].flat().filter(Boolean)
   }
 
   function applySimulation(nodes, links, root, target) {
@@ -168,8 +222,8 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
           popup: 'module-data-popup',
           options: {
             __data__: details,
-            x: x + width - shift,
-            y: y + height - shift
+            x: x + width + shift,
+            y: y + height + shift
           }
         }
       })
