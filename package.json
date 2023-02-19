@@ -4,7 +4,7 @@
   "name": "npm-cockpit",
   "main": "./index.js",
   "description": "Installable command-line tool which helps to track nodejs project dependencies state",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "homepage": "https://github.com/b0000ring/npm-cockpit",
   "repository": {
       "type": "git",
