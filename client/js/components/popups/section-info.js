@@ -42,7 +42,8 @@ const infoMap = {
   ],
   'dependencies-network': [
     'Dependencies network diagram shows uniq paths form the root application to specific dependency.',
-    'To select target dependency find it by using dependency name filter.'
+    'To select target dependency find it by using dependency name filter.',
+    'Click on a node to highlight branches which contains the selected node.'
   ]
 }
 
