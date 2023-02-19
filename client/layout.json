@@ -37,7 +37,7 @@
         {
           "h": 3,
           "w": 7,
-          "title": "Weight",
+          "title": "Most dependent",
           "component": "weight-item"
         },
         {

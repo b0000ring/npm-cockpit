@@ -14,11 +14,11 @@ pythonProcess.stdout.on('data', (data) => {
 
 pythonProcess.on('close', () => {
   pythonProcess.kill()
-});
+})
 
 pythonProcess.on('error', function () {
   console.log("Failed to start python server, is `python` command available?")
-});
+})
 
 process.on('SIGINT', exit)
 process.on('exit', exit)

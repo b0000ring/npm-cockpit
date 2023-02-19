@@ -1,5 +1,16 @@
 import Item from './Item.js'
-import vulnerabilitiesPlot from '/js/plots/vulnerabilities.js'
+import donutPlot from '/js/plots/donut.js'
+
+const plotConfig = {
+  descriptions: {
+    critical: 'Address immediately',
+    high: 'Address as quickly as possible',
+    moderate: 'Address as time allows',
+    low: 'Address at your discretion',
+  },
+  types: ['critical', 'high', 'moderate', 'low'],
+  colors: ['rgb(239, 83, 80)', 'rgb(255, 152, 0)', '#fbc02d', 'rgb(76, 175, 80)', '#2779FF'],
+}
 
 export class Vulnerabilities extends Item {
   constructor() {
@@ -19,7 +30,7 @@ export class Vulnerabilities extends Item {
       this.append(element)
     }
     
-    vulnerabilitiesPlot(this.data, element)
+    donutPlot(this.data, element, plotConfig)
   }
 
   resize() {

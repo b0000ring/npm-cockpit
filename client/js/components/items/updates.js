@@ -1,5 +1,15 @@
 import Item from './Item.js'
-import updatesPlot from '/js/plots/updates.js'
+import donutPlot from '/js/plots/donut.js'
+
+const plotConfig = {
+  descriptions: {
+    major: 'Changes that break backward compatibility',
+    minor: 'Backward compatible new features',
+    patch: 'Backward compatible bug fixes'
+  },
+  types: ['major', 'minor', 'patch'],
+  colors: ['rgb(239, 83, 80)', 'rgb(255, 152, 0)', 'rgb(76, 175, 80)']
+}
 
 export class Updates extends Item {
   constructor() {
@@ -32,7 +42,7 @@ export class Updates extends Item {
       this.append(element)
     }
    
-    updatesPlot(this.processedData, element)
+    donutPlot(this.processedData, element, plotConfig)
   }
 
   render() {

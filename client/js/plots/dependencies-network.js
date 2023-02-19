@@ -111,12 +111,12 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
       }).id((d, i) => i))
       .force("x", d3.forceX().strength(1).x(d => {
         if (d.name === root) {
-          return width;
+          return width
         }
         if (links.length > 10 && d.name === target) {
-          return width * 2;
+          return width * 2
         }
-        return width / 2;
+        return width / 2
       }))
       .force("y", d3.forceY().strength(0))
       .force('collide', d3.forceCollide(d => 80))

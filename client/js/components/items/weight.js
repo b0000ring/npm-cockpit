@@ -1,5 +1,5 @@
 import Item from './Item.js'
-import weightPlot from '/js/plots/weight.js'
+import barPlot from '/js/plots/bar.js'
 
 export class Weight extends Item {
   constructor() {
@@ -32,7 +32,7 @@ export class Weight extends Item {
       this.append(element)
     }
    
-    weightPlot(this.processedData, element)
+    barPlot(this.processedData, element)
   }
 
   render() {

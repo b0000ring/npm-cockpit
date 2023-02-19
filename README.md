@@ -33,15 +33,15 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ## Usage
 
-### NPM globally installed
-`npm install --global npm-cockpit`
-`npm-cockpit [path] [port]`
-
-where
+### Command params
 
 `path` - a path to project folder with package.json and node_modules inside
 
 `port` - available local port to serve the app (default `8080`)
+
+### NPM globally installed
+`npm install --global npm-cockpit`
+`npm-cockpit [path] [port]`
 
 ### NPX
 `npx npm-cockpit [path] [port]`

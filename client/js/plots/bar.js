@@ -1,35 +1,11 @@
 import { wrapText } from './utils.js'
 
-let plot = null
-
-//TODO refactor
-export default function weight(data, svg) {
-  if(!plot) {
-    plot = d3.select(svg)
-      .attr('width', '100%')
-      .attr('height', '100%')
-
-    plot.append('g')
-      .attr('id', 'weight-items')
-
-    plot.append('g')
-      .attr('id', 'weight-yaxis')
-      .attr('class', 'axis')
-      .attr('transform', 'translate(30, 0)')
-
-    plot.append('g')
-      .attr('id', 'weight-xaxis')
-      .attr('class', 'axis')
-  }
-
-  if(!data) {
-    return
-  }
-
+export default function bar(data = [], svg) {
+  const plot = d3.select(svg)
   const margin = {left: 160, right: 30, top: 60, bottom: 30}
   const width = parseInt(plot.style('width'))
   const height = parseInt(plot.style('height'))
-  const barHeight= (height - margin.top - margin.bottom) / data.length
+  const barHeight = (height - margin.top - margin.bottom) / data.length
   const max = d3.max(data, item => item.count)
   const scaleX = d3.scaleLinear().domain([0, max]).range([margin.left, width - margin.right])
   const scaleY = d3.scaleLinear().domain([0, data.length]).range([margin.top, height - margin.bottom])
@@ -49,7 +25,25 @@ export default function weight(data, svg) {
   const axisX = d3.axisBottom(scaleX)
     .ticks(max < 10 ? max : 10, 'd')
 
-  const items = plot.select('#weight-items')
+  const items = plot.select('#bar-items')
+  
+  // initial render
+  if(!plot.selectChildren().size()) {
+    plot.attr('width', '100%')
+      .attr('height', '100%')
+
+    plot.append('g')
+      .attr('id', 'bar-items')
+
+    plot.append('g')
+      .attr('id', 'bar-yaxis')
+      .attr('class', 'axis')
+      .attr('transform', 'translate(30, 0)')
+
+    plot.append('g')
+      .attr('id', 'bar-xaxis')
+      .attr('class', 'axis')
+  }
 
   items.selectAll('rect')
     .data(data)
@@ -71,14 +65,14 @@ export default function weight(data, svg) {
       closeDetails()
     })
 
-  plot.select('#weight-yaxis')
+  plot.select('#bar-yaxis')
     .attr('transform', 'translate(150, 0)')
     .call(axisY)
 
-  plot.selectAll('#weight-yaxis .tick text')
+  plot.selectAll('#bar-yaxis .tick text')
     .attr('transform', `translate(-5, ${barHeight / 2})`)
 
-  plot.select('#weight-xaxis')
+  plot.select('#bar-xaxis')
     .attr('transform', `translate(0, ${height - margin.bottom + 5})`)
     .call(axisX)
 

@@ -5,7 +5,7 @@ const infoMap = {
   'general-info': [
     'This section shows overview of statistical information.',
     'Frequency diagram - shows top 10 most common libraries among all dependencies. As they are big part of dependencies tree they need more attention.',
-    'Weight diagram - shows top 10 core dependencies which has more their own dependencies. If some core dependency has too many of them, maybe it can be replaced with another one or updated first.',
+    'Most dependent diagram - shows top 10 core dependencies which has more their own dependencies. If some core dependency has too many of them, maybe it can be replaced with another one or updated first.',
     'Vulnerabilities diagram - shows how many vulnerabilities with different severities are found.',
     'Updates diagram - shows how many updates of different types are found.'
   ],

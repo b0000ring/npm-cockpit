@@ -1,5 +1,5 @@
 import Item from './Item.js'
-import frequencyPlot from '/js/plots/frequency.js'
+import barPlot from '/js/plots/bar.js'
 
 export class Frequency extends Item {
   constructor() {
@@ -32,7 +32,7 @@ export class Frequency extends Item {
       this.append(element)
     }
    
-    frequencyPlot(this.processedData, element)
+    barPlot(this.processedData, element)
   }
 
   render() {

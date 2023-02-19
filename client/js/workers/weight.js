@@ -17,7 +17,7 @@ onmessage = function(e) {
     while(stack.length && stack.length) {
       const dep = stack.shift()
       const namever = dep.name + '@' + dep.version
-      if(found.includes(namever)) continue;
+      if(found.includes(namever)) continue
 
       const packages = dep.connections.map(item => {
         const {name, version} = item
