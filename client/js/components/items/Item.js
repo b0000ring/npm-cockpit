@@ -5,6 +5,7 @@ export default class Item extends HTMLElement {
   loadingTimeout = null
   filters = {}
   innerLoading = false
+  innerError = false
 
   /**
    * @param {boolean} value
@@ -18,6 +19,23 @@ export default class Item extends HTMLElement {
     return this.innerLoading
   }
 
+  /**
+   * @param {boolean} value
+   */
+  set error(value) {
+    this.innerError = value
+    this.textContent = ''
+    const error = document.createElement('div')
+    error.className = 'error'
+    error.textContent = 'Data loading error'
+
+    this.append(error)
+  }
+
+  get error() {
+    return this.innerError
+  }
+
   constructor(source) {
     super()
 
@@ -27,6 +45,12 @@ export default class Item extends HTMLElement {
   async loadData(source) {
     this.loading = true
     this.data = await makeRequest(source)
+
+    if(this.data.error) {
+      this.error = true
+      this.loading = false
+      return
+    }
     this.loading = false
     this.processData && this.processData()
     this.render()

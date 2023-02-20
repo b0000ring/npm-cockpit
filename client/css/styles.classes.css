@@ -238,3 +238,11 @@
   background: rgb(64, 122, 214);
   border-radius: 8px;
 }
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: red;
+}

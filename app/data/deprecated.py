@@ -3,6 +3,7 @@ import requests
 from threading import Thread
 
 from app.data.dependencies import dependencies
+from app.utils import check_npm_availability
 
 thread = None
 deprecated_data = {}
@@ -28,6 +29,8 @@ def get_deprecated():
   global deprecated_data
   global thread
   if not deprecated_data:
+    if check_npm_availability() != 200:
+      return
     if not thread:
       thread = Thread(target=get_deprecated_data)
       thread.start()

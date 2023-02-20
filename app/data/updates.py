@@ -3,6 +3,7 @@ import json
 from threading import Thread
 
 from app.path import get_path
+from app.utils import check_npm_availability
 
 thread = None
 updates_data = {}
@@ -23,6 +24,8 @@ def get_updates():
   global updates_data
   global thread
   if not updates_data:
+    if check_npm_availability() != 200:
+      return
     if not thread:
       thread = Thread(target=pull_updates, daemon=True)
       thread.start()

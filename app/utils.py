@@ -1,5 +1,6 @@
 import json
 import socket
+import urllib.request
 
 def open_json_file(path):
   try:
@@ -19,6 +20,13 @@ def open_file(path):
   except:
      with open(path, 'rb') as file:
       return file.read()
+
+def check_npm_availability():
+  try:
+    resp = urllib.request.urlopen("https://www.npm.com", timeout=10).getcode()
+  except:
+    resp = 502
+  return resp
 
 # TODO implement
 def check_semver():

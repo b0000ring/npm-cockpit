@@ -18,7 +18,7 @@ export class Vulnerabilities extends Item {
   }
 
   processData() {
-    this.data = this.data.metadata.vulnerabilities
+    this.data = this.data.metadata?.vulnerabilities
   }
 
   renderPlot() {

@@ -30,10 +30,16 @@ class Router:
     return Response('application/json', json.dumps(get_dependencies()))
 
   def send_deprecated_data(self):
-    return Response('application/json', json.dumps(get_deprecated()))
+    result = get_deprecated()
+    if not result:
+      return Response('application/json', 'network error', status = 502)
+    return Response('application/json', json.dumps(result))
 
   def send_vulnerabilities(self):
-    return  Response('application/json', json.dumps(get_vulnerabilities()))
+    result = get_vulnerabilities()
+    if not result:
+      return Response('application/json', 'network error', status = 502)
+    return  Response('application/json', json.dumps(result))
   
   def send_issues(self):
     return Response('application/json', json.dumps(get_issues()))
@@ -42,7 +48,10 @@ class Router:
     return Response('application/json', json.dumps(get_package_data()))
 
   def send_updates(self):
-    return Response('application/json', json.dumps(get_updates()))
+    result = get_updates()
+    if not result:
+      return Response('application/json', 'network error', status = 502)
+    return Response('application/json', json.dumps(result))
 
   def static(self, path):
     static_folder = '/client'

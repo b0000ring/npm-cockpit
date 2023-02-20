@@ -16,11 +16,19 @@ export class BasicInfo extends Item {
   }
 
   async processData() {
-    super.loading = true
+    this.loading = true 
 
     const vulnerabilitiesData = await makeRequest('/api/vulnerabilities')
     const updates = await makeRequest('/api/updates')
     const deprecated = await makeRequest('/api/deprecated')
+
+    if(vulnerabilitiesData.error || updates.error || deprecated.error) {
+      this.error = true
+      this.loading = false
+      this.render()
+      return
+    }
+
     const { vulnerabilities } = vulnerabilitiesData
     const vulnLibs = Object.keys(vulnerabilities)
     const updatesLibs = Object.keys(updates)
@@ -90,7 +98,7 @@ export class BasicInfo extends Item {
   }
 
   render() {
-    if(!this.data || this.loading) return false
+    if(!this.data || super.loading || super.error) return
 
     const totalDeps = this.createSection('Dependencies total / direct', this.nodes, this.directDependencies)
     totalDeps.className += ' basic-info_section_without_indicator'

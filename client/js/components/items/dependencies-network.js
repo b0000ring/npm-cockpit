@@ -2,7 +2,7 @@ import dependenciesNetworkPlot from '/js/plots/dependencies-network.js'
 import Item from './Item.js'
 
 export class DependenciesNetwork extends Item {
-  processedData = {}
+  processedData = null
   plot = null
 
   constructor() {
@@ -51,6 +51,6 @@ export class DependenciesNetwork extends Item {
   }
 
   render() {
-    !super.loading && this.renderPlot()
+    !super.loading && this.processedData && this.renderPlot()
   }
 }

@@ -5,6 +5,7 @@ export class DependenciesList extends Item {
   processedData = null
   updates = {}
   vulnerabilities = {}
+  deprecated = {}
 
   constructor() {
     super('/api/dependencies')
@@ -28,6 +29,12 @@ export class DependenciesList extends Item {
     const vulnerabilitiesData = await makeRequest('/api/vulnerabilities')
     const updates = await makeRequest('/api/updates')
     const deprecated = await makeRequest('/api/deprecated')
+
+    if(vulnerabilitiesData.error || updates.error || deprecated.error) {
+      this.listWorker.postMessage(this.data)
+      return
+    } 
+
     const { vulnerabilities } = vulnerabilitiesData
 
     this.updates = updates
