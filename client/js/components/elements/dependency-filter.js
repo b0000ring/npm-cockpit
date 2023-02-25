@@ -91,8 +91,8 @@ export class DependencyFilter extends HTMLElement {
   }
 
   renderClear() {
-    const button = document.createElement('div')
-    button.textContent = '×'
+    const button = document.createElement('img')
+    button.src = '/static/clear-icon.svg'
     button.className = 'dependency-filter_clear'
     button.addEventListener('click', () => {
       this.filter = ''

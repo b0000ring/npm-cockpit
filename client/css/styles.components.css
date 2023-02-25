@@ -220,11 +220,11 @@ dependency-filter li:hover, custom-select li:hover {
 }
 
 dependency-filter .dependency-filter_clear {
-  font-size: 18px;
+  width: 10px;
+  height: 10px;
   cursor: pointer;
   position: absolute;
-  top: 6px;
-  color: var(--text);
+  top: 12px;
   right: 8px;
 }
 

@@ -176,10 +176,14 @@
 
 .color-switch {
   margin-right: 32px;
-  color: white;
-  font-size: 24px;
   cursor: pointer;
   user-select: none;
+}
+
+.color-switch svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
 }
 
 .dark .color-switch {
