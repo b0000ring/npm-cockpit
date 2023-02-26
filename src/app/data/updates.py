@@ -2,8 +2,8 @@ import subprocess
 import json
 from threading import Thread
 
-from app.path import get_path
-from app.utils import check_npm_availability
+from src.app.path import get_path
+from src.app.utils import check_npm_availability
 
 thread = None
 updates_data = {}

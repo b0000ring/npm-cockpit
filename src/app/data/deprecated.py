@@ -2,8 +2,8 @@ import concurrent.futures
 import requests
 from threading import Thread
 
-from app.data.dependencies import dependencies
-from app.utils import check_npm_availability
+from src.app.data.dependencies import dependencies
+from src.app.utils import check_npm_availability
 
 thread = None
 deprecated_data = {}

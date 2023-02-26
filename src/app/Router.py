@@ -2,14 +2,14 @@ import os
 import json
 from mimetypes import guess_type
 
-from app.classes.Response import Response
-from app.utils import open_file
+from src.app.classes.Response import Response
+from src.app.utils import open_file
 
-from app.data.dependencies import get_dependencies, get_issues
-from app.data.updates import get_updates
-from app.data.vulnerabilities import get_vulnerabilities
-from app.data.package import get_package_data
-from app.data.deprecated import get_deprecated
+from src.app.data.dependencies import get_dependencies, get_issues
+from src.app.data.updates import get_updates
+from src.app.data.vulnerabilities import get_vulnerabilities
+from src.app.data.package import get_package_data
+from src.app.data.deprecated import get_deprecated
 
 class Router:
   def __init__(self):

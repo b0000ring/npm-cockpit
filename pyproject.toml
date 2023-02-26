@@ -1,13 +1,28 @@
 [tool.poetry]
 name = "npm-cockpit"
-version = "0.1.0"
-description = "installable command-line tool which helps to track nodejs project dependencies state"
+version = "0.2.0"
+description = "Installable command-line tool with web interface which helps to track nodejs project dependencies state"
 authors = ["Alex Chirkin <hello@alexchirkin.me>"]
 readme = "README.md"
-packages = [{include = "npm_cockpit"}]
+packages = [{include = "src"}]
+keywords=[
+  "command",
+  "dashboard",
+  "npm",
+  "statistic",
+  "dependencies",
+  "packages",
+  "info"
+]
+license = "MIT"
+
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
+requests = "^2.28.2"
+
+[tool.poetry.scripts]
+npm-cockpit = "src.app.app:init"
 
 [build-system]
 requires = ["poetry-core"]

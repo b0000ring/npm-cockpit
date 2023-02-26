@@ -1,6 +1,6 @@
 import copy
 
-from app.utils import to_dict
+from src.app.utils import to_dict
 
 attributes = ['name', 'devDependencies' 'dependencies', 'author', 'description', 'keywords', 'license', 'repository', 'version', 'path']
 

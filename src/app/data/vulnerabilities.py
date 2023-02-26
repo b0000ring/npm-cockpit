@@ -2,8 +2,8 @@ import subprocess
 import json
 from threading import Thread
 
-from app.utils import check_npm_availability
-from app.path import get_path
+from src.app.utils import check_npm_availability
+from src.app.path import get_path
 
 vulnerabilities_data = {}
 thread = None

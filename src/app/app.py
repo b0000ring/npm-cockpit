@@ -2,9 +2,9 @@ from http.server import HTTPServer
 from socketserver import ThreadingMixIn
 import sys
 
-from app.utils import port_check
-from app.Server import Server
-from app.data.dependencies import process_dependencies
+from src.app.utils import port_check
+from src.app.Server import Server
+from src.app.data.dependencies import process_dependencies
 
 def init():
   HOST_NAME = '127.0.0.1'

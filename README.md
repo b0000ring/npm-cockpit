@@ -39,6 +39,10 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 `port` - available local port to serve the app (default `8080`)
 
+### PIP
+`pip install npm-cockpit`
+`npm-cockpit [path] [port]`
+
 ### NPM globally installed
 `npm install --global npm-cockpit`
 `npm-cockpit [path] [port]`

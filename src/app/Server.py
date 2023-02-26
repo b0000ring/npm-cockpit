@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler
 
-from app.Router import Router
+from src.app.Router import Router
 
 class Server(BaseHTTPRequestHandler):
   router = Router()

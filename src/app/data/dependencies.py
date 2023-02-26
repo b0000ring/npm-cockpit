@@ -1,9 +1,9 @@
 import os
 
-from app.utils import open_json_file, to_dict
-from app.classes.Lib import Lib
-from app.classes.Error import Error
-from app.path import get_package_json_path, get_node_modules_path, get_path
+from src.app.utils import open_json_file, to_dict
+from src.app.classes.Lib import Lib
+from src.app.classes.Error import Error
+from src.app.path import get_package_json_path, get_node_modules_path, get_path
 
 # key: name, value: arr of package versions (Lib)
 dependencies = {}
