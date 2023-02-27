@@ -2,7 +2,7 @@
 
 const { spawn } = require('child_process')
 
-const args = [`${__dirname}/src/__main__.py`, ...process.argv.slice(2)]
+const args = [`${__dirname}/__main__.py`, ...process.argv.slice(2)]
 
 const pythonProcess = spawn('python', args)
 
