@@ -16,6 +16,8 @@ onmessage = function(e) {
 
     while(stack.length && stack.length) {
       const dep = stack.shift()
+      if(!dep) return
+
       const namever = dep.name + '@' + dep.version
       if(found.includes(namever)) continue
 

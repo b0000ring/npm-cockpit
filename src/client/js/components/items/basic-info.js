@@ -2,10 +2,10 @@ import Item from './Item.js'
 import { makeRequest } from '../../utils.js'
 
 export class BasicInfo extends Item {
-  updates = 0
-  vulnerabilities = 0
-  nodes = 0
-  deprecated = 0
+  updates = null
+  vulnerabilities = null
+  nodes = null
+  deprecated = null
   directDependencies = 0
   directUpdates = 0
   directVulns = 0
@@ -17,30 +17,46 @@ export class BasicInfo extends Item {
 
   async processData() {
     this.loading = true 
+    
+    let vulnLibs = []
+    let updatesLibs = []
+    let deprecatedLibs = []
 
-    const vulnerabilitiesData = await makeRequest('/api/vulnerabilities')
-    const updates = await makeRequest('/api/updates')
-    const deprecated = await makeRequest('/api/deprecated')
+    const [vulnerabilities, updates, deprecated] = await Promise.allSettled(
+      [
+        makeRequest('/api/vulnerabilities'),
+        makeRequest('/api/updates'),
+        makeRequest('/api/deprecated')
+      ]
+    ).then((values) => values.map(item => item.value))
 
-    if(vulnerabilitiesData.error || updates.error || deprecated.error) {
-      this.error = true
-      this.loading = false
-      this.render()
-      return
+    // if(vulnerabilities.error || updates.error || deprecated.error) {
+    //   this.error = true
+    //   this.loading = false
+    //   this.render()
+    //   return
+    // }
+
+    if(!vulnerabilities.error) {
+      const { vulnerabilities: vulnerabilitiesItems } = vulnerabilities
+      vulnLibs = Object.keys(vulnerabilitiesItems)
+      this.vulnerabilities = vulnLibs.length
     }
 
-    const { vulnerabilities } = vulnerabilitiesData
-    const vulnLibs = Object.keys(vulnerabilities)
-    const updatesLibs = Object.keys(updates)
-    const deprecatedLibs = Object.keys(deprecated)
+    if(!updates.error) {
+      updatesLibs = Object.keys(updates)
+      this.updates = updatesLibs.length
+    }
 
+    if(!deprecated.error) {
+      deprecatedLibs = Object.keys(deprecated)
+      this.deprecated = deprecatedLibs.length
+    }
+     
     this.nodes = Object.keys(this.data.dependencies).length
-    this.updates = updatesLibs.length
-    this.vulnerabilities = vulnLibs.length
-    this.deprecated = deprecatedLibs.length
-
     const root = this.data.dependencies[this.data.root][0]
     this.directDependencies = root.connections.length
+
     root.connections.forEach(item => {
       if(updatesLibs.includes(item.name)) {
         this.directUpdates += 1
@@ -58,6 +74,11 @@ export class BasicInfo extends Item {
   }
 
   createSection(title, total, direct, indicator, target) {
+    // if data was not loaded hide the section
+    if(total === null) {
+      return ''
+    }
+
     const container = document.createElement('div')
     container.className = 'basic-info_section'
 

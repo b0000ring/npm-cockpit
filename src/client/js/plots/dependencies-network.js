@@ -9,16 +9,25 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
 
   const g = plot.append('g')
     .attr('id', 'plot-content')
+  const buttons = plot.append('g')
 
   const zoom = d3.zoom()
     .extent([[0, 0], [width, height]])
     .on('zoom', zoomed)
 
-  // applying zoom
-  plot
-    // setting default zoom values
-    .call(zoom.transform, d3.zoomIdentity.translate(40, height / 4).scale(0.5))
-    .call(zoom)
+  defaultZoom()
+
+  // applying center plot button
+  buttons.append('image')
+    .attr('xlink:href','/static/center-icon.svg')
+    .attr('id', 'center-icon')
+    .on('click', function() {
+      defaultZoom()
+    })
+    // numbers are slight moving for better positioning
+    .attr('transform', `translate(${width - 40}, 16)`)
+    .append('title')
+    .text('Center plot')  
 
   plot.append('defs')
     .append('marker')
@@ -134,6 +143,13 @@ function dependenciesNetworkPlot({ nodes, links }, svg, target, root) {
 
         return 0.2
       })
+  }
+
+  function defaultZoom() {
+    plot
+      // setting default zoom values
+      .call(zoom.transform, d3.zoomIdentity.translate(40, height / 4).scale(0.5))
+      .call(zoom)
   }
 
   function findParents(nodes, selected, root) {

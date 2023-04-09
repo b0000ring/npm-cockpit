@@ -28,7 +28,7 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 - Target application folder should contain node_modules folder with installed dependencies and package.json
 - Node.js and NPM installed
 
-### As an NPM package
+### As NPM package
 - `python` command should be available
 
 ## Usage
@@ -41,10 +41,12 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 
 ### PIP
 `pip install npm-cockpit`
+
 `npm-cockpit [path] [port]`
 
 ### NPM globally installed
 `npm install --global npm-cockpit`
+
 `npm-cockpit [path] [port]`
 
 ### NPX

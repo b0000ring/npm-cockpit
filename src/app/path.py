@@ -9,18 +9,22 @@ except:
 
 path = sys.argv[1]
 package_json_path = path + '/package.json'
+package_lock_path = path + '/package-lock.json'
 node_modules_path = path + '/node_modules'
 
-isfolder = os.path.isdir(node_modules_path)
-isfile = os.path.isfile(package_json_path)
+isNodeModulesFound = os.path.isdir(node_modules_path)
+isPackageJSONFound = os.path.isfile(package_json_path)
+isPackageLockFound = os.path.isfile(package_lock_path)
 
 # provided path validation
-if not(isfile):
+if not(isPackageJSONFound):
   print('ERROR: Target folder should contain package.json file', flush=True)
   exit()
-if not(isfolder):
+if not(isNodeModulesFound):
   print('ERROR: Target folder should contain node_modules folder', flush=True)
   exit()
+if not(isPackageLockFound):
+  print('WARNING: package-lock.json not found, cannot get vulnerabilities info', flush=True)
 
 def get_path():
   global path

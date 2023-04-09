@@ -24,6 +24,7 @@ export default function dependencies(data, svg, setPath) {
     .style('ry', '10')
     .style('box-shadow', '5px 10px')
 
+  const buttons = plot.append('g')
   const content = plot.append('g')
     .attr('id', 'plot-content')
   content.append('g')
@@ -31,15 +32,31 @@ export default function dependencies(data, svg, setPath) {
   content.append('g')
     .attr('id', 'nodes')
 
-  // applying zoom
-  plot
-    // setting default zoom values
-    .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
-    .call(zoom)
+  defaultZoom()
+
+  // applying center plot button
+  buttons.append('image')
+    .attr('xlink:href','/static/center-icon.svg')
+    .attr('id', 'center-icon')
+    .on('click', function() {
+      defaultZoom()
+    })
+    // numbers are slight moving for better positioning
+    .attr('transform', `translate(${width - 40}, 16)`)
+    .append('title')
+    .text('Center plot')
+
 
   render(data)
 
   return render
+
+  function defaultZoom() {
+    plot
+      // setting default zoom values
+      .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.5))
+      .call(zoom)
+  }
 
   function render(data) {
     const nodes = d3.hierarchy(data, d => d.deps)

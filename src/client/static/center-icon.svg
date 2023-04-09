@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" width="500" height="500" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <ellipse style="fill: none; stroke-width: 32px; stroke: rgb(117, 117, 117);" cx="250" cy="250" rx="150" ry="150"/>
+  <path style="fill: rgb(216, 216, 216); stroke-width: 32px; stroke-linecap: round; stroke: rgb(117, 117, 117);" d="M 399.818 247.713 L 484 247.832" bx:d="M 399.818 247.713 U 484 247.832 1@ae243012"/>
+  <path style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke-width: 32px; stroke: rgb(117, 117, 117);" d="M 96.021 242.462 L 16.069 241.912" bx:d="M 96.021 242.462 U 16.069 241.912 1@d0f77d04"/>
+  <path style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke-width: 32px; stroke: rgb(117, 117, 117);" d="M 254.145 99.451 L 253.906 16.211" transform="matrix(-1, 0, 0, -1, 508.050995, 115.66201)" bx:d="M 254.145 99.451 U 253.906 16.211 1@ef3ac880"/>
+  <path style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke-width: 32px; stroke: rgb(117, 117, 117);" d="M 248 399.997 L 247.929 484.447" transform="matrix(-1, 0, 0, -1, 495.929016, 884.444031)" bx:d="M 248 399.997 U 247.929 484.447 1@143fb15a"/>
+</svg>

@@ -41,3 +41,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+#center-icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
