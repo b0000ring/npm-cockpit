@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "npm-cockpit"
-version = "0.3.0"
+version = "0.4.0"
 description = "Installable command-line tool with web interface which helps to track nodejs project dependencies state"
 authors = ["Alex Chirkin <hello@alexchirkin.me>"]
 readme = "README.md"

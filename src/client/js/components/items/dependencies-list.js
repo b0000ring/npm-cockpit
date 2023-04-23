@@ -15,6 +15,11 @@ export class DependenciesList extends Item {
       this.renderDependencies()
     })
 
+    window.addEventListener('custom-select-applied-dependencies-direct', (e) => {
+      this.applyFilter('direct', e.detail)
+      this.renderDependencies()
+    })
+
     this.listWorker = new Worker('/js/workers/dependenciesList.js', { type: "module" })
     this.listWorker.onmessage = (e) => {
       this.processedData = e.data
@@ -49,7 +54,12 @@ export class DependenciesList extends Item {
     const dependencyFilter = document.createElement('dependency-filter')
     dependencyFilter.id = 'dependencies-list'
 
-    container.append(dependencyFilter)
+    const direct = document.createElement('custom-select')
+    direct.id = 'dependencies-direct'
+    direct.__options__ = ['true', 'false']
+    direct.__placeholder__ = 'Direct'
+
+    container.append(direct, dependencyFilter)
   }
 
   renderDependencies() {
@@ -65,12 +75,27 @@ export class DependenciesList extends Item {
 
     const dependencies = this.processedData
     const filter = this.filters['dependency']
+    const directFilter = this.filters['direct']
 
     let items = Object.entries(dependencies)
 
+    if(filter || directFilter) {
+      items = items.filter(item => {
+        if(filter && !(item[0] === filter)) {
+          return false
+        }
 
-    if(filter) {
-      items = items.filter(item => item[0] === filter)
+        if(directFilter === 'true' && !this.data.dependencies[this.data.root][0].connections.find( connection => connection.name === item[0])) {
+          return false
+        }
+
+        if(directFilter === 'false' && this.data.dependencies[this.data.root][0].connections.find( connection => connection.name === item[0]))   {
+          return false
+        }
+
+
+        return true
+      })
     }
 
     items = items.map(dependency => {

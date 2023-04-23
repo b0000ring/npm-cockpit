@@ -67,7 +67,7 @@
 
 .popup-body {
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 100%;
 }
 

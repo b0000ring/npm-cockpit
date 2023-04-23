@@ -14,6 +14,7 @@ const infoMap = {
     'Every dependency row contains list of versions found in dependencies tree.',
     'Row also contains indicators of found states - updates / vulnerabilities found, package is deprecated (click on an indicator to see dependency in a proper section).',
     'To see dependency in the tree or network chart click on a proper icon.',
+    'To show only direct dependencies or exclude them from the list "Direct" filter can be used.',
     'Specific dependency can be found by using dependencies filter.'
   ],
   'updates-list': [
