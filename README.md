@@ -29,7 +29,7 @@ Identify potential issues such as outdated, deprecated or vulnerable packages.
 - Node.js and NPM installed
 
 ### As NPM package
-- `python` command should be available
+- `python` or `python3` command should be available
 
 ## Usage
 
