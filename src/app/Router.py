@@ -31,7 +31,7 @@ class Router:
 
   def send_deprecated_data(self):
     result = get_deprecated()
-    if not result:
+    if result is None:
       return Response('application/json', 'network error', status = 502)
     return Response('application/json', json.dumps(result))
 
