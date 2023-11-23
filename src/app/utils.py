@@ -23,7 +23,7 @@ def open_file(path):
 
 def check_npm_availability():
   try:
-    resp = urllib.request.urlopen("https://www.npm.com", timeout=10).getcode()
+    resp = urllib.request.urlopen("https://www.npmjs.com", timeout=10).getcode()
   except:
     resp = 502
   return resp
