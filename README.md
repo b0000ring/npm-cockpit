@@ -8,15 +8,15 @@ Allows to get statistical info about application dependencies tree state. Provid
 
 Visual representation of the entire dependency tree of a project. With ability to look all the paths for a specific package. Dependency tree can be visualized as a tree or directed network chart
 
-![tree chart](https://chartexample.com/images/npm-cockpit/network.jpg)
+![tree chart](https://alexchirkin.me/images/npm-cockpit/network.jpg)
 
 Detailed information about each package, including version, description, and related links.
 
-![packages list](https://chartexample.com/images/npm-cockpit/list.jpg)
+![packages list](https://alexchirkin.me/images/npm-cockpit/list.jpg)
 
 Identify potential issues such as outdated, deprecated or vulnerable packages.
 
-![packages list](https://chartexample.com/images/npm-cockpit/deprecated.jpg)
+![packages list](https://alexchirkin.me/images/npm-cockpit/deprecated.jpg)
 
 **AND MUCH MORE!**
 
